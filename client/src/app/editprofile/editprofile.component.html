@@ -1,0 +1,19 @@
+<div>
+  <div>
+
+      <h2>Dale un toque más personal a tu perfil</h2>
+        <div class="">
+          <label> ¿Cual es tu pais actual de residencia? </label>
+          <input type="text" [(ngModel)]="formInfo.country" name="country"/>
+        </div>
+
+        <div class="">
+          <label> Cuenta algo más sobre tu persona para que puedan conocerte mejor</label>
+          <input type="text" [(ngModel)]="formInfo.details" name="details"/>
+        </div>
+
+
+        <button (click)="editprofile()" type="submit" name="action">Continuar</button>
+
+    </div>
+   </div>
