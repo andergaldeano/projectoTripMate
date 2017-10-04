@@ -28,7 +28,14 @@ export class LoginformComponent implements OnInit {
     if(username != "" && password != ""){
       console.log(`Login with ${username} ${password}`)
       this.auth.login(username, password)
-      .subscribe((user)=> this.router.navigate([`editprofile/${user._id}`]));
+      .subscribe((user)=> {
+        console.log(user.firstTime);
+        if(user.firstTime) {
+          this.router.navigate([`editprofile/${user._id}`]);
+        } else {
+          this.router.navigate([`map`]);
+        }
+      });
     } else{
       console.log("You must set a username and a password");
     }

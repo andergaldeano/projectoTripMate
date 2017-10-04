@@ -23,7 +23,9 @@ export class AuthService {
     }
 
     public getUser(){
-      return this.user;
+      return this.http.get(`${BASEURL}/user`)
+        .map((res) => res.json());
+      // return this.user;
     }
 
 
@@ -33,6 +35,20 @@ export class AuthService {
        return this.http.put(`${BASEURL}/editprofile/${this.user['_id']}`, formInfo, this.options/*{country, details}, this.user*/)
        .map((res) => res.json());
    }
+
+
+   public getList() {
+     console.log("estamos en angular aun buscando todos los users")
+     return this.http.get(`${BASEURL}/allusers`)
+       .map((res) => res.json());
+   }
+
+
+   public get(id) {
+    return this.http.get(`${BASEURL}/traveller/${id}`)
+      .map((res) => res.json());
+  }
+
 
     private emitUserLoginEvent(user){
       this.user = user;
@@ -44,6 +60,7 @@ export class AuthService {
       console.log("AUTH ERROR");
       return Observable.throw(e.json().message);
     }
+
 
     signup(username,password) {
       console.log("entrooo")

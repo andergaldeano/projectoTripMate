@@ -23,6 +23,10 @@ const userSchema = new Schema({
   proposals: {
     type:String,
     default:'Ningun plan aun'
+ },
+ firstTime:{
+   type: Boolean,
+   default: true
  }
 
 

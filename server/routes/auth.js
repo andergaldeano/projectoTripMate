@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const debug = require('debug')("angularauth:"+path.basename(__filename).split('.')[0]);
 
 var authRoutes = express.Router();
+var loggedUser;
 
 /* SING UP POST */
 authRoutes.post('/signup', (req, res, next) => {
@@ -60,11 +61,26 @@ authRoutes.post('/login', (req, res, next) => {
       if (err)
         return res.status(500).json({ message: 'Something went wrong' });
 
+      loggedUser = req.user;
       // We are now logged in (notice req.user)
       res.status(200).json(req.user);
+      User.findByIdAndUpdate(req.user._id, {firstTime: false}, {new:true})
+        .then(p => req.user);
     });
   })(req, res, next);
 });
+
+// GET USER
+authRoutes.get('/user', (req, res, next) => {
+  User.findById(loggedUser._id, (err, user) => {
+    if (err)   { return res.status(500).json(err); }
+    if (!user)  { return res.status(404).json(new Error("404")) }
+
+    return res.json(user);
+  });
+});
+
+
 
 // UPDATE PROFILE POST
 
@@ -79,6 +95,26 @@ authRoutes.post('/login', (req, res, next) => {
       .catch(e => res.status(500).json({error:e.message}));
     });
 
+  // GET ALL USERS
+
+  authRoutes.get('/allusers', (req, res, next) => {
+    User.find({}, (err, travellers) => {
+      if (err) { return res.json(err).status(500); }
+
+      return res.json(travellers);
+    });
+  });
+
+  // GET UNIC USER
+
+  authRoutes.get('/traveller/:id', (req, res, next) => {
+  User.findById(req.params.id, (err, user) => {
+    if (err)   { return res.status(500).json(err); }
+    if (!user)  { return res.status(404).json(new Error("404")) }
+
+    return res.json(user);
+  });
+});
 
 //LOGOUT POST
 

@@ -9,7 +9,10 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const debug = require('debug')("angularauth:"+path.basename(__filename).split('.')[0]);
 const authRoutes = require('./routes/auth');
-const member = require('./routes/member');
+// const member = require('./routes/member');
+const place = require('./routes/placeRoutes');
+const userRoutes = require('./routes/userRoutes');
+
 
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -57,6 +60,8 @@ app.use(passport.session());
 
 
 app.use('/auth', authRoutes);
+// app.use('/place', place)
+// app.use('/', userRoutes)
 //app.use('/', member)
 
 

@@ -25,7 +25,7 @@ formInfo = {
       console.log(`Signup with ${username} ${password}`)
       this.auth.signup(username, password)
       .map(user => console.log(user))
-      .subscribe((user)=> this.router.navigate(['/user']));
+      .subscribe((user)=> this.router.navigate(['/login']));
     } else{
       console.log("Tienes que poner un username y un pasword");
     }
