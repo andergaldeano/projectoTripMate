@@ -116,9 +116,13 @@ authRoutes.get('/user', (req, res, next) => {
 //   });
 // });
 
+
+
+
 //LOGOUT POST
 
-authRoutes.get('/logout', (req, res, next) => {
+authRoutes.post('/logout', (req, res, next) => {
+  console.log("han llamao???")
   req.logout();
   res.status(200).json({ message: 'Success' });
 });

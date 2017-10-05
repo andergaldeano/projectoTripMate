@@ -61,12 +61,19 @@ export class AuthService {
 
 //LOGOUT
 
+    // logout() {
+    //   return this.http.get(`${BASEURL}/logout`, this.options)
+    //     .map(res => res.json())
+    //     .map(user => this.emitUserLoginEvent(null))
+    //     .catch(this.handleError);
+    // }
+
     logout() {
-      return this.http.get(`${BASEURL}/logout`, this.options)
-        .map(res => res.json())
-        .map(user => this.emitUserLoginEvent(null))
-        .catch(this.handleError);
-    }
+    return this.http.post(`${BASEURL}/logout`, this.options)
+      .map(res => res.json())
+       .map(user => this.emitUserLoginEvent(null))
+      .catch(this.handleError);
+  }
 
 //IS LOGGED IN
 

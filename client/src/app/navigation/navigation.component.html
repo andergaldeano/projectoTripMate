@@ -10,5 +10,5 @@
   <a [routerLink]="['/editprofile/:id']">Edit Profile</a>
   <a [routerLink]="['/map']">go to map</a>
   <a [routerLink]="['/allusers']">have a look to all users</a>
-  <button (click)="auth.logout().subscribe()" [routerLink]="['/home']"> logout </button>
+  <button (click)="logout()" [routerLink]="['/home']"> logout </button>
 </div>

@@ -23,6 +23,7 @@ export const routes: Routes = [
     { path: 'map',  component: MainMapComponent,  },
     { path: 'allusers',  component: AllUsersComponent,  },
     { path: 'traveller/:id', component: TravellerComponent },
+    // { path: 'logaut/', component: TravellerComponent },
 
     { path: '**', redirectTo: '' }
 ];
