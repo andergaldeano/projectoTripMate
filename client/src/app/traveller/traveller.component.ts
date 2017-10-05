@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import {UsersService} from '../services/users.service';
 
 @Component({
   selector: 'app-traveller',
@@ -13,7 +13,7 @@ export class TravellerComponent implements OnInit {
 
   constructor(private router:Router,
   private route:ActivatedRoute,
-  private authService: AuthService,) { }
+  private usersService: UsersService,) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -22,7 +22,7 @@ export class TravellerComponent implements OnInit {
   }
 
   getUserDetails(id) {
-    this.authService.get(id)
+    this.usersService.get(id)
     .subscribe((user) => {
     this.unictraveller = user;
     });

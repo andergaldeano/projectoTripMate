@@ -4,7 +4,7 @@ import {Http} from '@angular/http';
 import 'rxjs';
 import {environment} from '../../environments/environment';
 
-const BASEURL = environment.BASEURL;
+const BASEURL = environment.BASEURL + "/user";
 
 
 @Injectable()
@@ -14,16 +14,18 @@ export class UsersService {
 
 
 // GET ALL USERS LIST
-  // getList() {
-  //   return this.http.get(`${BASEURL}/allusers`)
-  //     .map((res) => res.json());
-  // }
+public getList() {
+  console.log("estamos en angular aun buscando todos los users")
+  return this.http.get(`${BASEURL}/allusers`)
+    .map((res) => res.json());
+}
+
 
 // GET A PARTICULAR USER DETAILS
-  //
-  // get(id) {
-  //   return this.http.get(`${BASEURL}/user/${id}`)
-  //     .map((res) => res.json());
-  // }
+
+public get(id) {
+ return this.http.get(`${BASEURL}/traveller/${id}`)
+   .map((res) => res.json());
+}
 
 }

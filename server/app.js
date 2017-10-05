@@ -61,7 +61,7 @@ app.use(passport.session());
 
 app.use('/auth', authRoutes);
 // app.use('/place', place)
-// app.use('/', userRoutes)
+app.use('/user', userRoutes)
 //app.use('/', member)
 
 

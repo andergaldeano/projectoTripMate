@@ -22,16 +22,8 @@ export class EditprofileComponent implements OnInit {
   }
 
   editprofile(){
-    // const {country, details} = this.formInfo;
-    // if(country != "" && details != ""){
-      this.auth.editprofile(/*country, details*/ this.formInfo)
+        this.auth.editprofile(/*country, details*/ this.formInfo)
       .subscribe(
         (user) => this.router.navigate(['/user']))
-    // } else{
-    //   console.log("oh! algo fue mal!");
-    // }
   }
-
-
-
 }

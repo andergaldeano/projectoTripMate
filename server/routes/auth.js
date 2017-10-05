@@ -95,26 +95,26 @@ authRoutes.get('/user', (req, res, next) => {
       .catch(e => res.status(500).json({error:e.message}));
     });
 
-  // GET ALL USERS
+  // // GET ALL USERS
+  //
+  // authRoutes.get('/allusers', (req, res, next) => {
+  //   User.find({}, (err, travellers) => {
+  //     if (err) { return res.json(err).status(500); }
+  //
+  //     return res.json(travellers);
+  //   });
+  // });
 
-  authRoutes.get('/allusers', (req, res, next) => {
-    User.find({}, (err, travellers) => {
-      if (err) { return res.json(err).status(500); }
-
-      return res.json(travellers);
-    });
-  });
-
-  // GET UNIC USER
-
-  authRoutes.get('/traveller/:id', (req, res, next) => {
-  User.findById(req.params.id, (err, user) => {
-    if (err)   { return res.status(500).json(err); }
-    if (!user)  { return res.status(404).json(new Error("404")) }
-
-    return res.json(user);
-  });
-});
+//   // GET UNIC USER
+//
+//   authRoutes.get('/traveller/:id', (req, res, next) => {
+//   User.findById(req.params.id, (err, user) => {
+//     if (err)   { return res.status(500).json(err); }
+//     if (!user)  { return res.status(404).json(new Error("404")) }
+//
+//     return res.json(user);
+//   });
+// });
 
 //LOGOUT POST
 

@@ -5,7 +5,6 @@ import 'rxjs';
 import {environment} from '../../environments/environment';
 
 const BASEURL = environment.BASEURL + "/auth";
-// const BAS_URL = environment.BASEURL;
 
 @Injectable()
 export class AuthService {
@@ -14,20 +13,24 @@ export class AuthService {
   private userLoginEvent:EventEmitter<any> = new EventEmitter<any>();
   private options = {withCredentials:true};
 
+
+
   constructor(private http: Http) {
     this.isLoggedIn().subscribe();
   }
 
-    public getLoginEventEmitter():EventEmitter<any>{
-      return this.userLoginEvent;
-    }
+  public getLoginEventEmitter():EventEmitter<any>{
+    return this.userLoginEvent;
+  }
+
+// SHOWS THE CURRENT USER PROFILE
 
     public getUser(){
       return this.http.get(`${BASEURL}/user`)
         .map((res) => res.json());
-      // return this.user;
     }
 
+// SHOWS EDITPROFILE PAGE
 
     public editprofile(formInfo) {
 
@@ -37,18 +40,44 @@ export class AuthService {
    }
 
 
-   public getList() {
-     console.log("estamos en angular aun buscando todos los users")
-     return this.http.get(`${BASEURL}/allusers`)
-       .map((res) => res.json());
-   }
+// SING UP
 
+    signup(username,password) {
+      console.log("entrooo")
+      return this.http.post(`${BASEURL}/signup`, {username,password}, this.options)
+        .map(res => res.json())
+        .map(user => this.emitUserLoginEvent(user))
+        .catch(this.handleError);
+    }
 
-   public get(id) {
-    return this.http.get(`${BASEURL}/traveller/${id}`)
-      .map((res) => res.json());
-  }
+// LOG IN
 
+    login(username,password) {
+      return this.http.post(`${BASEURL}/login`, {username,password}, this.options)
+        .map(res => res.json())
+        .map(user => this.emitUserLoginEvent(user))
+        .catch(this.handleError);
+    }
+
+//LOGOUT
+
+    logout() {
+      return this.http.get(`${BASEURL}/logout`, this.options)
+        .map(res => res.json())
+        .map(user => this.emitUserLoginEvent(null))
+        .catch(this.handleError);
+    }
+
+//IS LOGGED IN
+
+    isLoggedIn() {
+      return this.http.get(`${BASEURL}/loggedin`, this.options)
+        .map(res => res.json())
+        .map(user => this.emitUserLoginEvent(user))
+        .catch(this.handleError);
+    }
+
+// OTHERS
 
     private emitUserLoginEvent(user){
       this.user = user;
@@ -62,32 +91,4 @@ export class AuthService {
     }
 
 
-    signup(username,password) {
-      console.log("entrooo")
-      return this.http.post(`${BASEURL}/signup`, {username,password}, this.options)
-        .map(res => res.json())
-        .map(user => this.emitUserLoginEvent(user))
-        .catch(this.handleError);
-    }
-
-    login(username,password) {
-      return this.http.post(`${BASEURL}/login`, {username,password}, this.options)
-        .map(res => res.json())
-        .map(user => this.emitUserLoginEvent(user))
-        .catch(this.handleError);
-    }
-
-    logout() {
-      return this.http.get(`${BASEURL}/logout`, this.options)
-        .map(res => res.json())
-        .map(user => this.emitUserLoginEvent(null))
-        .catch(this.handleError);
-    }
-
-    isLoggedIn() {
-      return this.http.get(`${BASEURL}/loggedin`, this.options)
-        .map(res => res.json())
-        .map(user => this.emitUserLoginEvent(user))
-        .catch(this.handleError);
-    }
 }

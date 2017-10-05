@@ -18,7 +18,8 @@ import { CommonModule } from '@angular/common';
 import { AgmCoreModule } from '@agm/core';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { TravellerComponent } from './traveller/traveller.component';
-
+import {UsersService} from './services/users.service';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TravellerComponent } from './traveller/traveller.component';
     MainMapComponent,
     AllUsersComponent,
     TravellerComponent,
+    NavigationComponent,
 
   ],
   imports: [
@@ -45,7 +47,7 @@ import { TravellerComponent } from './traveller/traveller.component';
       apiKey: 'AIzaSyA38CUyfeOsm6SfB63ej4xaxMdHb-XmqKA'
     })
   ],
-  providers: [AuthService, IsLoggedInService],
+  providers: [AuthService, IsLoggedInService, UsersService],
 
   bootstrap: [AppComponent]
 })

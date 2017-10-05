@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {AuthService} from '../services/auth.service';
+import {UsersService} from '../services/users.service';
 
 
 @Component({
@@ -11,11 +11,12 @@ import {AuthService} from '../services/auth.service';
 export class AllUsersComponent implements OnInit {
   travellers;
 
-  constructor(public authService: AuthService ) {  }
+  constructor(public userService: UsersService ) {  }
 
   ngOnInit() {
     console.log("hola estamos en all users");
-    this.travellers = this.authService.getList();
+    this.travellers = this.userService.getList();
   }
+
 
 }
