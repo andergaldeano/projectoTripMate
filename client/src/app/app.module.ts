@@ -44,7 +44,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     CommonModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA38CUyfeOsm6SfB63ej4xaxMdHb-XmqKA'
+      apiKey: 'AIzaSyA38CUyfeOsm6SfB63ej4xaxMdHb-XmqKA',
+      libraries: ["places"]
     })
   ],
   providers: [AuthService, IsLoggedInService, UsersService],
