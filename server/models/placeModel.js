@@ -5,19 +5,19 @@ const findOrCreate = require('mongoose-find-or-create')
 var placeSchema = new Schema({
 	'name' : {
     type:String,
-    default:'Ningun detalle aun'
+    default:'Por ahora no sabemos como se llama'
  },
 	'activities' : {
     type:String,
-    default:'Ningun detalle aun'
+    default:'No hay ninguna actividad propuesta aun, se el primero en hacer una propuesta'
  },
 	'people' :{
     type:String,
-    default:'Ningun detalle aun'
+    default:'Nadie quiere venir aqui, creo que te han engañado'
  },
 	'pictures': {
     type:String,
-    default:'Ningun detalle aun'
+    default:'debe estar feo el sitio, porque nadie ha subido fotos'
  },
 	'identification': String
 });
