@@ -14,9 +14,9 @@ export class MainMapComponent implements OnInit {
 
   @ViewChild('search') public searchElement: ElementRef;
 
-// title: string = 'My first AGM project';
-// lat: number = 51.678418;
-// lng: number = 7.809007;
+title: string = 'My first AGM project';
+lat: number = 51.678418;
+lng: number = 7.809007;
 
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
 
@@ -31,6 +31,11 @@ export class MainMapComponent implements OnInit {
             console.log(autocomplete.getPlace().geometry.location)
             console.log(autocomplete.getPlace().geometry.location.lng())
             console.log(autocomplete.getPlace().geometry.location.lat())
+
+            this.lat = autocomplete.getPlace().geometry.location.lat();
+            this.lng = autocomplete.getPlace().geometry.location.lng();
+
+
 
 
             if(place.geometry === undefined || place.geometry === null){
