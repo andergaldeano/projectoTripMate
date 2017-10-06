@@ -1,30 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var placeController = require('../controllers/placeController.js');
+// var placeController = require('../controllers/placeController.js');
+const Place = require('../models/placeModel');
 
-// /*
-//  * GET
-//  */
-// router.get('/', placeController.list);
-//
-// /*
-//  * GET
-//  */
-// router.get('/:id', placeController.show);
-// 
-// /*
-//  * POST
-//  */
-// router.post('/', placeController.create);
-//
-// /*
-//  * PUT
-//  */
-// router.put('/:id', placeController.update);
-//
-// /*
-//  * DELETE
-//  */
-// router.delete('/:id', placeController.remove);
 
-module.exports = router;
+var placeRoutes = express.Router();
+
+
+// GET UNIC PLACE
+
+placeRoutes.get('/holiday/:id', (req, res, next) => {
+console.log("estamos en el ultimo paso para buscar o crear")
+  Place.findOrCreate({ identification: req.params.id }, (err, place) => {
+
+      if (err)   { return res.status(500).json(err); }
+      return res.json(place);
+  });
+
+});
+
+
+
+module.exports = placeRoutes;

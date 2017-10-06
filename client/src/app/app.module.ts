@@ -20,6 +20,10 @@ import { AllUsersComponent } from './all-users/all-users.component';
 import { TravellerComponent } from './traveller/traveller.component';
 import {UsersService} from './services/users.service';
 import { NavigationComponent } from './navigation/navigation.component';
+import { PlaceComponent } from './place/place.component';
+import {PlaceService} from './services/place.service';
+
+
 
 @NgModule({
   declarations: [
@@ -33,6 +37,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     AllUsersComponent,
     TravellerComponent,
     NavigationComponent,
+    PlaceComponent,
 
   ],
   imports: [
@@ -48,7 +53,7 @@ import { NavigationComponent } from './navigation/navigation.component';
       libraries: ["places"]
     })
   ],
-  providers: [AuthService, IsLoggedInService, UsersService],
+  providers: [AuthService, IsLoggedInService, UsersService, PlaceService],
 
   bootstrap: [AppComponent]
 })

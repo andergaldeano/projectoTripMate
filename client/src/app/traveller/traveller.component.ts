@@ -13,7 +13,7 @@ export class TravellerComponent implements OnInit {
 
   constructor(private router:Router,
   private route:ActivatedRoute,
-  private usersService: UsersService,) { }
+  private usersService: UsersService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

@@ -5,6 +5,7 @@ const User = require('../models/User');
 
 
 
+// GET ALL USERS
 
 var userRoutes = express.Router();
 

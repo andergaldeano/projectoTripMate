@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
+// import {PlaceService} from '../services/place.service';
 
 
 
@@ -18,7 +19,9 @@ title: string = 'My first AGM project';
 lat: number = 51.678418;
 lng: number = 7.809007;
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
+id: string = '';
+
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, /*public place: PlaceService*/) {}
 
   ngOnInit() {
     this.mapsAPILoader.load().then(
@@ -28,7 +31,7 @@ lng: number = 7.809007;
           this.ngZone.run(()=>{
             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
             console.log(place)
-            console.log(autocomplete.getPlace().geometry.location)
+            console.log(autocomplete.getPlace().formatted_address)
             console.log(autocomplete.getPlace().geometry.location.lng())
             console.log(autocomplete.getPlace().geometry.location.lat())
 
@@ -36,6 +39,11 @@ lng: number = 7.809007;
             this.lng = autocomplete.getPlace().geometry.location.lng();
 
 
+            let nocomas = autocomplete.getPlace().formatted_address;
+            nocomas = nocomas.replace(/\s+/g, '');
+            nocomas = nocomas.replace(/,/g, '')
+
+            this.title = nocomas
 
 
             if(place.geometry === undefined || place.geometry === null){
@@ -45,6 +53,14 @@ lng: number = 7.809007;
         })
       }
     )
-  }
+  };
+
+
+// POR AHORA ESTO NO SIRVE finandcreate mola mucho mas
+//   findThisPlace(){
+//     console.log(this.title);
+//     this.place.findPlace(this.title);
+//     .subscribe((place)=> {this.router.navigate([`holiday/${place._id}`])})
+//  }
 
 }
