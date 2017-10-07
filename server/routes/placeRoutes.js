@@ -66,7 +66,7 @@ placeRoutes.get('/plan/:place', (req, res, next) => {
 });
 
 
-// CREATE NEW RELATION USER - PLACE
+// CREATE NEW CONEXION USER - PLACE
 
 placeRoutes.post('/whoToWhere', (req, res, next) => {
 console.log("estamos en el ultimo para crear conexion entre usuario y lugar")
@@ -74,6 +74,7 @@ console.log("estamos en el ultimo para crear conexion entre usuario y lugar")
 const whoToWhere = new WhoToWhere ({
   place: req.body.place,
   user: req.body.user,
+  userId: req.body.userId
 });
 
 whoToWhere.save().then(
@@ -82,6 +83,22 @@ whoToWhere.save().then(
             })
               .catch( e => res.json(e));
 });
+
+
+// GET CONEXIONS USER - PLACE ON THIS SPECIFIC PLACE
+
+
+placeRoutes.get('/conexion/:place', (req, res, next) => {
+
+  console.log("vamos a buscar todos los usuarios que visitaran este lugar " + req.params.place)
+
+  WhoToWhere.find({place : req.params.place}, (err, conexions) => {
+    if (err) { return res.json(err).status(500); }
+    console.log("hay alguna   " + conexions)
+    return res.json(conexions);
+  });
+});
+
 
 
 

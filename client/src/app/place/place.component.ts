@@ -18,6 +18,7 @@ export class PlaceComponent implements OnInit {
   details: any;
   user:any;
 
+  allConexions;
   allPlans;
   placename;
   unicPlace;
@@ -55,11 +56,9 @@ export class PlaceComponent implements OnInit {
     console.log("estams rescatando " + place)
     console.log(place)
     console.log("vamos a buscar los planes en " + this.unicPlace.identification )
-
         this.allPlans = this.place.findPlans(this.unicPlace.identification)
-        // .subscribe(()=> {
-        // (plans) => console.log(plans)
-        // });
+        this.allConexions = this.place.findConexion(this.placename)
+
 
 
     });
@@ -80,7 +79,7 @@ export class PlaceComponent implements OnInit {
   }
 
   newConexion(){
-    this.place.sendThisConexion(this.placename, this.user.username)
+    this.place.sendThisConexion(this.placename, this.user.username, this.user._id)
       .subscribe(()=> {
         (plan) => console.log(plan)
       });

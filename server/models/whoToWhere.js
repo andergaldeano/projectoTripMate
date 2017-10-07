@@ -10,7 +10,11 @@ var whoToWhereSchema = new Schema({
 	'user' : {
     type:String,
     default:'no user'
- }
+ },
+ 'userId' : {
+	 type:String,
+	 default:'no user'
+}
 });
 
 const WhoToWhere = mongoose.model('WhoToWhere', whoToWhereSchema);

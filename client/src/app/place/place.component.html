@@ -6,7 +6,12 @@
 <button (click)="newConexion()">voy a ir! </button>
 
 <h3>Gente que visitará el lugar:</h3>
-<p>{{unicPlace.people}}</p>
+  <div>
+    <div *ngFor="let conexion of allConexions | async">
+      <h3> {{ conexion.user }} </h3>
+      <a [routerLink]="['/traveller', conexion.userId]"> ver detalles del usuario </a>
+    </div>
+  </div>
 
 <h3>Fotitos del lugar</h3>
 <p>{{unicPlace.pictures}}</p>
@@ -16,7 +21,7 @@
   <div *ngFor="let plan of allPlans | async">
     <h3> {{ plan.plan }} </h3>
     <!-- <p> {{ plan.details }} </p> -->
-    <p>propuesro por: {{plan.user}}</p>
+    <p>propuesto por: {{plan.user}}</p>
     <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
   </div>
 </div>
