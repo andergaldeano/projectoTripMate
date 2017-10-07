@@ -8,7 +8,7 @@ var placeSchema = new Schema({
     default:'Por ahora no sabemos como se llama'
  },
 	'activities' : {
-    type:String,
+    type:Array,
     default:'No hay ninguna actividad propuesta aun, se el primero en hacer una propuesta'
  },
 	'people' :{

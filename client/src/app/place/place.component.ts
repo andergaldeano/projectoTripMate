@@ -4,9 +4,9 @@ import {PlaceService} from '../services/place.service';
 import { AuthService } from '../services/auth.service';
 
 
-interface LoginForm{
-  comment:string;
-}
+// interface LoginForm{
+//   plan:string;
+// }
 
 @Component({
   selector: 'app-place',
@@ -16,10 +16,13 @@ interface LoginForm{
 export class PlaceComponent implements OnInit {
 
   // formInfo:LoginForm = {
-  //   comment: "",
+  //   plan: "",
   // };
-  comment: any;
+  plan: any;
+  details: any;
   user:any;
+
+  allPlans;
 
   unicPlace;
 
@@ -39,6 +42,9 @@ export class PlaceComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.getPlaceDetails(params['id'])
     });
+
+
+
   }
 
   getPlaceDetails(id) {
@@ -47,19 +53,38 @@ export class PlaceComponent implements OnInit {
     this.unicPlace = place;
     console.log("estams rescatando " + place)
     console.log(place)
+    console.log("vamos a buscar los planes en " + this.unicPlace.identification )
+
+        this.allPlans = this.place.findPlans(this.unicPlace.identification)
+        // .subscribe(()=> {
+        // (plans) => console.log(plans)
+        // });
+
+
     });
+
+
   }
 
-  newComment(){
-    if(this.comment != ""){
+  newPlan(){
+    console.log("sin embargo aqui...." )
+    if(this.plan != ""){
 
-      this.place.sendMyComment(this.comment, this.unicPlace.identification, this.user.username)
+      this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username)
       .subscribe(()=> {
-        (comment) => console.log(comment)
+        (plan) => console.log(plan)
       });
     } else{
       console.log("ponte un comentario locooo");
     }
   }
+
+  // getPlans(){
+  //   console.log("vamos a buscar los planes en " + this.unicPlace.identification )
+  //   console.log(this.unicPlace.identification )
+  //
+  //
+  // }
+
 
 }

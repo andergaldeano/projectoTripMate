@@ -20,11 +20,20 @@ public get(id) {
    .map((res) => res.json());
 }
 
-// CREATE THE COMMENT
+// CREATE A PLAN
 
-public sendMyComment(comment, place, user){
+public sendMyPlan(plan, details, place, user){
   console.log("en el servidor")
-  return this.http.post(`${BASEURL}/comment`, {comment, place, user})
+  return this.http.post(`${BASEURL}/plan`, {plan, details, place, user})
+  .map((res) => res.json())
+
+}
+
+// FIND THE PLANS ON THE SPECIFIC PLACE
+
+public findPlans(place){
+  console.log("en el servidor buscando planes")
+  return this.http.get(`${BASEURL}/plan/${place}`)
   .map((res) => res.json())
 
 }

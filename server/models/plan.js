@@ -2,10 +2,14 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 
-var commentSchema = new Schema({
-	'comment' : {
+var planSchema = new Schema({
+	'plan' : {
     type:String,
-    default:'no hay comentario'
+    default:'no hay plan'
+ },
+ 'details' : {
+	 type:String,
+	 default:'no hay descripcion'
  },
 	'user' : {
     type:String,
@@ -17,5 +21,5 @@ var commentSchema = new Schema({
  }
 });
 
-const Comment = mongoose.model('Comment', commentSchema);
-module.exports = Comment;
+const Plan = mongoose.model('Plan', planSchema);
+module.exports = Plan;

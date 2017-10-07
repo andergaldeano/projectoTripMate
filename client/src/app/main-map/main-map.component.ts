@@ -15,6 +15,7 @@ export class MainMapComponent implements OnInit {
 
   @ViewChild('search') public searchElement: ElementRef;
 
+placeName: string = "ninguno";
 title: string = 'My first AGM project';
 lat: number = 51.678418;
 lng: number = 7.809007;
@@ -26,24 +27,30 @@ id: string = '';
   ngOnInit() {
     this.mapsAPILoader.load().then(
       ()=>{
-        let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:["address"]});
+        let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:["(regions)"]});
         autocomplete.addListener("place_changed", ()=>{
           this.ngZone.run(()=>{
             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-            console.log(place)
-            console.log(autocomplete.getPlace().formatted_address)
+
+            console.log(autocomplete.getPlace())
             console.log(autocomplete.getPlace().geometry.location.lng())
             console.log(autocomplete.getPlace().geometry.location.lat())
 
+
+            //PASAMOS LATITUD Y LONGITUD DEL LUGAR PARA PINTAR EN EL MAPA
             this.lat = autocomplete.getPlace().geometry.location.lat();
             this.lng = autocomplete.getPlace().geometry.location.lng();
 
-
+            //QUITAMOS PUNTOS Y COMAS
             let nocomas = autocomplete.getPlace().formatted_address;
             nocomas = nocomas.replace(/\s+/g, '');
             nocomas = nocomas.replace(/,/g, '')
 
             this.title = nocomas
+
+            //RESCATAMOS EL NOMBRE DEL LUGAR
+            this.placeName = autocomplete.getPlace().name;
+            console.log("aqui vemos cual es place name " + this.placeName)
 
 
             if(place.geometry === undefined || place.geometry === null){
