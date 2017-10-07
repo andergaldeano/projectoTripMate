@@ -28,4 +28,13 @@ public get(id) {
    .map((res) => res.json());
 }
 
+// FIND PLANS OF THIS SPECIFIC USER
+
+public findPlans(user){
+  console.log("en el servidor buscando planes")
+  return this.http.get(`${BASEURL}/plan/${user}`)
+  .map((res) => res.json())
+
+}
+
 }

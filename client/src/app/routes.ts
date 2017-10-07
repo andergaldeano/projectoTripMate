@@ -24,6 +24,7 @@ export const routes: Routes = [
     { path: 'map',  component: MainMapComponent,  },
     { path: 'allusers',  component: AllUsersComponent,  },
     { path: 'traveller/:id', component: TravellerComponent },
+    { path: 'plan/:user', component: TravellerComponent },
     { path: 'holiday/:id/:name', component: PlaceComponent },
     { path: 'plan', component: PlaceComponent },
     { path: 'plan/:place', component: PlaceComponent },

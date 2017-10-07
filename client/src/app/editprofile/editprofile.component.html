@@ -4,12 +4,18 @@
       <h2>Dale un toque más personal a tu perfil</h2>
         <div class="">
           <label> ¿Cual es tu pais actual de residencia? </label>
-          <input type="text" [(ngModel)]="formInfo.country" name="country"/>
+          <!-- <input type="text" [(ngModel)]="formInfo.country" name="country"/> -->
+          <div class="from-group">
+
+            <input type="text" placeholder="lugar de residencia" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
+
+          </div>
+
         </div>
 
         <div class="">
           <label> Cuenta algo más sobre tu persona para que puedan conocerte mejor</label>
-          <input type="text" [(ngModel)]="formInfo.details" name="details"/>
+          <input type="text" [(ngModel)]="details" name="details"/>
         </div>
 
 

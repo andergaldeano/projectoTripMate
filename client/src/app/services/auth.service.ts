@@ -30,12 +30,12 @@ export class AuthService {
         .map((res) => res.json());
     }
 
-// SHOWS EDITPROFILE PAGE
+// EDITPROFILE PAGE
 
-    public editprofile(formInfo) {
+    public editprofile(country, details) {
 
       console.log("estamos en angular aun " + this.user['_id'])
-       return this.http.put(`${BASEURL}/editprofile/${this.user['_id']}`, formInfo, this.options/*{country, details}, this.user*/)
+       return this.http.put(`${BASEURL}/editprofile/${this.user['_id']}`, {country, details}, this.options/*{country, details}, this.user*/)
        .map((res) => res.json());
    }
 

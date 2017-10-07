@@ -7,5 +7,14 @@
   <div>
     <h2> {{ unictraveller.username }}</h2>
     <h3> {{ unictraveller.details }} </h3>
+    <h4> {{ unictraveller.username }} quiere compartir estas actividades:</h4>
+    <div>
+      <div *ngFor="let plan of allPlans | async">
+        <h3> {{ plan.plan }} </h3>
+        <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+      </div>
+    </div>
+
+
   </div>
 </div>

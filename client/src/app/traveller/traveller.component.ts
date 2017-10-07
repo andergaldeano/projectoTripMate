@@ -10,6 +10,8 @@ import {UsersService} from '../services/users.service';
 export class TravellerComponent implements OnInit {
 
   unictraveller;
+  allPlans;
+
 
   constructor(private router:Router,
   private route:ActivatedRoute,
@@ -25,6 +27,7 @@ export class TravellerComponent implements OnInit {
     this.usersService.get(id)
     .subscribe((user) => {
     this.unictraveller = user;
+    this.allPlans = this.usersService.findPlans(user.username)
     });
   }
 

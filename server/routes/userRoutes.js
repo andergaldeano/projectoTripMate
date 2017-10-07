@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 // var userController = require('../controllers/userController.js');
 const User = require('../models/User');
+const Plan = require('../models/plan');
 
 
 
@@ -28,38 +29,16 @@ User.findById(req.params.id, (err, user) => {
 });
 });
 
-/*
- * GET
- */
-
-// router.get('/allusers', userController.list);
-// userRoutes.get('/allusers', (req, res, next) => {
-//   User.find({}, (err, travellers) => {
-//     if (err) { return res.json(err).status(500); }
-//
-//     return res.json(travellers);
-//   });
-// });
+// GET PLANS FOR THIS USER
 
 
-// /*
-//  * GET
-//  */
-// router.get('/:id', userController.show);
-//
-// /*
-//  * POST
-//  */
-// router.post('/', userController.create);
-//
-// /*
-//  * PUT
-//  */
-// router.put('/:id', userController.update);
-//
-// /*
-//  * DELETE
-//  */
-// router.delete('/:id', userController.remove);
+userRoutes.get('/plan/:user', (req, res, next) => {
+
+  Plan.find({user : req.params.user}, (err, plans) => {
+    if (err) { return res.json(err).status(500); }
+      console.log("hemos llegado hasta aqui")
+    return res.json(plans);
+  });
+});
 
 module.exports = userRoutes;
