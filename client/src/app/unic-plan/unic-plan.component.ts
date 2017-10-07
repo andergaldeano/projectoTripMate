@@ -14,6 +14,7 @@ export class UnicPlanComponent implements OnInit {
   comment: any;
   user:any;
   unicplan;
+  allComments;
 
   constructor(
     public auth:AuthService,
@@ -35,6 +36,8 @@ export class UnicPlanComponent implements OnInit {
     this.planService.getUnicPlan(id)
     .subscribe((plan) => {
     this.unicplan = plan;
+
+    this.allComments = this.planService.findComments(this.unicplan._id)
     });
   }
 

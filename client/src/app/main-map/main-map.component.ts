@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
-// import {PlaceService} from '../services/place.service';
-
-
-
 
 @Component({
   selector: 'app-main-map',
@@ -48,8 +44,10 @@ id: string = '';
 
             this.title = nocomas
 
-            //RESCATAMOS EL NOMBRE DEL LUGAR
-            this.placeName = autocomplete.getPlace().name;
+            //RESCATAMOS EL NOMBRE DEL LUGAR SIN ESPACIOS
+            var placeNameWithoutSPaces = autocomplete.getPlace().name;
+            placeNameWithoutSPaces = placeNameWithoutSPaces.replace(/\s+/g, '-')
+            this.placeName = placeNameWithoutSPaces;
             console.log("aqui vemos cual es place name " + this.placeName)
 
 
@@ -61,13 +59,5 @@ id: string = '';
       }
     )
   };
-
-
-// POR AHORA ESTO NO SIRVE finandcreate mola mucho mas
-//   findThisPlace(){
-//     console.log(this.title);
-//     this.place.findPlace(this.title);
-//     .subscribe((place)=> {this.router.navigate([`holiday/${place._id}`])})
-//  }
 
 }

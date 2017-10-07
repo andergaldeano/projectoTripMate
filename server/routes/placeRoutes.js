@@ -3,6 +3,7 @@ var router = express.Router();
 // var placeController = require('../controllers/placeController.js');
 const Place = require('../models/placeModel');
 const Plan = require('../models/plan');
+const WhoToWhere = require('../models/whoToWhere');
 // const User = require('../models/User');
 
 
@@ -11,7 +12,7 @@ var placeRoutes = express.Router();
 // var commentRoutes = express.Router();
 
 
-// GET UNIC PLACE
+// GET SPECIFIC PLACE
 
 placeRoutes.get('/holiday/:id', (req, res, next) => {
 console.log("estamos en el ultimo paso para buscar o crear")
@@ -24,7 +25,8 @@ console.log("estamos en el ultimo paso para buscar o crear")
 });
 
 
-// CREATE PLAN
+// CREATE PLAN ON THIS SPECIFIC PLACE
+
 placeRoutes.post('/plan', (req, res, next) => {
 console.log("estamos en el ultimo de los planes")
 
@@ -46,11 +48,10 @@ plan.save().then(
 
             })
               .catch( e => res.json(e));
-
 });
 
 
-// GET PLANS HERE
+// GET PLANS ON THIS SPECIFIC PLACE
 
 
 placeRoutes.get('/plan/:place', (req, res, next) => {
@@ -65,8 +66,22 @@ placeRoutes.get('/plan/:place', (req, res, next) => {
 });
 
 
+// CREATE NEW RELATION USER - PLACE
 
+placeRoutes.post('/whoToWhere', (req, res, next) => {
+console.log("estamos en el ultimo para crear conexion entre usuario y lugar")
 
+const whoToWhere = new WhoToWhere ({
+  place: req.body.place,
+  user: req.body.user,
+});
+
+whoToWhere.save().then(
+            conexion => {
+              console.log("la conexion esta hecha entre  " + conexion.place + " y " + conexion.user)
+            })
+              .catch( e => res.json(e));
+});
 
 
 

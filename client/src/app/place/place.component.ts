@@ -4,9 +4,7 @@ import {PlaceService} from '../services/place.service';
 import { AuthService } from '../services/auth.service';
 
 
-// interface LoginForm{
-//   plan:string;
-// }
+
 
 @Component({
   selector: 'app-place',
@@ -15,15 +13,13 @@ import { AuthService } from '../services/auth.service';
 })
 export class PlaceComponent implements OnInit {
 
-  // formInfo:LoginForm = {
-  //   plan: "",
-  // };
+
   plan: any;
   details: any;
   user:any;
 
   allPlans;
-
+  placename;
   unicPlace;
 
   constructor(
@@ -40,7 +36,12 @@ export class PlaceComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.getPlaceDetails(params['id'])
+      this.getPlaceDetails(params['id']);
+
+  //OBTENER EL NOMBRE DEL LUGAR SIN GUIONES
+      var withSpaces = params['name'];
+      withSpaces = withSpaces.replace(/-/g, ' ');
+      this.placename = withSpaces
     });
 
 
@@ -78,12 +79,12 @@ export class PlaceComponent implements OnInit {
     }
   }
 
-  // getPlans(){
-  //   console.log("vamos a buscar los planes en " + this.unicPlace.identification )
-  //   console.log(this.unicPlace.identification )
-  //
-  //
-  // }
+  newConexion(){
+    this.place.sendThisConexion(this.placename, this.user.username)
+      .subscribe(()=> {
+        (plan) => console.log(plan)
+      });
 
+  }
 
 }

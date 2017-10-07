@@ -24,11 +24,13 @@ export const routes: Routes = [
     { path: 'map',  component: MainMapComponent,  },
     { path: 'allusers',  component: AllUsersComponent,  },
     { path: 'traveller/:id', component: TravellerComponent },
-    { path: 'holiday/:id', component: PlaceComponent },
+    { path: 'holiday/:id/:name', component: PlaceComponent },
     { path: 'plan', component: PlaceComponent },
     { path: 'plan/:place', component: PlaceComponent },
     { path: 'unicPlan/:id', component: UnicPlanComponent },
     { path: 'comment', component: UnicPlanComponent },
+    { path: 'comment/:plan', component: UnicPlanComponent },
+
 
 
 

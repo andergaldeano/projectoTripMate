@@ -17,4 +17,12 @@
   <input type="text" [(ngModel)]="comment" name="comment"/>
 
 
-  <button (click)="newComment()"> comparte tu plan! </button>
+  <button (click)="newComment()">envia tu comentario! </button>
+
+  <h3>Comentarios del plan:</h3>
+  <div>
+    <div *ngFor="let comment of allComments | async">
+      <p> comentario de {{ comment.user }} </p>
+      <p>{{ comment.comment }}</p>
+    </div>
+  </div>

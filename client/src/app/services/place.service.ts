@@ -39,4 +39,13 @@ public findPlans(place){
 }
 
 
+// CREATE A CONEXION
+
+public sendThisConexion(place, user){
+  console.log("en el servidor creando conexiones")
+  return this.http.post(`${BASEURL}/whoToWhere`, {place, user})
+  .map((res) => res.json())
+
+}
+
 }

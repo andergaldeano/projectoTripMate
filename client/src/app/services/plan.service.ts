@@ -18,7 +18,7 @@ export class PlanService {
     .map((res) => res.json());
     }
 
-// CREATE A COMMENT
+// CREATE A COMMENT ON THIS SPECIFIC PLAN
 
     public sendMyComment(comment, planid, user){
       console.log("en el servidor creo un commentario")
@@ -26,6 +26,17 @@ export class PlanService {
       .map((res) => res.json())
 
     }
+
+// FIND THE COMMENTS ON THE SPECIFIC PLAN
+
+    public findComments(plan){
+      console.log("en el servidor buscando planes")
+      return this.http.get(`${BASEURL}/comment/${plan}`)
+      .map((res) => res.json())
+
+    }
+
+
 
 
 
