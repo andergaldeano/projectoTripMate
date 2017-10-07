@@ -28,6 +28,8 @@ export const routes: Routes = [
     { path: 'plan', component: PlaceComponent },
     { path: 'plan/:place', component: PlaceComponent },
     { path: 'unicPlan/:id', component: UnicPlanComponent },
+    { path: 'comment', component: UnicPlanComponent },
+
 
 
     // { path: 'logaut/', component: TravellerComponent },

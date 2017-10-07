@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const Plan = require('../models/plan');
+const Comment = require('../models/comment');
+
 
 
 
@@ -17,6 +19,25 @@ Plan.findById(req.params.id, (err, plan) => {
 
   return res.json(plan);
 });
+});
+
+// CREATE COMMENT
+planRoutes.post('/comment', (req, res, next) => {
+console.log("estamos en el ultimo de los comentarios")
+
+const comment = new Comment ({
+  comment: req.body.comment,
+  planid: req.body.planid,
+  user: req.body.user
+});
+
+comment.save().then(
+            comment => {
+              console.log(" el comentario es " + comment.comment)
+
+            })
+              .catch( e => res.json(e));
+
 });
 
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlanService} from '../services/plan.service';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-unic-plan',
@@ -9,12 +11,19 @@ import {PlanService} from '../services/plan.service';
 })
 export class UnicPlanComponent implements OnInit {
 
-
+  comment: any;
+  user:any;
   unicplan;
 
-  constructor(private router:Router,
-  private route:ActivatedRoute,
-  private planService: PlanService) { }
+  constructor(
+    public auth:AuthService,
+    private router:Router,
+    private route:ActivatedRoute,
+    private planService: PlanService
+  ) {
+    this.user = this.auth.getUser()
+      .subscribe(user => {  this.user = user;})
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -27,6 +36,19 @@ export class UnicPlanComponent implements OnInit {
     .subscribe((plan) => {
     this.unicplan = plan;
     });
+  }
+
+  newComment(){
+    console.log("vamos a hacer un comentario" )
+    if(this.comment != ""){
+
+      this.planService.sendMyComment(this.comment, this.unicplan._id, this.user.username)
+      .subscribe(()=> {
+        (plan) => console.log(plan)
+      });
+    } else{
+      console.log("ponte un comentario locooo");
+    }
   }
 
 }

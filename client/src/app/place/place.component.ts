@@ -67,7 +67,6 @@ export class PlaceComponent implements OnInit {
   }
 
   newPlan(){
-    console.log("sin embargo aqui...." )
     if(this.plan != ""){
 
       this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username)
@@ -75,7 +74,7 @@ export class PlaceComponent implements OnInit {
         (plan) => console.log(plan)
       });
     } else{
-      console.log("ponte un comentario locooo");
+      console.log("ponte un plan locooo");
     }
   }
 

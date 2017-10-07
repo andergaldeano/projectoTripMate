@@ -18,5 +18,15 @@ export class PlanService {
     .map((res) => res.json());
     }
 
+// CREATE A COMMENT
+
+    public sendMyComment(comment, planid, user){
+      console.log("en el servidor creo un commentario")
+      return this.http.post(`${BASEURL}/comment`, {comment, planid, user})
+      .map((res) => res.json())
+
+    }
+
+
 
 }
