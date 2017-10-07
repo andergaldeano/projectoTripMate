@@ -16,6 +16,7 @@
     <h3> {{ plan.plan }} </h3>
     <!-- <p> {{ plan.details }} </p> -->
     <p>propuesro por: {{plan.user}}</p>
+    <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
   </div>
 </div>
 

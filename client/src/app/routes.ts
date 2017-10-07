@@ -8,6 +8,7 @@ import {EditprofileComponent} from './editprofile/editprofile.component';
 import { MainMapComponent } from './main-map/main-map.component';
 import { TravellerComponent } from './traveller/traveller.component';
 import { PlaceComponent } from './place/place.component';
+import { UnicPlanComponent } from './unic-plan/unic-plan.component';
 
 
 import { AllUsersComponent } from './all-users/all-users.component';
@@ -26,6 +27,8 @@ export const routes: Routes = [
     { path: 'holiday/:id', component: PlaceComponent },
     { path: 'plan', component: PlaceComponent },
     { path: 'plan/:place', component: PlaceComponent },
+    { path: 'unicPlan/:id', component: UnicPlanComponent },
+
 
     // { path: 'logaut/', component: TravellerComponent },
 

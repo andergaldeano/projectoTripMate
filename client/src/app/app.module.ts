@@ -22,6 +22,8 @@ import {UsersService} from './services/users.service';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PlaceComponent } from './place/place.component';
 import {PlaceService} from './services/place.service';
+import {PlanService} from './services/plan.service';
+import { UnicPlanComponent } from './unic-plan/unic-plan.component';
 
 
 
@@ -38,6 +40,7 @@ import {PlaceService} from './services/place.service';
     TravellerComponent,
     NavigationComponent,
     PlaceComponent,
+    UnicPlanComponent,
 
   ],
   imports: [
@@ -53,7 +56,7 @@ import {PlaceService} from './services/place.service';
       libraries: ["places"]
     })
   ],
-  providers: [AuthService, IsLoggedInService, UsersService, PlaceService],
+  providers: [AuthService, IsLoggedInService, UsersService, PlaceService, PlanService],
 
   bootstrap: [AppComponent]
 })

@@ -11,6 +11,8 @@ const debug = require('debug')("angularauth:"+path.basename(__filename).split('.
 const authRoutes = require('./routes/auth');
 // const member = require('./routes/member');
 const placeRoutes = require('./routes/placeRoutes');
+const planRoutes = require('./routes/planRoutes');
+
 const userRoutes = require('./routes/userRoutes');
 
 
@@ -61,6 +63,7 @@ app.use(passport.session());
 
 app.use('/auth', authRoutes);
 app.use('/place', placeRoutes)
+app.use('/plan', planRoutes)
 app.use('/user', userRoutes)
 //app.use('/', member)
 

@@ -7,6 +7,6 @@
   <div *ngFor="let user of travellers | async">
     <h3> {{ user.username }} </h3>
     <p> {{ user.details }} </p>
-    <a [routerLink]="['/traveller', user._id]"> View Details </a>
+    <a [routerLink]="['/traveller', user._id]"> ver detalles del usuario </a>
   </div>
 </div>
