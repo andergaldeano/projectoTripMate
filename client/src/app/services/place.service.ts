@@ -20,4 +20,14 @@ public get(id) {
    .map((res) => res.json());
 }
 
+// CREATE THE COMMENT
+
+public sendMyComment(comment, place, user){
+  console.log("en el servidor")
+  return this.http.post(`${BASEURL}/comment`, {comment, place, user})
+  .map((res) => res.json())
+
+}
+
+
 }

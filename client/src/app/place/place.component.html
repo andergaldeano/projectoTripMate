@@ -3,8 +3,8 @@
 </p>
 
 
-<h3>¿Donde estamos?</h3>
-<p>{{unicPlace.name }}</p>
+<h1>BIEN VENIDO A {{unicPlace.name }}</h1>
+
 
 <h3>Actividades propuestas:</h3>
   <p>{{unicPlace.activities}}</p>
@@ -14,3 +14,11 @@
 
 <h3>Fotitos del lugar</h3>
 <p>{{unicPlace.pictures}}</p>
+
+<form>
+    <h3> Deja tu plan </h3>
+<label>ALgun plan en mente?</label>
+<input type="text" [(ngModel)]="comment" name="comment"/>
+<button (click)="newComment()"> comparte tu plan! </button>
+
+</form>

@@ -24,6 +24,8 @@ export const routes: Routes = [
     { path: 'allusers',  component: AllUsersComponent,  },
     { path: 'traveller/:id', component: TravellerComponent },
     { path: 'holiday/:id', component: PlaceComponent },
+    { path: 'comment', component: PlaceComponent },
+
     // { path: 'logaut/', component: TravellerComponent },
 
     { path: '**', redirectTo: '' }
