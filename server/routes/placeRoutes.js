@@ -13,7 +13,7 @@ var placeRoutes = express.Router();
 
 // GET SPECIFIC PLACE
 
-placeRoutes.get('/holiday/:id/:name/:otherLat/:otherLng', (req, res, next) => {
+placeRoutes.get('/holiday/:id', (req, res, next) => {
 console.log("estamos en el ultimo paso para buscar o crear")
   Place.findOrCreate({ identification: req.params.id }, (err, place) => {
 

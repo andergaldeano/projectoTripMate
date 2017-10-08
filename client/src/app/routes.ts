@@ -9,6 +9,8 @@ import { MainMapComponent } from './main-map/main-map.component';
 import { TravellerComponent } from './traveller/traveller.component';
 import { PlaceComponent } from './place/place.component';
 import { UnicPlanComponent } from './unic-plan/unic-plan.component';
+import { PlanOkComponent } from './plan-ok/plan-ok.component';
+
 
 
 import { AllUsersComponent } from './all-users/all-users.component';
@@ -36,6 +38,7 @@ export const routes: Routes = [
     { path: 'comment/:plan', component: UnicPlanComponent },
     { path: 'whoToWhere', component: UnicPlanComponent },
     { path: 'joinThePlan', component: UnicPlanComponent },
+    { path: 'planOk/:id/:name/:otherLat/:otherLng', component: PlanOkComponent },
 
     // { path: 'logaut/', component: TravellerComponent },
 

@@ -24,6 +24,7 @@ import { PlaceComponent } from './place/place.component';
 import {PlaceService} from './services/place.service';
 import {PlanService} from './services/plan.service';
 import { UnicPlanComponent } from './unic-plan/unic-plan.component';
+import { PlanOkComponent } from './plan-ok/plan-ok.component';
 
 
 
@@ -41,6 +42,7 @@ import { UnicPlanComponent } from './unic-plan/unic-plan.component';
     NavigationComponent,
     PlaceComponent,
     UnicPlanComponent,
+    PlanOkComponent,
 
   ],
   imports: [

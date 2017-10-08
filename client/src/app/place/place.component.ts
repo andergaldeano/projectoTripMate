@@ -32,6 +32,13 @@ export class PlaceComponent implements OnInit {
   placename;
   unicPlace;
 
+// PLAN OK STUFF
+
+  okName: any;
+  okID: any;
+
+
+
   constructor(
     public auth:AuthService,
     private router:Router,
@@ -55,10 +62,14 @@ export class PlaceComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.getPlaceDetails(params['id']);
 
+      this.okID = params['id'];
+
   //OBTENER EL NOMBRE DEL LUGAR SIN GUIONES
       var withSpaces = params['name'];
       withSpaces = withSpaces.replace(/-/g, ' ');
       this.placename = withSpaces
+
+      this.okName = params['name'];
 
 //OBTENER LA LAT CON PUNTOS
 
@@ -96,9 +107,12 @@ export class PlaceComponent implements OnInit {
 
   newPlan(){
     if(this.plan != ""){
+      this.router.navigate([`planOk/${this.okID}/${this.okName}/${this.lat}/${this.lng}`]);
       this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username)
       .subscribe(()=> {
         (plan) => console.log(plan)
+
+
       });
     } else{
       console.log("ponte un plan locooo");
