@@ -26,6 +26,7 @@ export class PlaceComponent implements OnInit {
   plan: any;
   details: any;
   user:any;
+  arrastable: boolean = true;
 
   allConexions;
   allPlans;
@@ -36,6 +37,16 @@ export class PlaceComponent implements OnInit {
 
   okName: any;
   okID: any;
+
+  // PARA ALMACENAR PUNTOS EN EL MAPA
+
+  //marcador
+  // markers: marker[] = [
+  //   nombre:
+  //   lat:
+  //   longi:
+  //   arrastable:
+  // ]
 
 
 
@@ -53,11 +64,11 @@ export class PlaceComponent implements OnInit {
 
     }
 
+
+
+
   ngOnInit() {
-    this.mapsAPILoader.load().then(
-      ()=>{
-      }
-    )
+
 
     this.route.params.subscribe(params => {
       this.getPlaceDetails(params['id']);
@@ -128,4 +139,39 @@ export class PlaceComponent implements OnInit {
       });
   }
 
+// LO QUE PASA CUANDO CLICAS EL marcador
+marcadorCliqueado(){
+  console.log("se marca el marcador")
 }
+
+mapCliqueado($event:any){
+  console.log("mapa cliqueado")
+    this.lat= $event.coords.lat,
+    this.lng= $event.coords.lng,
+    this.arrastable=true
+console.log(this.lng)
+  }
+
+
+posicionFinalMarcador($event:any){
+  console.log("poscicion final")
+
+  this.lat= $event.coords.lat,
+  this.lng= $event.coords.lng,
+  this.arrastable=true
+  console.log(this.lng)
+
+}
+
+
+
+}
+
+// // tipo de marcador
+//
+// interface marker{
+//   nombre: string;
+//   lat: number;
+//   long: number;
+//   arrastable: boolean;
+// }
