@@ -5,6 +5,7 @@
 <p>vas a visitar este lugar? Indicalo, y te mandaremos todas las actividades</p>
 <button (click)="newConexion()">voy a ir! </button>
 
+
 <h3>Gente que visitará el lugar:</h3>
   <div>
     <div *ngFor="let conexion of allConexions | async">
@@ -13,8 +14,13 @@
     </div>
   </div>
 
+
+  <agm-map [latitude]="lat" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
+
+
 <h3>Fotitos del lugar</h3>
-<p>{{unicPlace.pictures}}</p>
 
 <h3>Actividades propuestas:</h3>
 <div>

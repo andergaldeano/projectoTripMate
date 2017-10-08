@@ -7,14 +7,13 @@ const WhoToWhere = require('../models/whoToWhere');
 // const User = require('../models/User');
 
 
-
 var placeRoutes = express.Router();
 // var commentRoutes = express.Router();
 
 
 // GET SPECIFIC PLACE
 
-placeRoutes.get('/holiday/:id', (req, res, next) => {
+placeRoutes.get('/holiday/:id/:name/:otherLat/:otherLng', (req, res, next) => {
 console.log("estamos en el ultimo paso para buscar o crear")
   Place.findOrCreate({ identification: req.params.id }, (err, place) => {
 
@@ -27,14 +26,16 @@ console.log("estamos en el ultimo paso para buscar o crear")
 
 // CREATE PLAN ON THIS SPECIFIC PLACE
 
-placeRoutes.post('/plan', (req, res, next) => {
+placeRoutes.post('/plan', function(req, res) {
 console.log("estamos en el ultimo de los planes")
 
 const plan = new Plan ({
   plan: req.body.plan,
   details: req.body.details,
   user: req.body.user,
-  place: req.body.place
+  place: req.body.place,
+
+
 });
 
 plan.save().then(

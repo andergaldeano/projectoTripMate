@@ -15,6 +15,7 @@ export class UnicPlanComponent implements OnInit {
   user:any;
   unicplan;
   allComments;
+  allUsers;
 
   constructor(
     public auth:AuthService,
@@ -32,19 +33,24 @@ export class UnicPlanComponent implements OnInit {
     });
   }
 
+// GET THE PLANS DETAILS, PLAN'S COMMENTS AND ALL THE PEOPLE JOINED
+
   getPlanDetails(id) {
     this.planService.getUnicPlan(id)
     .subscribe((plan) => {
     this.unicplan = plan;
+    this.allComments = this.planService.findComments(this.unicplan._id);
+    this.allUsers = this.planService.findUsers(this.unicplan._id)
 
-    this.allComments = this.planService.findComments(this.unicplan._id)
     });
   }
+
+// CREATE NEW COMMENT ON THIS SPECIFIC PLAN
+
 
   newComment(){
     console.log("vamos a hacer un comentario" )
     if(this.comment != ""){
-
       this.planService.sendMyComment(this.comment, this.unicplan._id, this.user.username)
       .subscribe(()=> {
         (plan) => console.log(plan)
@@ -52,6 +58,15 @@ export class UnicPlanComponent implements OnInit {
     } else{
       console.log("ponte un comentario locooo");
     }
+  }
+
+// CREATE NEW CONEXION THIS USER - THIS PLAN
+
+  newConexion(){
+    this.planService.sendThisConexion(this.unicplan.plan, this.user.username, this.user._id, this.unicplan._id)
+      .subscribe(()=> {
+        (plan) => console.log(plan)
+      });
   }
 
 }

@@ -3,6 +3,9 @@ var router = express.Router();
 // var userController = require('../controllers/userController.js');
 const User = require('../models/User');
 const Plan = require('../models/plan');
+const JoinThePlan = require('../models/joinThePlan');
+
+
 
 
 
@@ -29,8 +32,7 @@ User.findById(req.params.id, (err, user) => {
 });
 });
 
-// GET PLANS FOR THIS USER
-
+// GET PLANS of THIS USER
 
 userRoutes.get('/plan/:user', (req, res, next) => {
 
@@ -40,5 +42,18 @@ userRoutes.get('/plan/:user', (req, res, next) => {
     return res.json(plans);
   });
 });
+
+
+// GET PLANS WHERE THIS USER IS GOING
+
+userRoutes.get('/goingPlan/:userId', (req, res, next) => {
+
+
+    JoinThePlan.find({userId : req.params.userId}, (err, planes) => {
+      if (err) { return res.json(err).status(500); }
+        console.log("hemos llegado hasta aqui para buscar planres con el usuario")
+      return res.json(planes);
+    });
+  });
 
 module.exports = userRoutes;

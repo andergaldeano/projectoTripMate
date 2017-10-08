@@ -25,17 +25,17 @@ export const routes: Routes = [
     { path: 'allusers',  component: AllUsersComponent,  },
     { path: 'traveller/:id', component: TravellerComponent },
     { path: 'plan/:user', component: TravellerComponent },
-    { path: 'holiday/:id/:name', component: PlaceComponent },
+    { path: 'holiday/:id/:name/:otherLat/:otherLng', component: PlaceComponent },
     { path: 'plan', component: PlaceComponent },
     { path: 'plan/:place', component: PlaceComponent },
     { path: 'conexion/:place', component: PlaceComponent },
     { path: 'unicPlan/:id', component: UnicPlanComponent },
     { path: 'comment', component: UnicPlanComponent },
+    { path: 'user/:planId', component: UnicPlanComponent },
+    { path: 'goingPlan/:userId', component: TravellerComponent },
     { path: 'comment/:plan', component: UnicPlanComponent },
     { path: 'whoToWhere', component: UnicPlanComponent },
-
-
-
+    { path: 'joinThePlan', component: UnicPlanComponent },
 
     // { path: 'logaut/', component: TravellerComponent },
 

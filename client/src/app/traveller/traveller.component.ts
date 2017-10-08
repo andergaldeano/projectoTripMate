@@ -11,6 +11,7 @@ export class TravellerComponent implements OnInit {
 
   unictraveller;
   allPlans;
+  allPlansGoing;
 
 
   constructor(private router:Router,
@@ -27,9 +28,18 @@ export class TravellerComponent implements OnInit {
     this.usersService.get(id)
     .subscribe((user) => {
     this.unictraveller = user;
-    this.allPlans = this.usersService.findPlans(user.username)
+    this.allPlans = this.usersService.findPlans(user.username);
+    this.allPlansGoing  = this.usersService.findPlansGoing(user._id);
+;
+
+
     });
   }
+
+
+
+
+
 
 
 }

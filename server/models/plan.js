@@ -19,6 +19,7 @@ var planSchema = new Schema({
     type:String,
     default:'general'
  }
+
 });
 
 const Plan = mongoose.model('Plan', planSchema);

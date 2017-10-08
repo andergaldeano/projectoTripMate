@@ -5,8 +5,9 @@
 <div *ngIf="unictraveller">
 
   <div>
-    <h2> {{ unictraveller.username }}</h2>
-    <h3> {{ unictraveller.details }} </h3>
+    <h2> Muy buenas! Me llamo {{ unictraveller.username }} ! </h2>
+    <h4> Un poco mas sobre {{ unictraveller.username }} :</h4>
+    <p> {{ unictraveller.details }} </p>
     <h4> {{ unictraveller.username }} quiere compartir estas actividades:</h4>
     <div>
       <div *ngFor="let plan of allPlans | async">
@@ -14,6 +15,16 @@
         <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
       </div>
     </div>
+
+
+    <h4> {{ unictraveller.username }} va a asistir a todos estos planes:</h4>
+    <div>
+      <div *ngFor="let plan of allPlansGoing | async">
+        <h3> {{ plan.userId }} </h3>
+        <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+      </div>
+    </div>
+
 
 
   </div>

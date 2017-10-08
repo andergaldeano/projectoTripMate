@@ -36,6 +36,23 @@ export class PlanService {
 
     }
 
+// CREATE THE CONEXIONS USER - PLAN
+
+  public sendThisConexion(plan, user, userId, planId){
+  console.log("en el servidor creando conexiones entre usuaios y planes")
+  return this.http.post(`${BASEURL}/joinThePlan`, {plan, user, userId, planId})
+  .map((res) => res.json())
+
+}
+
+// FIND THE PEOPL THE PLAN
+
+    public findUsers(planId){
+      console.log("en el servidor buscando planes")
+      return this.http.get(`${BASEURL}/user/${planId}`)
+      .map((res) => res.json())
+
+    }
 
 
 

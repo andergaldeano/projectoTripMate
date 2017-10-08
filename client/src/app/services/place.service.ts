@@ -39,7 +39,7 @@ public findPlans(place){
 }
 
 
-// CREATE A CONEXION
+// CREATE A CONEXION USER - PLACE
 
 public sendThisConexion(place, user, userId){
   console.log("en el servidor creando conexiones")

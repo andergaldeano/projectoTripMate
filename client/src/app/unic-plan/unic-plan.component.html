@@ -12,8 +12,20 @@
 
   </div>
 
+  <p>te interesa el plan y te gutsaria formar parte?</p>
+  <button (click)="newConexion()">voy a ir! </button>
 
-  <h2>Te gusta el plan? Tienes alguna duda? Deja un comentario!</h2>
+  <h3>Viajeros que ya se han unido al plan</h3>
+  <div>
+    <div *ngFor="let user of allUsers | async">
+      <p> {{ user.user }} </p>
+      <!-- <p> {{ plan.details }} </p> -->
+      <a [routerLink]="['/traveller', user.userId]"> ver detalles del usuario </a>
+    </div>
+  </div>
+
+
+  <h2>Alguna duda o sujerencia? Deja un comentario!</h2>
   <input type="text" [(ngModel)]="comment" name="comment"/>
 
 

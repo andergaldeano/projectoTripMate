@@ -16,6 +16,9 @@ title: string = 'My first AGM project';
 lat: number = 51.678418;
 lng: number = 7.809007;
 
+otherLat:  string = "s";
+otherLng:  string ="";
+
 id: string = '';
 
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, /*public place: PlaceService*/) {}
@@ -50,6 +53,15 @@ id: string = '';
             this.placeName = placeNameWithoutSPaces;
             console.log("aqui vemos cual es place name " + this.placeName)
 
+            //RESCATAMOS LNG Y LAT SIN PUNTOS
+             var stringLat = this.lat.toString()
+             this.otherLat = stringLat.split('.').join('_')
+
+             var stringLng = this.lng.toString()
+             var prueba = stringLng.split('.').join('_')
+             this.otherLng = prueba
+
+             console.log("vamos a ver si funciona " + prueba)
 
             if(place.geometry === undefined || place.geometry === null){
               return;
