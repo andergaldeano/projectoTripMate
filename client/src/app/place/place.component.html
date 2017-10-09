@@ -85,11 +85,21 @@
 <input type="text" [(ngModel)]="details" name="details"/>
 
 
-<button (click)="newPlan()"> comparte tu plan! </button>
+
+
+
+
+<button class="btn btn-sm btn-outline-primary" (click)="newPlan()"> comparte tu plan! </button>
 
 </form>
 
 </div>
+
+<p>Selecciona el dia de tu plan</p>
+
+<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+
+<hr/>
 
 
 

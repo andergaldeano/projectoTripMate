@@ -12,6 +12,8 @@ export class TravellerComponent implements OnInit {
   unictraveller;
   allPlans;
   allPlansGoing;
+  urlTxatxi= "http://localhost:3000";
+
 
 
   constructor(private router:Router,

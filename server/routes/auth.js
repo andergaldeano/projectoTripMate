@@ -4,6 +4,8 @@ const path = require('path');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const debug = require('debug')("angularauth:"+path.basename(__filename).split('.')[0]);
+const upload = require('../config/multer');
+
 
 var authRoutes = express.Router();
 var loggedUser;
@@ -84,11 +86,12 @@ authRoutes.get('/user', (req, res, next) => {
 
 // UPDATE PROFILE POST
 
-  authRoutes.put('/editprofile/:id', (req, res) => {
+  authRoutes.post('/editprofile/:id', upload.single('file'), (req, res) => {
     console.log("ahi estamos")
     // const {country, details} = req.body;
     const updates = {country: req.body.country,
-                    details: req.body.details}
+                    details: req.body.details,
+                    photo: `/uploads/${req.file.filename}`}
 
     User.findByIdAndUpdate(req.params.id, updates, {new:true})
       .then(p => {res.status(200).json(p)})

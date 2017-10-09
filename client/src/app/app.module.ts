@@ -36,6 +36,7 @@ import {PlaceService} from './services/place.service';
 import {PlanService} from './services/plan.service';
 import { UnicPlanComponent } from './unic-plan/unic-plan.component';
 import { PlanOkComponent } from './plan-ok/plan-ok.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -70,6 +71,7 @@ import { PlanOkComponent } from './plan-ok/plan-ok.component';
     PanelModule,
     ButtonModule,
     RadioButtonModule,
+    NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA38CUyfeOsm6SfB63ej4xaxMdHb-XmqKA',
       libraries: ["places"]

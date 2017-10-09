@@ -22,9 +22,9 @@ public get(id) {
 
 // CREATE A PLAN
 
-public sendMyPlan(plan, details, place, user){
+public sendMyPlan(plan, details, place, user, year, month, day){
   console.log("en el servidor")
-  return this.http.post(`${BASEURL}/plan`, {plan, details, place, user})
+  return this.http.post(`${BASEURL}/plan`, {plan, details, place, user, year, month, day})
   .map((res) => res.json())
 
 

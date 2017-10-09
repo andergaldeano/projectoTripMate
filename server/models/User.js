@@ -27,13 +27,11 @@ const userSchema = new Schema({
  firstTime:{
    type: Boolean,
    default: true
- }
-
-
-  // pic_path: {
-  //   type: String,
-  //   default: '/uploads/66af7a224082f315c0756cf974ecad64'
-  // },
+ },
+  photo: {
+    type: String,
+    default: '/uploads/1507557188355.png'
+  },
 }, {
   timestamps: {
     createdAt: 'created_at',

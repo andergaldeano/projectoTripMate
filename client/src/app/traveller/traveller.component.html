@@ -5,6 +5,7 @@
 <div *ngIf="unictraveller">
 
   <div>
+     <img [src]= "urlTxatxi + unictraveller.photo" height=200/>
     <h2> Muy buenas! Me llamo {{ unictraveller.username }} ! </h2>
     <h4> Un poco mas sobre {{ unictraveller.username }} :</h4>
     <p> {{ unictraveller.details }} </p>

@@ -35,12 +35,12 @@ export class AuthService {
     }
 // EDITPROFILE PAGE
 
-    public editprofile(country, details) {
-
-      console.log("estamos en angular aun " + this.user['_id'])
-       return this.http.put(`${BASEURL}/editprofile/${this.user['_id']}`, {country, details}, this.options/*{country, details}, this.user*/)
-       .map((res) => res.json());
-   }
+  //   public editprofile(country, details) {
+   //
+  //     console.log("estamos en angular aun " + this.user['_id'])
+  //      return this.http.put(`${BASEURL}/editprofile/${this.user['_id']}`, {country, details}, this.options/*{country, details}, this.user*/)
+  //      .map((res) => res.json());
+  //  }
 
 
 // SING UP

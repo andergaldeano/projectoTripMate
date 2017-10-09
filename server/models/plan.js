@@ -18,7 +18,19 @@ var planSchema = new Schema({
 	'place' :{
     type:String,
     default:'general'
- }
+ },
+ year :{
+	 type:String,
+	 default:'general'
+},
+month : {
+	type:String,
+	default:'general'
+},
+day : {
+	type:String,
+	default:'general'
+}
 
 });
 

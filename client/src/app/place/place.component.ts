@@ -6,6 +6,9 @@ import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 import { FileUploader} from "ng2-file-upload";
 import { environment} from '../../environments/environment';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+
+const now = new Date();
 
 
 
@@ -18,6 +21,11 @@ export class PlaceComponent implements OnInit {
   uploader: FileUploader = new FileUploader({
     url: `${environment.BASEURL}/place/photoPlace`
   });
+
+//DATE STUFF
+
+model: NgbDateStruct;
+  date: {year: number, month: number};
 
 // GOOGLE MAPS STUFF
   @ViewChild('search') public searchElement: ElementRef;
@@ -125,14 +133,18 @@ export class PlaceComponent implements OnInit {
 
   newPlan(){
     if(this.plan != ""){
-      this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username)
+      this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+      console.log("y ahi va la fecha!!!!!!!!!!!!!!!!!!!!" + this.model.year + "   " + this.model.month + "    " +  this.model.day)
+      this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username, this.model.year, this.model.month, this.model.day )
       .subscribe((plan)=> {
         this.allPlans = this.place.findPlans(this.unicPlace.identification)
         console.log(plan._id)
         this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
         .subscribe(()=> {
           this.allPoints = this.place.getAllPointsInMap()
+
         });
+
       });
     } else{
       console.log("ponte un plan locooo");
@@ -182,6 +194,8 @@ submit() {
 
    this.uploader.uploadAll();
  }
+
+
 
 
 

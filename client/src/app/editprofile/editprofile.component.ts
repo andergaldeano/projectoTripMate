@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
+import { FileUploader} from "ng2-file-upload";
+import { environment} from '../../environments/environment';
 
 
 @Component({
@@ -12,16 +14,27 @@ import {} from '@types/googlemaps';
 })
 
 export class EditprofileComponent implements OnInit {
-  // formInfo = {
-  //   country:"",
-  //   details:""
-  // }
-    @ViewChild('search') public searchElement: ElementRef;
+
+  @ViewChild('search') public searchElement: ElementRef;
+
   details;
   country;
+  userId: string;
+  user;
+  uploader: FileUploader;
+  urlTxatxi= "http://localhost:3000";
 
 
-  constructor(public auth:AuthService, public router: Router, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
+
+  constructor(public auth:AuthService, public router: Router, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
+    this.user = this.auth.getUser()
+      .subscribe(user => {  this.user = user; this.userId = user._id;
+      console.log("miremos quien esta conectado " + this.userId)
+      this.uploader = new FileUploader({ url: `${environment.BASEURL}/auth/editprofile/${this.userId}`
+     });
+    })
+  }
+
 
   ngOnInit() {
     this.mapsAPILoader.load().then(
@@ -45,9 +58,22 @@ export class EditprofileComponent implements OnInit {
   };
 
 
-  editprofile(){
-        this.auth.editprofile(this.country, this.details)
-      .subscribe(
-        (user) => this.router.navigate(['/user']))
+  // editprofile(){
+  //       this.auth.editprofile(this.country, this.details)
+  //     .subscribe(
+  //       (user) => this.router.navigate(['/user']))
+  // }
+
+  editprofile() {
+    this.uploader.onBuildItemForm = (item, form) => {
+      form.append('country', this.country);
+      form.append('details', this.details);
+    };
+  console.log("hago subida de archivos")
+    this.uploader.uploadAll();
+    this.router.navigate(['/user']);
   }
+
+
+
 }

@@ -1,16 +1,21 @@
 <div>
   <div>
 
+    <form>
+      <fieldset>
+
       <h2>Dale un toque más personal a tu perfil</h2>
+
+      <img [src]= "urlTxatxi + user.photo" height=300/>
+
+
+      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+
         <div class="">
           <label> ¿Cual es tu pais actual de residencia? </label>
-          <!-- <input type="text" [(ngModel)]="formInfo.country" name="country"/> -->
           <div class="from-group">
-
             <input type="text" placeholder="lugar de residencia" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
-
           </div>
-
         </div>
 
         <div class="">
@@ -19,7 +24,10 @@
         </div>
 
 
-        <button (click)="editprofile()" type="submit" name="action">Continuar</button>
+
+      </fieldset>
+      <button (click)="editprofile()" type="submit" name="action">Continuar</button>
+    </form>
 
     </div>
    </div>
