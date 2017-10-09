@@ -7,10 +7,29 @@ import {environment} from '../../environments/environment';
 const BASEURL = environment.BASEURL + "/place";
 
 
+
+
+
 @Injectable()
 export class PlaceService {
 
+  dateFrom;
+  dateTo;
+
   constructor(private http: Http) { }
+
+public getInitDate(){
+  return this.dateFrom
+}
+
+public getFinishDate(){
+  return this.dateTo
+}
+
+public copyParams(from, to){
+  this.dateFrom = from
+  this.dateTo = to
+}
 
 //FIND OR CREATE THE PLACE
 
@@ -32,9 +51,9 @@ public sendMyPlan(plan, details, place, user, year, month, day){
 
 // FIND THE PLANS ON THE SPECIFIC PLACE
 
-public findPlans(place){
+public findPlans(place, sYear, sMonth, sDay, fYear, fMonth, fDay){
   console.log("en el servidor buscando planes")
-  return this.http.get(`${BASEURL}/plan/${place}`)
+  return this.http.get(`${BASEURL}/plan/${place}/${sYear}/${sMonth}/${sDay}/${fYear}/${fMonth}/${fDay}`)
   .map((res) => res.json())
 
 }

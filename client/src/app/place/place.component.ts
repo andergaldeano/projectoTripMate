@@ -24,8 +24,8 @@ export class PlaceComponent implements OnInit {
 
 //DATE STUFF
 
-model: NgbDateStruct;
-  date: {year: number, month: number};
+// model: NgbDateStruct;
+  date: {year: number, month: number, day: number};
 
 // GOOGLE MAPS STUFF
   @ViewChild('search') public searchElement: ElementRef;
@@ -39,6 +39,8 @@ model: NgbDateStruct;
   details: any;
   user:any;
   arrastable: boolean = true;
+
+  model;
 
   allConexions;
   allPlans;
@@ -58,6 +60,8 @@ model: NgbDateStruct;
   allPoints;
 
 
+ travelStarts;
+ travelFinish;
 
 
   constructor(
@@ -81,6 +85,7 @@ model: NgbDateStruct;
       this.getPlaceDetails(params['id']);
 
       this.okID = params['id'];
+
 
 //OBTENER EL NOMBRE DEL LUGAR SIN GUIONES
 
@@ -107,6 +112,7 @@ model: NgbDateStruct;
 
       this.okLng = params['otherLng'];
 
+
     });
   }
 
@@ -121,10 +127,14 @@ model: NgbDateStruct;
     console.log("estams rescatando " + place)
     console.log(place)
     console.log("vamos a buscar los planes en " + this.unicPlace.identification )
-        this.allPlans = this.place.findPlans(this.unicPlace.identification)
+        this.travelStarts = this.place.getInitDate();
+        this.travelFinish =this.place.getFinishDate();
+        this.allPlans = this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
         this.allConexions = this.place.findConexion(this.placename)
         this.allPoints = this.place.getAllPointsInMap()
         this.allPhotos = this.place.getAllPhotos(this.unicPlace.identification)
+
+        console.log( `estamos viendo lo que puede ser un milagro` + this.travelStarts.year + this.travelStarts.month + this.travelStarts.day)
 
     });
   }
@@ -133,11 +143,11 @@ model: NgbDateStruct;
 
   newPlan(){
     if(this.plan != ""){
-      this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
+      this.date = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
       console.log("y ahi va la fecha!!!!!!!!!!!!!!!!!!!!" + this.model.year + "   " + this.model.month + "    " +  this.model.day)
       this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username, this.model.year, this.model.month, this.model.day )
       .subscribe((plan)=> {
-        this.allPlans = this.place.findPlans(this.unicPlace.identification)
+        this.allPlans = this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
         console.log(plan._id)
         this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
         .subscribe(()=> {

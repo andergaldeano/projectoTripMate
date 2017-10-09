@@ -52,13 +52,16 @@ placeRoutes.post('/plan', function(req, res) {
 // GET PLANS ON THIS SPECIFIC PLACE
 
 
-placeRoutes.get('/plan/:place', (req, res, next) => {
+placeRoutes.get('/plan/:place/:sYear/:sMonth/:sDay/:fYear/:fMonth/:fDay', (req, res, next) => {
 
-  console.log("vamos a buscar todos los planes de este lugar" + req.params.place)
+  console.log("vamos a buscar todos los planes de este lugar" + req.params.place + " en estas fechas  " +   req.params.sYear + " y " + req.params.fYear   + " , " + req.params.sMonth + " y " + req.params.fMonth   + " , " + req.params.sDay  + " y " + req.params.fDay )
+var perro = req.params.sDay - 1;
+console.log("mira como ladra " + perro)
 
-  Plan.find({place : req.params.place}, (err, plans) => {
+
+  Plan.find({place : req.params.place, /*month: {  $gt : (req.params.sMonth - 1), $lt : (req.params.fMonth + 1) },*/ day: { $gt : (req.params.sDay - 1), $lt : (req.params.fDay + 1)}}, (err, plans) => {
     if (err) { return res.json(err).status(500); }
-
+      console.log("encontramos estos planes " + plans)
     return res.json(plans);
   });
 });

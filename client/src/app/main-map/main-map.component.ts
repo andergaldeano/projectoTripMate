@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
+
+import {PlaceService} from '../services/place.service';
+
 
 //DATE PICKER
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
@@ -47,7 +51,13 @@ otherLng:  string ="";
 
 id: string = '';
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, calendar: NgbCalendar/*public place: PlaceService*/) {
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+     private ngZone: NgZone,
+      calendar: NgbCalendar,
+       public router: Router,
+     public place: PlaceService/*public place: PlaceService*/
+   ) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);}
 
@@ -67,8 +77,8 @@ id: string = '';
        isInside = date => after(date, this.fromDate) && before(date, this.toDate);
       isFrom = date => equals(date, this.fromDate);
       isTo = date => equals(date, this.toDate);
-      dates: object = {isfrom: this.isFrom,
-                      isto: this.isTo}
+      // dates: object = {isfrom: this.isFrom,
+      //                 isto: this.isTo}
 // CALENDARO^
 
   ngOnInit() {
@@ -118,6 +128,12 @@ id: string = '';
         })
       }
     )
+  }
+
+  shareAndGo (){
+    this.router.navigate([`holiday/${this.title}/${this.placeName}/${this.otherLat}/${this.otherLng}`]);
+    console.log("vamos a ver que nos devuelve esto " + this.fromDate.day)
+    this.place.copyParams(this.fromDate, this.toDate)
   }
 
 }
