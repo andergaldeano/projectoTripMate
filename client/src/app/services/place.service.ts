@@ -72,12 +72,23 @@ public findConexion(place){
 
 // CREATE A CONEXION ON MAP PLAN - MAP
 
-public conexionPlanMap(lat, lng,planName, planId){
+public conexionPlanMap(lat, lng, planName){
   console.log("en el servidor creando conexiones plany mapa")
-  return this.http.post(`${BASEURL}/planToMap`, {lat, lng, planName, planId})
+  return this.http.post(`${BASEURL}/planToMap`, {lat, lng, planName})
   .map((res) => res.json())
 
 }
+
+
+// FIND THE CONEXIONS ON THE SPECIFIC PLACE
+
+public getAllPhotos(place){
+  console.log("en el servidor buscando las fotos que vienen al lugar " + place)
+  return this.http.get(`${BASEURL}/allphotos/${place}`)
+  .map((res) => res.json())
+
+}
+
 
 
 

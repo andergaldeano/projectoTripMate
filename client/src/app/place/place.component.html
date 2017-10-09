@@ -5,6 +5,10 @@
 <p>vas a visitar este lugar? Indicalo, y te mandaremos todas las actividades</p>
 <button (click)="newConexion()">voy a ir! </button>
 
+<h3>Fotitos de {{ placename }}</h3>
+<div *ngFor="let photo of allPhotos | async">
+ <img [src]= "urlTxatxi + photo.photo" height=100/>
+</div>
 
 <h3>Gente que visitará el lugar:</h3>
   <div >
@@ -85,3 +89,20 @@
 </form>
 
 </div>
+
+
+
+
+
+<form>
+  <fieldset>
+    <legend> Anade una foto bonita </legend>
+    <input hidden type="number" [(ngModel)]="user" name="user"  />
+    <input hidden type="number" [(ngModel)]="userId" name="userId" />
+    <input hidden type="number" [(ngModel)]="place" name="place" />
+
+    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+
+  </fieldset>
+  <button (click)="submit()"> submit </button>
+</form>

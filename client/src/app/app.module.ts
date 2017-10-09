@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CarouselModule} from 'primeng/primeng';
 
 
+import { FileSelectDirective } from "ng2-file-upload";
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -53,6 +54,7 @@ import { PlanOkComponent } from './plan-ok/plan-ok.component';
     PlaceComponent,
     UnicPlanComponent,
     PlanOkComponent,
+    FileSelectDirective
 
   ],
   imports: [

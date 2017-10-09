@@ -31,6 +31,7 @@ export const routes: Routes = [
     { path: 'plan', component: PlaceComponent },
     { path: 'plan/:place', component: PlaceComponent },
     { path: 'conexion/:place', component: PlaceComponent },
+    { path: 'allphotos/:place', component: PlaceComponent },
     { path: 'unicPlan/:id', component: UnicPlanComponent },
     { path: 'comment', component: UnicPlanComponent },
     { path: 'user/:planId', component: UnicPlanComponent },
@@ -41,6 +42,7 @@ export const routes: Routes = [
     { path: 'planOk/:id/:name/:otherLat/:otherLng', component: PlanOkComponent },
     { path: 'planToMap', component: PlaceComponent },
     { path: 'pointFainder', component: PlaceComponent },
+    { path: 'photoPlace', component: PlaceComponent },
 
 
 

@@ -3,9 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PlaceService} from '../services/place.service';
 import { AuthService } from '../services/auth.service';
 import { MapsAPILoader } from '@agm/core';
-import {ButtonModule} from 'primeng/primeng';
 import {} from '@types/googlemaps';
-
+import { FileUploader} from "ng2-file-upload";
+import { environment} from '../../environments/environment';
 
 
 
@@ -15,6 +15,9 @@ import {} from '@types/googlemaps';
   styleUrls: ['./place.component.css']
 })
 export class PlaceComponent implements OnInit {
+  uploader: FileUploader = new FileUploader({
+    url: `${environment.BASEURL}/place/photoPlace`
+  });
 
 // GOOGLE MAPS STUFF
   @ViewChild('search') public searchElement: ElementRef;
@@ -33,6 +36,8 @@ export class PlaceComponent implements OnInit {
   allPlans;
   placename;
   unicPlace;
+  allPhotos;
+  urlTxatxi= "http://localhost:3000";
 
 // PLAN OK STUFF
   okLat: number;
@@ -44,13 +49,6 @@ export class PlaceComponent implements OnInit {
 
   allPoints;
 
-  //marcador
-  // markers: marker[] = [
-  //   nombre:
-  //   lat:
-  //   longi:
-  //   arrastable:
-  // ]
 
 
 
@@ -65,21 +63,19 @@ export class PlaceComponent implements OnInit {
 
     this.user = this.auth.getUser()
       .subscribe(user => {  this.user = user;})
-
     }
 
 
 
 
   ngOnInit() {
-
-
     this.route.params.subscribe(params => {
       this.getPlaceDetails(params['id']);
 
       this.okID = params['id'];
 
 //OBTENER EL NOMBRE DEL LUGAR SIN GUIONES
+
       var withSpaces = params['name'];
       withSpaces = withSpaces.replace(/-/g, ' ');
       this.placename = withSpaces
@@ -106,6 +102,7 @@ export class PlaceComponent implements OnInit {
     });
   }
 
+
 // GET THE PLACE DETAILS AND ALL THE PEOPLE GOING THERE
 
 
@@ -118,31 +115,24 @@ export class PlaceComponent implements OnInit {
     console.log("vamos a buscar los planes en " + this.unicPlace.identification )
         this.allPlans = this.place.findPlans(this.unicPlace.identification)
         this.allConexions = this.place.findConexion(this.placename)
-        var a =   this.place.getAllPointsInMap()
-        this.allPoints = a
-        console.log( this.allPoints)
+        this.allPoints = this.place.getAllPointsInMap()
+        this.allPhotos = this.place.getAllPhotos(this.unicPlace.identification)
+
     });
   }
 
-
-
 // CREATE NEW PLAN ON THIS SPECIFIC PLACE
-
 
   newPlan(){
     if(this.plan != ""){
       this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username)
       .subscribe((plan)=> {
-        console.log("estamos aqui gosando")
         this.allPlans = this.place.findPlans(this.unicPlace.identification)
-        this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
-        .subscribe(()=> {
-          this.allPoints = this.place.getAllPointsInMap()
-
-        });
       });
-
-
+      this.place.conexionPlanMap(this.lat, this.lng, this.plan)
+      .subscribe(()=> {
+        this.allPoints = this.place.getAllPointsInMap()
+      });
     } else{
       console.log("ponte un plan locooo");
     }
@@ -158,6 +148,7 @@ export class PlaceComponent implements OnInit {
   }
 
 // LO QUE PASA CUANDO CLICAS EL marcador
+
 marcadorCliqueado(){
   console.log("se marca el marcador")
 }
@@ -170,7 +161,6 @@ mapCliqueado($event:any){
 console.log(this.lng)
   }
 
-
 posicionFinalMarcador($event:any){
   console.log("poscicion final")
 
@@ -181,15 +171,17 @@ posicionFinalMarcador($event:any){
 
 }
 
+// ADD PHOTO TO THIS PLACE
+submit() {
+   this.uploader.onBuildItemForm = (item, form) => {
+     form.append('user', this.user.username);
+     form.append('userId', this.user._id);
+     form.append('place', this.unicPlace.identification);
+   };
+
+   this.uploader.uploadAll();
+ }
+
 
 
 }
-
-// // tipo de marcador
-//
-// interface marker{
-//   nombre: string;
-//   lat: number;
-//   long: number;
-//   arrastable: boolean;
-// }

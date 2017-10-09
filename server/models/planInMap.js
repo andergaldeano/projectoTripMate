@@ -14,12 +14,7 @@ var planInMapSchema = new Schema({
 	'planName' :{
     type:String,
     default:'no plan Name'
- },
-	'planId' :{
-    type:String,
-    default:'no plan Name'
  }
-
 
 });
 

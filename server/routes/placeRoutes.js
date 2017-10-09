@@ -1,16 +1,15 @@
 var express = require('express');
 var router = express.Router();
-// var placeController = require('../controllers/placeController.js');
 const Place = require('../models/placeModel');
 const Plan = require('../models/plan');
 const WhoToWhere = require('../models/whoToWhere');
 const PlanInMap = require('../models/planInMap');
+const PhotosInPLace = require('../models/photosInPlace');
+const upload = require('../config/multer');
 
-// const User = require('../models/User');
 
 
 var placeRoutes = express.Router();
-// var commentRoutes = express.Router();
 
 
 // GET SPECIFIC PLACE
@@ -29,31 +28,21 @@ console.log("estamos en el ultimo paso para buscar o crear")
 // CREATE PLAN ON THIS SPECIFIC PLACE
 
 placeRoutes.post('/plan', function(req, res) {
-console.log("estamos en el ultimo de los planes")
+  console.log("estamos en el ultimo de los planes")
 
-const plan = new Plan ({
-  plan: req.body.plan,
-  details: req.body.details,
-  user: req.body.user,
-  place: req.body.place,
+  const plan = new Plan ({
+    plan: req.body.plan,
+    details: req.body.details,
+    user: req.body.user,
+    place: req.body.place,
+  });
 
-
-});
-
-plan.save().then(
-            plan => {
-              console.log("el que ha hecho el plan es " + plan.place)
-              res.status(200).json(plan);
-              return res.json(plan);
-
-              // const plansPlace = plan.place;
-              // const updates = {'activities': plan.plan}
-              // Place.findOneAndUpdate({place: plansPlace}, updates, {new:true})
-              //   .then(p => {res.status(200).json(p)})
-              //   .catch(e => res.status(500).json({error:e.message}));
-
-            })
-              .catch( e => res.json(e));
+  plan.save().then(
+          plan => {
+            console.log("el que ha hecho el plan es " + plan.place)
+            res.status(200).json(plan);
+          })
+            .catch( e => res.json(e));
 });
 
 
@@ -114,8 +103,7 @@ console.log("estamos en el ultimo para crear conexion entre plan y mapa")
 const planToMap = new PlanInMap ({
   lat: Number(req.body.lat),
   lng: Number(req.body.lng),
-  planName: req.body.planName,
-  planId: req.body.planId
+  planName: req.body.planName
 
 });
 
@@ -139,6 +127,43 @@ placeRoutes.get('/pointFainder', (req, res, next) => {
     return res.json(points);
   });
 });
+
+
+// CREATE PHOTOS ON THIS SPECIFIC PLACE
+
+placeRoutes.post('/photoPlace', upload.single('file'), function(req, res) {
+  console.log("estamos en el ultimo para poner fotos")
+
+  const photo = new PhotosInPLace ({
+    user: req.body.user,
+    userId: req.body.userId,
+    place: req.body.place,
+    photo: `/uploads/${req.file.filename}`,
+  });
+
+  photo.save().then(
+          photo2 => {
+            console.log("el que ha subido la photo2 es " + photo2.userId)
+            res.status(200).json(photo2);
+          })
+            .catch( e => res.json(e));
+});
+
+
+// GET ALL PHOTOS ON THIS SPECIFIC PLACE
+
+
+placeRoutes.get('/allphotos/:place', (req, res, next) => {
+
+  console.log("vamos a buscar todas las fotitos que en este lugar " + req.params.place)
+
+  PhotosInPLace.find({place : req.params.place}, (err, photos) => {
+    if (err) { return res.json(err).status(500); }
+    console.log("hay alguna fotito  " + photos)
+    return res.json(photos);
+  });
+});
+
 
 
 

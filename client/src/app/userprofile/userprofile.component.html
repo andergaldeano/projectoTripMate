@@ -21,9 +21,5 @@
   <p>{{user.proposals}}</p>
 
 
-
-  <p> Here's the user object </p>
-  <pre> {{ user | json }} </pre>
-
   <button (click)="auth.logout().subscribe()"> logout </button>
 </div>
