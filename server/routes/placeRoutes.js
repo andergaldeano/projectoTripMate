@@ -103,7 +103,8 @@ console.log("estamos en el ultimo para crear conexion entre plan y mapa")
 const planToMap = new PlanInMap ({
   lat: Number(req.body.lat),
   lng: Number(req.body.lng),
-  planName: req.body.planName
+  planName: req.body.planName,
+  planId : req.body.planId
 
 });
 

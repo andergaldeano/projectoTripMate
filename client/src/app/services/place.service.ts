@@ -72,9 +72,9 @@ public findConexion(place){
 
 // CREATE A CONEXION ON MAP PLAN - MAP
 
-public conexionPlanMap(lat, lng, planName){
+public conexionPlanMap(lat, lng, planName, planId){
   console.log("en el servidor creando conexiones plany mapa")
-  return this.http.post(`${BASEURL}/planToMap`, {lat, lng, planName})
+  return this.http.post(`${BASEURL}/planToMap`, {lat, lng, planName, planId})
   .map((res) => res.json())
 
 }

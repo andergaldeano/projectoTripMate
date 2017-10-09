@@ -128,10 +128,11 @@ export class PlaceComponent implements OnInit {
       this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username)
       .subscribe((plan)=> {
         this.allPlans = this.place.findPlans(this.unicPlace.identification)
-      });
-      this.place.conexionPlanMap(this.lat, this.lng, this.plan)
-      .subscribe(()=> {
-        this.allPoints = this.place.getAllPointsInMap()
+        console.log(plan._id)
+        this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
+        .subscribe(()=> {
+          this.allPoints = this.place.getAllPointsInMap()
+        });
       });
     } else{
       console.log("ponte un plan locooo");
