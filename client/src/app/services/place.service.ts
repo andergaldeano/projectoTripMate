@@ -27,6 +27,7 @@ public sendMyPlan(plan, details, place, user){
   return this.http.post(`${BASEURL}/plan`, {plan, details, place, user})
   .map((res) => res.json())
 
+
 }
 
 // FIND THE PLANS ON THE SPECIFIC PLACE
@@ -37,6 +38,17 @@ public findPlans(place){
   .map((res) => res.json())
 
 }
+
+// FIND THE PLANS POINTS ON MAP
+
+public getAllPointsInMap(){
+  console.log("en el servidor buscando los puntos de los planes")
+  return this.http.get(`${BASEURL}/pointFainder/`)
+  .map((res) => res.json())
+
+}
+
+
 
 
 // CREATE A CONEXION USER - PLACE
@@ -56,5 +68,17 @@ public findConexion(place){
   .map((res) => res.json())
 
 }
+
+
+// CREATE A CONEXION ON MAP PLAN - MAP
+
+public conexionPlanMap(lat, lng,planName, planId){
+  console.log("en el servidor creando conexiones plany mapa")
+  return this.http.post(`${BASEURL}/planToMap`, {lat, lng, planName, planId})
+  .map((res) => res.json())
+
+}
+
+
 
 }

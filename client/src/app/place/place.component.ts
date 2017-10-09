@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PlaceService} from '../services/place.service';
 import { AuthService } from '../services/auth.service';
 import { MapsAPILoader } from '@agm/core';
+import {ButtonModule} from 'primeng/primeng';
 import {} from '@types/googlemaps';
 
 
@@ -34,11 +35,14 @@ export class PlaceComponent implements OnInit {
   unicPlace;
 
 // PLAN OK STUFF
-
+  okLat: number;
+  okLng: number;
   okName: any;
   okID: any;
 
-  // PARA ALMACENAR PUNTOS EN EL MAPA
+// PARA ALMACENAR PUNTOS EN EL MAPA
+
+  allPoints;
 
   //marcador
   // markers: marker[] = [
@@ -75,7 +79,7 @@ export class PlaceComponent implements OnInit {
 
       this.okID = params['id'];
 
-  //OBTENER EL NOMBRE DEL LUGAR SIN GUIONES
+//OBTENER EL NOMBRE DEL LUGAR SIN GUIONES
       var withSpaces = params['name'];
       withSpaces = withSpaces.replace(/-/g, ' ');
       this.placename = withSpaces
@@ -88,12 +92,16 @@ export class PlaceComponent implements OnInit {
       withDots = withDots.split('_').join('.');
       this.lat = Number(withDots)
 
+      this.okLat = params['otherLat'];
+
+
 //OBTENER  LA LNG CON PUNTOS
 
       var withDots2 = params['otherLng'];
       withDots2 = withDots2.split('_').join('.');
       this.lng = Number(withDots2)
 
+      this.okLng = params['otherLng'];
 
     });
   }
@@ -110,21 +118,31 @@ export class PlaceComponent implements OnInit {
     console.log("vamos a buscar los planes en " + this.unicPlace.identification )
         this.allPlans = this.place.findPlans(this.unicPlace.identification)
         this.allConexions = this.place.findConexion(this.placename)
+        var a =   this.place.getAllPointsInMap()
+        this.allPoints = a
+        console.log( this.allPoints)
     });
   }
+
+
 
 // CREATE NEW PLAN ON THIS SPECIFIC PLACE
 
 
   newPlan(){
     if(this.plan != ""){
-      this.router.navigate([`planOk/${this.okID}/${this.okName}/${this.lat}/${this.lng}`]);
       this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username)
-      .subscribe(()=> {
-        (plan) => console.log(plan)
+      .subscribe((plan)=> {
+        console.log("estamos aqui gosando")
+        this.allPlans = this.place.findPlans(this.unicPlace.identification)
+        this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
+        .subscribe(()=> {
+          this.allPoints = this.place.getAllPointsInMap()
 
-
+        });
       });
+
+
     } else{
       console.log("ponte un plan locooo");
     }

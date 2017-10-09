@@ -30,6 +30,9 @@ export class AuthService {
         .map((res) => res.json());
     }
 
+    public getLoggedUser() {
+      return this.user;
+    }
 // EDITPROFILE PAGE
 
     public editprofile(country, details) {

@@ -1,5 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
+//PRIME NG
+import { AccordionModule } from 'primeng/components/accordion/accordion';
+import { PanelModule } from 'primeng/components/panel/panel';
+import { ButtonModule } from 'primeng/components/button/button';
+import { RadioButtonModule } from 'primeng/primeng';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CarouselModule} from 'primeng/primeng';
+
+
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -47,12 +57,17 @@ import { PlanOkComponent } from './plan-ok/plan-ok.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
     BrowserModule,
     CommonModule,
+    BrowserAnimationsModule,
+    CarouselModule,
     FormsModule,
+    AccordionModule,
+    PanelModule,
+    ButtonModule,
+    RadioButtonModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA38CUyfeOsm6SfB63ej4xaxMdHb-XmqKA',
       libraries: ["places"]

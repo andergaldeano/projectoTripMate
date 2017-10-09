@@ -1,3 +1,22 @@
 agm-map {
   height: 300px;
+  width: 80%;
+}
+
+.cuadrado{
+  text-align: center;
+  margin: 20px;
+  height: 100px;
+  width: 200px;
+  float: left;
+}
+.center{
+  text-align: center;
+}
+
+.createPlan{
+  margin: 50px;
+  background-color: grey;
+  clear: both;
+
 }

@@ -1,58 +1,78 @@
 
 
-<h1>BIEN VENIDO A {{ placename }}</h1>
+<h1>BIENVENIDO A {{ placename }}</h1>
 
 <p>vas a visitar este lugar? Indicalo, y te mandaremos todas las actividades</p>
 <button (click)="newConexion()">voy a ir! </button>
 
 
 <h3>Gente que visitará el lugar:</h3>
-  <div>
-    <div *ngFor="let conexion of allConexions | async">
-      <h3> {{ conexion.user }} </h3>
-      <a [routerLink]="['/traveller', conexion.userId]"> ver detalles del usuario </a>
+  <div >
+    <div *ngFor="let conexion of allConexions | async" class="cuadrado">
+      <p> {{ conexion.user }} </p>
+      <button pButton type="button" [routerLink]="['/traveller', conexion.userId]" label="ver detalles del usuario" class="ui-button-secondary"></button>
     </div>
   </div>
 
-
   <agm-map
-  [latitude]="lat"
+   [latitude]="lat"
    [longitude]="lng"
-   (mapClick)= "mapCliqueado($event)"
    >
       <agm-marker
-      (markerClick)="marcadorCiqueado()"
-      [latitude]="lat"
-      [longitude]="lng"
-      [markerDraggable]= "arrastable"
-      (dragEnd) = "posicionFinalMarcador($event)"
-
+      *ngFor="let p of allPoints | async"
+      [latitude]="p.lat"
+      [longitude]="p.lng"
+      [markerDraggable]= FALSE
       >
         <agm-info-window>
-          <strong>{{placeName}}</strong>
+          <strong> {{ p.planName }}</strong>
         </agm-info-window>
-
 
     </agm-marker>
   </agm-map>
 
 
-<h3>Fotitos del lugar</h3>
-
 <h3>Actividades propuestas:</h3>
 <div>
-  <div *ngFor="let plan of allPlans | async">
+  <div *ngFor="let plan of allPlans | async" class="cuadrado">
     <h3> {{ plan.plan }} </h3>
-    <!-- <p> {{ plan.details }} </p> -->
     <p>propuesto por: {{plan.user}}</p>
     <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
   </div>
 </div>
 
 
+
+
+
+
+
+<div class="createPlan center">
+
 <form>
     <h3> ALgun plan en mente? </h3>
     <p>Comparte tus vivencias!</p>
+
+    <agm-map
+    [latitude]="lat"
+     [longitude]="lng"
+     (mapClick)= "mapCliqueado($event)"
+     >
+        <agm-marker
+        (markerClick)="marcadorCiqueado()"
+        [latitude]="lat"
+        [longitude]="lng"
+        [markerDraggable]= "arrastable"
+        (dragEnd) = "posicionFinalMarcador($event)"
+
+        >
+          <agm-info-window>
+            <strong> {{ placename }}</strong>
+          </agm-info-window>
+
+
+      </agm-marker>
+    </agm-map>
 
 <label>Titulo del plan</label>
 <input type="text" [(ngModel)]="plan" name="plan"/>
@@ -63,3 +83,5 @@
 <button (click)="newPlan()"> comparte tu plan! </button>
 
 </form>
+
+</div>

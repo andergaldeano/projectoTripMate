@@ -39,6 +39,11 @@ export const routes: Routes = [
     { path: 'whoToWhere', component: UnicPlanComponent },
     { path: 'joinThePlan', component: UnicPlanComponent },
     { path: 'planOk/:id/:name/:otherLat/:otherLng', component: PlanOkComponent },
+    { path: 'planToMap', component: PlaceComponent },
+    { path: 'pointFainder', component: PlaceComponent },
+
+
+
 
     // { path: 'logaut/', component: TravellerComponent },
 
