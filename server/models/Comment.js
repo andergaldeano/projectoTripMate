@@ -7,14 +7,14 @@ var commentSchema = new Schema({
     type:String,
     default:'no hay comment'
  },
- 'planid' : {
-	 type:String,
-	 default:'no hay descripcion'
+ 'planId' : {
+ 	type: Schema.Types.ObjectId,
+  	ref: 'Plan'
  },
-	'user' : {
-    type:String,
-    default:'no user'
- }
+	'userId' : {
+		type: Schema.Types.ObjectId,
+	 	ref: 'User'
+	}
 });
 
 const Comment = mongoose.model('Comment', commentSchema);

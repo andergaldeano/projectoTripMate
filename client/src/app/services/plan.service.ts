@@ -20,18 +20,18 @@ export class PlanService {
 
 // CREATE A COMMENT ON THIS SPECIFIC PLAN
 
-    public sendMyComment(comment, planid, user){
+    public sendMyComment(comment, planId, userId){
       console.log("en el servidor creo un commentario")
-      return this.http.post(`${BASEURL}/comment`, {comment, planid, user})
+      return this.http.post(`${BASEURL}/comment`, {comment, planId, userId})
       .map((res) => res.json())
 
     }
 
 // FIND THE COMMENTS ON THE SPECIFIC PLAN
 
-    public findComments(plan){
+    public findComments(planId){
       console.log("en el servidor buscando planes")
-      return this.http.get(`${BASEURL}/comment/${plan}`)
+      return this.http.get(`${BASEURL}/comment/${planId}`)
       .map((res) => res.json())
 
     }

@@ -3,7 +3,6 @@ var router = express.Router();
 const Place = require('../models/Place');
 const Plan = require('../models/Plan');
 const WhoToWhere = require('../models/Destiny');
-const PlanInMap = require('../models/Dots');
 const PhotosInPLace = require('../models/Photos');
 const upload = require('../config/multer');
 

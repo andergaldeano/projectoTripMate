@@ -9,12 +9,6 @@ import { MainMapComponent } from './main-map/main-map.component';
 import { TravellerComponent } from './traveller/traveller.component';
 import { PlaceComponent } from './place/place.component';
 import { UnicPlanComponent } from './unic-plan/unic-plan.component';
-import { PlanOkComponent } from './plan-ok/plan-ok.component';
-
-
-
-import { AllUsersComponent } from './all-users/all-users.component';
-
 import {IsLoggedInService} from './services/isLoggedIn.canactivate.service';
 
 export const routes: Routes = [
@@ -24,30 +18,8 @@ export const routes: Routes = [
     { path: 'login',  component: LoginformComponent,  },
     { path: 'signup',  component: SignupformComponent,  },
     { path: 'map',  component: MainMapComponent,  },
-    { path: 'allusers',  component: AllUsersComponent,  },
     { path: 'traveller/:id', component: TravellerComponent },
     { path: 'unicPlan/:id', component: UnicPlanComponent },
     { path: 'holiday/:id/:name/:otherLat/:otherLng', component: PlaceComponent },
-
-    // { path: 'plan/:user', component: TravellerComponent },
-    // { path: 'goingPlan/:userId', component: TravellerComponent },
-    // { path: 'user/:planId', component: UnicPlanComponent },
-    // { path: 'comment/:plan', component: UnicPlanComponent },
-    // { path: 'whoToWhere', component: UnicPlanComponent },
-    // { path: 'joinThePlan', component: UnicPlanComponent },
-    // { path: 'planOk/:id/:name/:otherLat/:otherLng', component: PlanOkComponent },
-    // { path: 'plan', component: PlaceComponent },
-    // { path: 'plan/:place:sYear/:sMonth/:sDay/:fYear/:fMonth/:fDay', component: PlaceComponent },
-    // { path: 'conexion/:place', component: PlaceComponent },
-    // { path: 'allphotos/:place', component: PlaceComponent },
-    // { path: 'planToMap', component: PlaceComponent },
-    // { path: 'pointFainder', component: PlaceComponent },
-    // { path: 'photoPlace', component: PlaceComponent },
-
-
-
-
-    // { path: 'logaut/', component: TravellerComponent },
-
     { path: '**', redirectTo: '' }
 ];

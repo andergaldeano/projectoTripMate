@@ -27,7 +27,6 @@ import { MainMapComponent } from './main-map/main-map.component';
 
 import { CommonModule } from '@angular/common';
 import { AgmCoreModule } from '@agm/core';
-import { AllUsersComponent } from './all-users/all-users.component';
 import { TravellerComponent } from './traveller/traveller.component';
 import {UsersService} from './services/users.service';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -35,7 +34,6 @@ import { PlaceComponent } from './place/place.component';
 import {PlaceService} from './services/place.service';
 import {PlanService} from './services/plan.service';
 import { UnicPlanComponent } from './unic-plan/unic-plan.component';
-import { PlanOkComponent } from './plan-ok/plan-ok.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -49,14 +47,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     SignupformComponent,
     EditprofileComponent,
     MainMapComponent,
-    AllUsersComponent,
     TravellerComponent,
     NavigationComponent,
     PlaceComponent,
     UnicPlanComponent,
-    PlanOkComponent,
     FileSelectDirective
-
   ],
   imports: [
     BrowserModule,

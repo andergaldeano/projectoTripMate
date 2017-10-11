@@ -64,11 +64,12 @@ export class UnicPlanComponent implements OnInit {
   newComment(){
     console.log("vamos a hacer un comentario" )
     if(this.comment != ""){
-      this.planService.sendMyComment(this.comment, this.unicplan._id, this.user.username)
+      this.planService.sendMyComment(this.comment, this.unicplan._id, this.user._id)
       .subscribe(()=> {
         this.allComments = this.planService.findComments(this.unicplan._id)
          console.log("sale fijo esto")
          console.log(this.allComments)
+         this.comment = "";
     });
     }else{
       console.log("ponte un comentario locooo");

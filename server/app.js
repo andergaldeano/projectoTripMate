@@ -64,7 +64,6 @@ app.use('/auth', authRoutes);
 app.use('/place', placeRoutes)
 app.use('/plan', planRoutes)
 app.use('/user', userRoutes)
-//app.use('/', member)
 
 
 // catch 404 and forward to error handler

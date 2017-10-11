@@ -26,8 +26,8 @@ console.log("estamos en el ultimo de los comentarios")
 
 const comment = new Comment ({
   comment: req.body.comment,
-  planid: req.body.planid,
-  user: req.body.user
+  planId: req.body.planId,
+  userId: req.body.userId
 });
 
 comment.save().then(
@@ -42,15 +42,11 @@ comment.save().then(
 // GET COMMENTS ON THIS SPECIFIC PLAN
 
 
-planRoutes.get('/comment/:plan', (req, res, next) => {
-
-  console.log("vamos a buscar todos los comentarios de este plan " + req.params.plan)
-
-  Comment.find({planid : req.params.plan}, (err, comments) => {
-    if (err) { return res.json(err).status(500); }
-
-    return res.json(comments);
-  });
+planRoutes.get('/comment/:planId', (req, res, next) => {
+  Comment.find({planId : req.params.planId})
+  .populate('userId')
+  .populate('planId')
+  .then (comments => res.json(comments));
 });
 
 // CREATE NEW CONEXION USER - PLAN
