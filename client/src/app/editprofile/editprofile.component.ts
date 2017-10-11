@@ -71,8 +71,8 @@ export class EditprofileComponent implements OnInit {
     };
   console.log("hago subida de archivos")
     this.uploader.uploadAll();
-    this.router.navigate(['/user']);
   }
+
 
 
 

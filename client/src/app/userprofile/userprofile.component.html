@@ -3,23 +3,39 @@
 </div>
 
 <div *ngIf="user">
-  <h2> You are now logged in as {{ user.username }}!! </h2>
+  <h2> Hola {{ user.username }}!!  </h2>
+  <h3>¿En busca de nuevas aventuras?</h3>
 
-  <h3>A cerca de mi</h3>
+  <p>echale un vistazo a tu perfil</p>
+
+  <img [src]= "urlTxatxi + user.photo" height=300/>
+  <h3>Acerca de ti:</h3>
     <p>{{user.details}}</p>
 
-  <h3>Pais de residencia</h3>
-  <p>{{user.country}}</p>
+  <h3>Lugar de residencia:</h3>
+  <p>{{user.country}} </p>
 
-  <h3>Amigos</h3>
-  <p>{{user.friends}}</p>
+  <h3>Tus planes propuestos: </h3>
+  <div *ngFor="let plan of allPlansProposed | async">
+    <h3> {{ plan.plan }} </h3>
+    <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+  </div>
 
-  <h3>Proximos viajes</h3>
-  <p>{{user.goingTo}}</p>
+  <h3>Vas a asistir: </h3>
+    <div *ngFor="let plan of allPlansGoing | async">
 
-  <h3>Buscando amigos para:</h3>
-  <p>{{user.proposals}}</p>
+    <h3> {{ plan.planId.plan }} </h3>
+    <a [routerLink]="['/unicPlan', plan.planId._id]"> Mas detalles</a>
+    </div>
+</div>
 
+  <div>
 
   <button (click)="auth.logout().subscribe()"> logout </button>
 </div>
+<hr>
+
+
+<a [routerLink]="['/map']"> Buscar planes </a>
+<hr>
+<a [routerLink]="['/editprofile', user._id]"> Edita tu perfil </a>

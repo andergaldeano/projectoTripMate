@@ -2,55 +2,60 @@
 
 <h1>BIENVENIDO A {{ placename }}</h1>
 
-<p>vas a visitar este lugar? Indicalo, y te mandaremos todas las actividades</p>
-<button (click)="newConexion()">voy a ir! </button>
+<div *ngIf="isHeGoing">
+  <div *ngIf='isHeGoing.length == 0'>
+    <p>vas a visitar este lugar? Indicalo, y te mandaremos todas las actividades</p>
+    <button (click)="newConexion()">voy a ir! </button>
+  </div>
+</div>
 
 <h3>Fotitos de {{ placename }}</h3>
-<div *ngFor="let photo of allPhotos | async">
- <img [src]= "urlTxatxi + photo.photo" height=100/>
-</div>
+  <div *ngFor="let photo of allPhotos | async">
+   <img [src]= "urlTxatxi + photo.photo" height=100/>
+  </div>
 
 <h3>Gente que visitará el lugar:</h3>
   <div >
     <div *ngFor="let conexion of allConexions | async" class="cuadrado">
-      <p> {{ conexion.user }} </p>
-      <button pButton type="button" [routerLink]="['/traveller', conexion.userId]" label="ver detalles del usuario" class="ui-button-secondary"></button>
+      <img [src]= "urlTxatxi + conexion.userId.photo" height=50/>
+      <p> {{ conexion.userId.username }} </p>
+      <button pButton type="button" [routerLink]="['/traveller', conexion.userId._id]" label="ver detalles del usuario" class="ui-button-secondary"></button>
     </div>
   </div>
 
-  <agm-map
+<div *ngIf="allPlans">
+<agm-map
    [latitude]="lat"
    [longitude]="lng"
    >
       <agm-marker
-      *ngFor="let p of allPoints | async"
+      *ngFor="let p of allPlans"
       [latitude]="p.lat"
       [longitude]="p.lng"
       [markerDraggable]= FALSE
       >
         <agm-info-window>
-          <strong> {{ p.planName }}</strong>
-            <a [routerLink]="['/unicPlan',p.planId]"> Visita el plan </a>
+          <strong> {{ p.plan }}</strong>
+          <a>{{p.day}}/{{p.month}}/{{p.year}}</a>
+            <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
         </agm-info-window>
 
     </agm-marker>
-  </agm-map>
+</agm-map>
+</div>
 
+<div *ngIf="travelStarts">
 
-<h3>Actividades propuestas:</h3>
+<h3>Actividades propuestas del {{travelStarts.day}} / {{travelStarts.month}} / {{travelStarts.year}} al {{travelFinish.day}} / {{travelFinish.month}} / {{travelFinish.year}}</h3>
+</div>
 <div>
-  <div *ngFor="let plan of allPlans | async" class="cuadrado">
+  <div *ngFor="let plan of allPlans" class="cuadrado">
     <h3> {{ plan.plan }} </h3>
     <p>propuesto por: {{plan.user}}</p>
+    <p>{{plan.day}} / {{plan.month}} / {{plan.year}}</p>
     <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
   </div>
 </div>
-
-
-
-
-
-
 
 <div class="createPlan center">
 
@@ -79,17 +84,12 @@
       </agm-marker>
     </agm-map>
 
-<label>Titulo del plan</label>
-<input type="text" [(ngModel)]="plan" name="plan"/>
-<label>Descripcion</label>
-<input type="text" [(ngModel)]="details" name="details"/>
+  <label>Titulo del plan</label>
+  <input type="text" [(ngModel)]="plan" name="plan"/>
+  <label>Descripcion</label>
+  <input type="text" [(ngModel)]="details" name="details"/>
 
-
-
-
-
-
-<button class="btn btn-sm btn-outline-primary" (click)="newPlan()"> comparte tu plan! </button>
+  <button class="btn btn-sm btn-outline-primary" (click)="newPlan()"> comparte tu plan! </button>
 
 </form>
 
@@ -97,17 +97,11 @@
 
 <p>Selecciona el dia de tu plan</p>
 
-<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
-
-<hr/>
-
-<hr/>
-
 <form class="form-inline">
   <div class="form-group">
     <div class="input-group">
       <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+      name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
       <button class="input-group-addon" (click)="d.toggle()" type="button">
         <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
       </button>
@@ -116,9 +110,9 @@
 </form>
 <hr/>
 
+<hr/>
 
-
-
+<hr/>
 
 <form>
   <fieldset>

@@ -30,7 +30,16 @@ month : {
 day : {
 	type:String,
 	default:'general'
+},
+'lat' : {
+	type:Number,
+	default:1
+},
+'lng' : {
+ type:Number,
+ default:2
 }
+
 
 });
 

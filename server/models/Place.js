@@ -7,18 +7,6 @@ var placeSchema = new Schema({
     type:String,
     default:'Por ahora no sabemos como se llama'
  },
-	'activities' : {
-    type:Array,
-    default:'No hay ninguna actividad propuesta aun, se el primero en hacer una propuesta'
- },
-	'people' :{
-    type:String,
-    default:'Nadie quiere venir aqui, creo que te han engañado'
- },
-	'pictures': {
-    type:String,
-    default:'debe estar feo el sitio, porque nadie ha subido fotos'
- },
 	'identification': String
 });
 

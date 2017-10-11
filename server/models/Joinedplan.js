@@ -3,22 +3,15 @@ var Schema   = mongoose.Schema;
 
 
 var joinThePlanSchema = new Schema({
-	'plan' : {
-    type:String,
-    default:'no plan'
- },
-	'user' : {
-    type:String,
-    default:'no user'
- },
+
  'userId' : {
-	 type:String,
-	 default:'no user'
+	 type: Schema.Types.ObjectId,
+		ref: 'User'
 },
 'planId' : {
-  type:String,
-  default:'no user'
-},
+	type: Schema.Types.ObjectId,
+ 	ref: 'Plan'
+}
 
 });
 

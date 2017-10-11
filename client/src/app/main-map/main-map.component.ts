@@ -37,14 +37,15 @@ export class MainMapComponent implements OnInit {
    toDate: NgbDateStruct;
 //PARA LAS FECHAS ^
 
+allPlans
 
 
   @ViewChild('search') public searchElement: ElementRef;
 
 placeName: string = "ninguno";
 title: string = 'My first AGM project';
-lat: number = 51.678418;
-lng: number = 7.809007;
+lat: number = 43.12685367766785;
+lng: number = -2.7976560984375283;
 
 otherLat:  string = "s";
 otherLng:  string ="";
@@ -84,6 +85,8 @@ id: string = '';
   ngOnInit() {
     this.mapsAPILoader.load().then(
       ()=>{
+        this.allPlans = this.place.findAllPlans()
+
         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:["(regions)"]});
         autocomplete.addListener("place_changed", ()=>{
           this.ngZone.run(()=>{
@@ -92,7 +95,6 @@ id: string = '';
             console.log(autocomplete.getPlace())
             console.log(autocomplete.getPlace().geometry.location.lng())
             console.log(autocomplete.getPlace().geometry.location.lat())
-
 
             //PASAMOS LATITUD Y LONGITUD DEL LUGAR PARA PINTAR EN EL MAPA
             this.lat = autocomplete.getPlace().geometry.location.lat();
@@ -133,7 +135,7 @@ id: string = '';
   shareAndGo (){
     this.router.navigate([`holiday/${this.title}/${this.placeName}/${this.otherLat}/${this.otherLng}`]);
     console.log("vamos a ver que nos devuelve esto " + this.fromDate.day)
-    this.place.copyParams(this.fromDate, this.toDate)
+    this.place.copyParams(this.fromDate, this.toDate, this.title, this.placeName, this.otherLat, this.otherLng)
   }
 
 }

@@ -21,7 +21,7 @@
     <h4> {{ unictraveller.username }} va a asistir a todos estos planes:</h4>
     <div>
       <div *ngFor="let plan of allPlansGoing | async">
-        <h3> {{ plan.userId }} </h3>
+        <h3> {{ plan.plan }} </h3>
         <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
       </div>
     </div>
@@ -30,3 +30,5 @@
 
   </div>
 </div>
+
+<a [routerLink]="['/map']"> Buscar planes </a>

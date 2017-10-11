@@ -1,8 +1,26 @@
 
-<h1>A DONDE NOS VAMOS</h1>
+<h1>A DONDE NOS VAMOS?</h1>
 
-<!-- this creates a google map on the page with the given lat/lng from -->
-<!-- the component as the initial center of the map: -->
+<agm-map
+ [latitude]="lat"
+ [longitude]="lng"
+ >
+    <agm-marker
+    *ngFor="let p of allPlans | async"
+    [latitude]="p.lat"
+    [longitude]="p.lng"
+    [markerDraggable]= FALSE
+    >
+      <agm-info-window>
+        <strong> {{ p.plan }}</strong>
+        <hr>
+        <a>{{p.day}}/{{p.month}}/{{p.year}}</a>  
+        <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
+      </agm-info-window>
+
+  </agm-marker>
+</agm-map>
+
 <div class="container">
   <div class="from-group">
 
@@ -11,31 +29,18 @@
   </div>
 </div>
 
-<agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
-
-<h1>{{title}}</h1>
-<h1>{{ placeName}}</h1>
-  <button (click)="shareAndGo()">vamonos!!!!!!</button>
-
-
-<!-- <button (click)="findThisPlace()"> vamonos! </button> -->
-
-<p>Example of the range selection</p>
-
 <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
 </ngb-datepicker>
 
 <ng-template #t let-date="date" let-focused="focused">
   <span class="custom-day"
-        [class.focused]="focused"
-        [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
-        [class.faded]="isHovered(date) || isInside(date)"
-        (mouseenter)="hoveredDate = date"
-        (mouseleave)="hoveredDate = null">
-    {{ date.day }}
-  </span>
+  [class.focused]="focused"
+  [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+  [class.faded]="isHovered(date) || isInside(date)"
+  (mouseenter)="hoveredDate = date"
+  (mouseleave)="hoveredDate = null">
+  {{ date.day }}
+</span>
 </ng-template>
 
-<hr>
+<button (click)="shareAndGo()">vamonos!!!!!!</button>

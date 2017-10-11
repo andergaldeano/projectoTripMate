@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PlanService} from '../services/plan.service';
+import {PlaceService} from '../services/place.service';
 import { AuthService } from '../services/auth.service';
 
 
@@ -15,13 +16,20 @@ export class UnicPlanComponent implements OnInit {
   user:any;
   unicplan;
   allComments;
-  allUsers;
+  allUsersGoingToPlan;
+  urlTxatxi= "http://localhost:3000";
+  isHeGoing;
+
+  urlInfo;
+
 
   constructor(
     public auth:AuthService,
     private router:Router,
     private route:ActivatedRoute,
-    private planService: PlanService
+    private planService: PlanService,
+    private placeService: PlaceService
+
   ) {
     this.user = this.auth.getUser()
       .subscribe(user => {  this.user = user;})
@@ -30,6 +38,7 @@ export class UnicPlanComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.getPlanDetails(params['id'])
+      this.urlInfo = this.placeService.getUrlInfo()
     });
   }
 
@@ -39,9 +48,13 @@ export class UnicPlanComponent implements OnInit {
     this.planService.getUnicPlan(id)
     .subscribe((plan) => {
     this.unicplan = plan;
+    this.planService.isHeGoing(this.unicplan._id, this.user._id).subscribe((a)=>{
+      this.isHeGoing = a
+    })
+    console.log("QUE POLLAS PASA", this.isHeGoing)
     this.allComments = this.planService.findComments(this.unicplan._id);
-    this.allUsers = this.planService.findUsers(this.unicplan._id)
-
+    this.allUsersGoingToPlan = this.planService.findUsers(this.unicplan._id)
+    console.log("PASO")
     });
   }
 
@@ -53,9 +66,11 @@ export class UnicPlanComponent implements OnInit {
     if(this.comment != ""){
       this.planService.sendMyComment(this.comment, this.unicplan._id, this.user.username)
       .subscribe(()=> {
-        (plan) => console.log(plan)
-      });
-    } else{
+        this.allComments = this.planService.findComments(this.unicplan._id)
+         console.log("sale fijo esto")
+         console.log(this.allComments)
+    });
+    }else{
       console.log("ponte un comentario locooo");
     }
   }
@@ -63,10 +78,18 @@ export class UnicPlanComponent implements OnInit {
 // CREATE NEW CONEXION THIS USER - THIS PLAN
 
   newConexion(){
-    this.planService.sendThisConexion(this.unicplan.plan, this.user.username, this.user._id, this.unicplan._id)
+    this.planService.sendThisConexion(this.user._id, this.unicplan._id)
       .subscribe(()=> {
         (plan) => console.log(plan)
+            this.allUsersGoingToPlan = this.planService.findUsers(this.unicplan._id)
+            this.planService.isHeGoing(this.unicplan._id, this.user._id).subscribe((a)=>{
+              this.isHeGoing = a
+            })
       });
+  }
+
+  goBack(){
+    this.router.navigate([`holiday/${this.urlInfo.title}/${this.urlInfo.placeName}/${this.urlInfo.otherLat}/${this.urlInfo.otherLng}`]);
   }
 
 }

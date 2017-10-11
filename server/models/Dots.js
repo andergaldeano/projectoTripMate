@@ -11,13 +11,9 @@ var planInMapSchema = new Schema({
 	 type:Number,
 	 default:2
  },
-	'planName' :{
-    type:String,
-    default:'no plan Name'
- },
  'planId' :{
-	 type:String,
-	 default:'no plan Id'
+	 type: Schema.Types.ObjectId,
+	ref: 'Plan'
 }
 
 });

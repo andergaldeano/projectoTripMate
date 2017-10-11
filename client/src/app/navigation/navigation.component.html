@@ -4,11 +4,7 @@
 </div>
 
 <div *ngIf="user">
-  <a [routerLink]="['/']">Home</a>
-  <a [routerLink]="['/user']">User Profile</a>
-
-  <a [routerLink]="['/editprofile/:id']">Edit Profile</a>
-  <a [routerLink]="['/map']">go to map</a>
-  <a [routerLink]="['/allusers']">have a look to all users</a>
+  <a [routerLink]="['/map']">Home </a>
+  <a [routerLink]="['/user']">Visita tu perfil</a>
   <button (click)="logout()" [routerLink]="['/home']"> logout </button>
 </div>

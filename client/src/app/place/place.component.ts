@@ -41,7 +41,7 @@ export class PlaceComponent implements OnInit {
   arrastable: boolean = true;
 
   model;
-
+  isHeGoing;
   allConexions;
   allPlans;
   placename;
@@ -109,10 +109,7 @@ export class PlaceComponent implements OnInit {
       var withDots2 = params['otherLng'];
       withDots2 = withDots2.split('_').join('.');
       this.lng = Number(withDots2)
-
       this.okLng = params['otherLng'];
-
-
     });
   }
 
@@ -124,17 +121,18 @@ export class PlaceComponent implements OnInit {
     this.place.get(id)
     .subscribe((place) => {
     this.unicPlace = place;
-    console.log("estams rescatando " + place)
-    console.log(place)
-    console.log("vamos a buscar los planes en " + this.unicPlace.identification )
+
+    this.place.isHeGoing(this.placename, this.user._id).subscribe((a)=>{
+      this.isHeGoing = a
+    })
+
         this.travelStarts = this.place.getInitDate();
         this.travelFinish =this.place.getFinishDate();
-        this.allPlans = this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
+        this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
+        .subscribe((plan) => this.allPlans = plan)
         this.allConexions = this.place.findConexion(this.placename)
         this.allPoints = this.place.getAllPointsInMap()
         this.allPhotos = this.place.getAllPhotos(this.unicPlace.identification)
-
-        console.log( `estamos viendo lo que puede ser un milagro` + this.travelStarts.year + this.travelStarts.month + this.travelStarts.day)
 
     });
   }
@@ -144,16 +142,20 @@ export class PlaceComponent implements OnInit {
   newPlan(){
     if(this.plan != ""){
       this.date = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-      console.log("y ahi va la fecha!!!!!!!!!!!!!!!!!!!!" + this.model.year + "   " + this.model.month + "    " +  this.model.day)
-      this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username, this.model.year, this.model.month, this.model.day )
+      this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username, this.model.year, this.model.month, this.model.day,
+      this.lat, this.lng )
       .subscribe((plan)=> {
-        this.allPlans = this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
-        console.log(plan._id)
-        this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
-        .subscribe(()=> {
-          this.allPoints = this.place.getAllPointsInMap()
-
-        });
+        this.travelStarts = this.place.getInitDate();
+        this.travelFinish =this.place.getFinishDate();
+        this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
+        .subscribe((plan) => this.allPlans = plan)        // this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
+        // .subscribe(()=> {
+        //   this.allPoints = this.place.getAllPointsInMap()
+        //   this.plan = "";
+        //   this.details = "";
+        //   this.model = "";
+        //
+        // });
 
       });
     } else{
@@ -164,9 +166,13 @@ export class PlaceComponent implements OnInit {
 // CREATE NEW CONEXION THIS USER - THIS PLACE
 
   newConexion(){
-    this.place.sendThisConexion(this.placename, this.user.username, this.user._id)
+    this.place.sendThisConexion(this.placename, this.user._id)
       .subscribe(()=> {
         (plan) => console.log(plan)
+        this.allConexions = this.place.findConexion(this.placename)
+        this.place.isHeGoing(this.placename, this.user._id).subscribe((a)=>{
+          this.isHeGoing = a
+        })
       });
   }
 
@@ -177,21 +183,15 @@ marcadorCliqueado(){
 }
 
 mapCliqueado($event:any){
-  console.log("mapa cliqueado")
     this.lat= $event.coords.lat,
     this.lng= $event.coords.lng,
     this.arrastable=true
-console.log(this.lng)
   }
 
 posicionFinalMarcador($event:any){
-  console.log("poscicion final")
-
   this.lat= $event.coords.lat,
   this.lng= $event.coords.lng,
   this.arrastable=true
-  console.log(this.lng)
-
 }
 
 // ADD PHOTO TO THIS PLACE
@@ -204,9 +204,5 @@ submit() {
 
    this.uploader.uploadAll();
  }
-
-
-
-
 
 }

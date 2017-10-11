@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const Plan = require('../models/plan');
-const Comment = require('../models/comment');
-const JoinThePlan = require('../models/joinThePlan');
+const Plan = require('../models/Plan');
+const Comment = require('../models/Comment');
+const JoinThePlan = require('../models/Joinedplan');
 
 
 var planRoutes = express.Router();
@@ -33,6 +33,7 @@ const comment = new Comment ({
 comment.save().then(
             comment => {
               console.log(" el comentario es " + comment.comment)
+              return res.json(comment)
             })
               .catch( e => res.json(e));
 });
@@ -57,8 +58,6 @@ planRoutes.get('/comment/:plan', (req, res, next) => {
 planRoutes.post('/joinThePlan', (req, res, next) => {
 
 const joinThePlan = new JoinThePlan ({
-  plan: req.body.plan,
-  user: req.body.user,
   userId: req.body.userId,
   planId: req.body.planId
 
@@ -67,6 +66,7 @@ const joinThePlan = new JoinThePlan ({
 joinThePlan.save().then(
             conexion => {
               console.log("la conexion esta hecha entre  " + conexion.plan + " y " + conexion.user)
+              return res.json(conexion)
             })
               .catch( e => res.json(e));
 });
@@ -76,13 +76,20 @@ joinThePlan.save().then(
 
 planRoutes.get('/user/:planId', (req, res, next) => {
 
-  console.log("vamos a buscar todos los cusuarios unidos a este plan " + req.params.plan)
+    JoinThePlan.find({planId :  req.params.planId})
+    .populate('userId')
+    .populate('planId')
+    .then (users => res.json(users));
 
-  JoinThePlan.find({planId : req.params.planId}, (err, users) => {
-    if (err) { return res.json(err).status(500); }
 
-    return res.json(users);
-  });
+});
+
+//FIND IF THE USER IS GOING TO THE PLAN OR ngOnInit
+
+planRoutes.get('/isHeGoing/:planId/:userId', (req, res, next) => {
+  console.log("ENTRO EN DONDE QUIERO SABER")
+  JoinThePlan.find({planId :req.params.planId, userId: req.params.userId})
+    .then (users =>  res.json(users));
 });
 
 

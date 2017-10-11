@@ -1,34 +1,40 @@
 <div *ngIf='unicplan'>
 
 
-  <div>
-    <h2> vamos a comprovar {{ unicplan.plan }}</h2>
-    <h3> {{ unicplan.details }} </h3>
+<div>
+  <h2> Bienvenido a "{{ unicplan.plan }}"!</h2>
+  <h3> {{ unicplan.details }} </h3>
+  <h4> Propuesto por: {{unicplan.user}}</h4>
+  <h4> El dia  {{ unicplan.day }} - {{unicplan.month}} - {{unicplan.year}}</h4>
+</div>
 
-    <h4> Propuesto por: {{unicplan.user}}</h4>
 
+<div *ngIf="isHeGoing">
+  <div *ngIf='isHeGoing.length == 0'>
+    <p>te interesa el plan y te gutsaria formar parte?</p>
+    <button (click)="newConexion()">voy a ir! </button>
   </div>
+</div>
 
-  <p>te interesa el plan y te gutsaria formar parte?</p>
-  <button (click)="newConexion()">voy a ir! </button>
-
-  <h3>Viajeros que ya se han unido al plan</h3>
+<h3>Viajeros que ya se han unido al plan</h3>
   <div>
-    <div *ngFor="let user of allUsers | async">
-      <p> {{ user.user }} </p>
-      <!-- <p> {{ plan.details }} </p> -->
-      <a [routerLink]="['/traveller', user.userId]"> ver detalles del usuario </a>
+    <div *ngFor="let user of allUsersGoingToPlan | async">
+      <img [src]= "urlTxatxi + user.userId.photo" height=50/>
+      <p> {{ user.userId.username }} </p>
+      <a [routerLink]="['/traveller', user.userId._id]"> ver detalles del usuario </a>
     </div>
   </div>
 
+  <button (click)="goBack()"> vuelve a la busqueda </button>
 
-  <h2>Alguna duda o sujerencia? Deja un comentario!</h2>
+
+
+<h2>Alguna duda o sujerencia? Deja un comentario!</h2>
   <input type="text" [(ngModel)]="comment" name="comment"/>
-
-
   <button (click)="newComment()">envia tu comentario! </button>
 
-  <h3>Comentarios del plan:</h3>
+
+<h3>Comentarios del plan:</h3>
   <div>
     <div *ngFor="let comment of allComments | async">
       <p> comentario de {{ comment.user }} </p>

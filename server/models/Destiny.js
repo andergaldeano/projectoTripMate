@@ -7,13 +7,9 @@ var whoToWhereSchema = new Schema({
     type:String,
     default:'no place'
  },
-	'user' : {
-    type:String,
-    default:'no user'
- },
  'userId' : {
-	 type:String,
-	 default:'no user'
+	 type: Schema.Types.ObjectId,
+		ref: 'User'
 }
 });
 

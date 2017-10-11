@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const Place = require('../models/placeModel');
-const Plan = require('../models/plan');
-const WhoToWhere = require('../models/whoToWhere');
-const PlanInMap = require('../models/planInMap');
-const PhotosInPLace = require('../models/photosInPlace');
+const Place = require('../models/Place');
+const Plan = require('../models/Plan');
+const WhoToWhere = require('../models/Destiny');
+const PlanInMap = require('../models/Dots');
+const PhotosInPLace = require('../models/Photos');
 const upload = require('../config/multer');
 
 
@@ -15,7 +15,6 @@ var placeRoutes = express.Router();
 // GET SPECIFIC PLACE
 
 placeRoutes.get('/holiday/:id', (req, res, next) => {
-console.log("estamos en el ultimo paso para buscar o crear")
   Place.findOrCreate({ identification: req.params.id }, (err, place) => {
 
       if (err)   { return res.status(500).json(err); }
@@ -28,7 +27,6 @@ console.log("estamos en el ultimo paso para buscar o crear")
 // CREATE PLAN ON THIS SPECIFIC PLACE
 
 placeRoutes.post('/plan', function(req, res) {
-  console.log("estamos en el ultimo de los planes")
 
   const plan = new Plan ({
     plan: req.body.plan,
@@ -37,12 +35,13 @@ placeRoutes.post('/plan', function(req, res) {
     place: req.body.place,
     year: req.body.year,
     month: req.body.month,
-    day: req.body.day
+    day: req.body.day,
+    lat: req.body.lat,
+    lng: req.body.lng
   });
 
   plan.save().then(
           plan => {
-            console.log("el que ha hecho el plan es " + plan.place)
             res.status(200).json(plan);
           })
             .catch( e => res.json(e));
@@ -53,34 +52,40 @@ placeRoutes.post('/plan', function(req, res) {
 
 
 placeRoutes.get('/plan/:place/:sYear/:sMonth/:sDay/:fYear/:fMonth/:fDay', (req, res, next) => {
+  console.log("llegamos aqui")
+  Plan.find({place : req.params.place, /*month: {  $gt : (req.params.sMonth - 1), $lt : (req.params.fMonth + 1) },*/ day: { $gt : (req.params.sDay - 1), $lt : (req.params.fDay + 1)}})
+   .then(plans => res.status(200).json(plans))
+   .catch(e => res.status(500).json({
+     error:e.message
+   }))
+});
 
-  console.log("vamos a buscar todos los planes de este lugar" + req.params.place + " en estas fechas  " +   req.params.sYear + " y " + req.params.fYear   + " , " + req.params.sMonth + " y " + req.params.fMonth   + " , " + req.params.sDay  + " y " + req.params.fDay )
-var perro = req.params.sDay - 1;
-console.log("mira como ladra " + perro)
+
+// GET PLANS ON THIS SPECIFIC PLACE
 
 
-  Plan.find({place : req.params.place, /*month: {  $gt : (req.params.sMonth - 1), $lt : (req.params.fMonth + 1) },*/ day: { $gt : (req.params.sDay - 1), $lt : (req.params.fDay + 1)}}, (err, plans) => {
-    if (err) { return res.json(err).status(500); }
-      console.log("encontramos estos planes " + plans)
-    return res.json(plans);
-  });
+placeRoutes.get('/allplans', (req, res, next) => {
+  Plan.find()
+  .then(plans => res.status(200).json(plans))
+  .catch(e => res.status(500).json({
+    error: e.message
+  }));
 });
 
 
 // CREATE NEW CONEXION USER - PLACE
 
 placeRoutes.post('/whoToWhere', (req, res, next) => {
-console.log("estamos en el ultimo para crear conexion entre usuario y lugar")
 
 const whoToWhere = new WhoToWhere ({
   place: req.body.place,
-  user: req.body.user,
   userId: req.body.userId
 });
 
 whoToWhere.save().then(
             conexion => {
-              console.log("la conexion esta hecha entre  " + conexion.place + " y " + conexion.user)
+              return res.json(conexions);
+
             })
               .catch( e => res.json(e));
 });
@@ -90,33 +95,27 @@ whoToWhere.save().then(
 
 
 placeRoutes.get('/conexion/:place', (req, res, next) => {
+  WhoToWhere.find({place : req.params.place})
+  .populate('userId')
+  .then (user => res.json(user));
 
-  console.log("vamos a buscar todos los usuarios que visitaran este lugar " + req.params.place)
-
-  WhoToWhere.find({place : req.params.place}, (err, conexions) => {
-    if (err) { return res.json(err).status(500); }
-    console.log("hay alguna   " + conexions)
-    return res.json(conexions);
-  });
 });
 
 
 // CREATE NEW CONEXION PLAN - MAP
 
 placeRoutes.post('/planToMap', (req, res, next) => {
-console.log("estamos en el ultimo para crear conexion entre plan y mapa")
 
 const planToMap = new PlanInMap ({
   lat: Number(req.body.lat),
   lng: Number(req.body.lng),
-  planName: req.body.planName,
   planId : req.body.planId
 
 });
 
 planToMap.save().then(
             conexion => {
-              console.log("el plan " + planToMap.planName + "se ha puesto en " + planToMap.lng)
+              return res.json(conexion)
             })
               .catch( e => res.json(e));
 });
@@ -126,20 +125,16 @@ planToMap.save().then(
 // GET ALL POINTS IN THE MAP
 
 placeRoutes.get('/pointFainder', (req, res, next) => {
-
-  console.log("vamos a buscar todos los puntitos ")
-
-  PlanInMap.find((err, points) => {
-    if (err) { return res.json(err).status(500); }
-    return res.json(points);
-  });
+  PlanInMap.find()
+  .populate('planId')
+  .then (plan => res.json(plan));
 });
+
 
 
 // CREATE PHOTOS ON THIS SPECIFIC PLACE
 
 placeRoutes.post('/photoPlace', upload.single('file'), function(req, res) {
-  console.log("estamos en el ultimo para poner fotos")
 
   const photo = new PhotosInPLace ({
     user: req.body.user,
@@ -150,8 +145,7 @@ placeRoutes.post('/photoPlace', upload.single('file'), function(req, res) {
 
   photo.save().then(
           photo2 => {
-            console.log("el que ha subido la photo2 es " + photo2.userId)
-            res.status(200).json(photo2);
+            return res.status(200).json(photo2);
           })
             .catch( e => res.json(e));
 });
@@ -161,17 +155,19 @@ placeRoutes.post('/photoPlace', upload.single('file'), function(req, res) {
 
 
 placeRoutes.get('/allphotos/:place', (req, res, next) => {
-
-  console.log("vamos a buscar todas las fotitos que en este lugar " + req.params.place)
-
   PhotosInPLace.find({place : req.params.place}, (err, photos) => {
     if (err) { return res.json(err).status(500); }
-    console.log("hay alguna fotito  " + photos)
     return res.json(photos);
   });
 });
 
+//FIND IF THE USER IS GOING TO THE PLACE OR ngOnInit
 
+placeRoutes.get('/isHeGoing/:place/:userId', (req, res, next) => {
+  console.log("ENTRO EN DONDE QUIERO SABER")
+  WhoToWhere.find({place :req.params.place, userId: req.params.userId})
+    .then (users =>  res.json(users));
+});
 
 
 

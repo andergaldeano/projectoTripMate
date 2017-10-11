@@ -9,7 +9,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const debug = require('debug')("angularauth:"+path.basename(__filename).split('.')[0]);
 const authRoutes = require('./routes/auth');
-// const member = require('./routes/member');
 const placeRoutes = require('./routes/placeRoutes');
 const planRoutes = require('./routes/planRoutes');
 
