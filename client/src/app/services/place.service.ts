@@ -9,6 +9,7 @@ const BASEURL = environment.BASEURL + "/place";
 @Injectable()
 export class PlaceService {
 
+
   dateFrom;
   dateTo;
   urlInfo;
@@ -115,6 +116,24 @@ public getAllPhotos(place){
    console.log(place + "    y   " +  userId)
    return this.http.get(`${BASEURL}/isHeGoing/${place}/${userId}`)
    .map((res) => res.json());
+   }
+
+// CREATE A COMMENT ON THIS SPECIFIC PLACE
+
+   public sendMyComment(comment, place, userId){
+     console.log("en el servidor creo un commentario")
+     return this.http.post(`${BASEURL}/comment`, {comment, place, userId})
+     .map((res) => res.json())
+
+   }
+
+// FIND THE COMMENTS ON THE SPECIFIC PLACE
+
+   public findComments(place){
+     console.log("en el servidor buscando planes")
+     return this.http.get(`${BASEURL}/comment/${place}`)
+     .map((res) => res.json())
+
    }
 
 

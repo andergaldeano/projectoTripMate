@@ -5,6 +5,8 @@ const Plan = require('../models/Plan');
 const WhoToWhere = require('../models/Destiny');
 const PhotosInPLace = require('../models/Photos');
 const upload = require('../config/multer');
+const Commentplace = require('../models/Commentplace');
+
 
 
 
@@ -167,6 +169,36 @@ placeRoutes.get('/isHeGoing/:place/:userId', (req, res, next) => {
   WhoToWhere.find({place :req.params.place, userId: req.params.userId})
     .then (users =>  res.json(users));
 });
+
+// CREATE COMMENT ON THIS SPECIFIC PLACE
+
+placeRoutes.post('/comment', (req, res, next) => {
+console.log("estamos en el ultimo de los comentarios")
+
+const comment = new Commentplace ({
+  comment: req.body.comment,
+  plan: req.body.place,
+  userId: req.body.userId
+});
+
+comment.save().then(
+            comment => {
+              console.log(" el comentario es " + comment.comment)
+              return res.json(comment)
+            })
+              .catch( e => res.json(e));
+});
+
+
+// GET COMMENTS ON THIS SPECIFIC PLACE
+
+
+placeRoutes.get('/comment/:place', (req, res, next) => {
+  Commentplace.find({place : req.params.place})
+  .populate('userId')
+  .then (comments => res.json(comments));
+});
+
 
 
 

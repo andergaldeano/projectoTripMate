@@ -39,7 +39,9 @@ export class PlaceComponent implements OnInit {
   details: any;
   user:any;
   arrastable: boolean = true;
+  comment;
 
+  allComments;
   model;
   isHeGoing;
   allConexions;
@@ -133,7 +135,10 @@ export class PlaceComponent implements OnInit {
         this.allConexions = this.place.findConexion(this.placename)
         this.allPoints = this.place.getAllPointsInMap()
         this.allPhotos = this.place.getAllPhotos(this.unicPlace.identification)
-
+        this.allComments = this.place.findComments(this.unicPlace.identification)
+        .subscribe((comments)=> {this.allComments = comments;
+        this.comment = "";
+      })
     });
   }
 
@@ -204,5 +209,25 @@ submit() {
 
    this.uploader.uploadAll();
  }
+
+
+ // CREATE NEW COMMENT ON THIS SPECIFIC PLAN
+
+
+   newComment(){
+     console.log("vamos a hacer un comentario" )
+     if(this.comment != ""){
+       this.place.sendMyComment(this.comment, this.unicPlace.identification, this.user._id)
+       .subscribe(()=> {
+           this.place.findComments(this.unicPlace.identification)
+           .subscribe((comments)=> {this.allComments = comments;
+           this.comment = "";
+         })
+     });
+     }else{
+       console.log("ponte un comentario locooo");
+     }
+   }
+
 
 }
