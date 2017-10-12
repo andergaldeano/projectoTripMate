@@ -9,12 +9,20 @@
     </div>
   </div>
 
-  <div class="col-sm-4">
-    <div class="carrousel">
-      <h3>Fotos de {{ placename }}</h3>
-      <div *ngFor="let photo of allPhotos | async">
-        <img [src]= "urlTxatxi + photo.photo" height=100/>
+  <div class="carrousel">
+
+    <h3>Fotos de {{ placename }}</h3>
+    <div *ngIf="allPhotos">
+      <div *ngIf='allPhotos.length > 0'>
+        <div *ngFor="let photo of allPhotos">
+          <img [src]= "urlTxatxi + photo.photo" height=100/>
+        </div>
       </div>
+
+      <div *ngIf='allPhotos.length == 0'>
+          <p> Aun no hay ninguna foto de {{placename}}. Se el primero en compartir tus instantaneas </p>
+      </div>
+
       <form>
         <fieldset>
           <legend> Comparte tus fotos </legend>
@@ -22,7 +30,6 @@
             <input class="form-control" hidden type="number" [(ngModel)]="user" name="user"  />
             <input class="form-control" hidden type="number" [(ngModel)]="userId" name="userId" />
             <input class="form-control" hidden type="number" [(ngModel)]="place" name="place" />
-
             <input class="form-control" type="file" name="file" ng2FileSelect [uploader]="uploader" />
           </div>
         </fieldset>
@@ -30,7 +37,6 @@
       </form>
     </div>
   </div>
-
 
   <div class="usersvisiting">
     <h3>Gente que visitará {{ placename }}:</h3>

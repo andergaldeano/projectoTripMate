@@ -134,7 +134,9 @@ export class PlaceComponent implements OnInit {
         .subscribe((plan) => this.allPlans = plan)
         this.allConexions = this.place.findConexion(this.placename)
         this.allPoints = this.place.getAllPointsInMap()
-        this.allPhotos = this.place.getAllPhotos(this.unicPlace.identification)
+        this.place.getAllPhotos(this.unicPlace.identification).subscribe((todaslasfotos)=>{
+          this.allPhotos = todaslasfotos
+             })
         this.place.findComments(this.unicPlace.identification).subscribe((res)=> {
           this.allComments = res
           console.log("AQUI ESTAN TODOS LOS COMMENTARIOS")
@@ -211,6 +213,11 @@ submit() {
    };
 
    this.uploader.uploadAll();
+   this.uploader.onCompleteItem = () => {
+     this.place.getAllPhotos(this.unicPlace.identification).subscribe((todaslasfotos)=>{
+       this.allPhotos = todaslasfotos
+          })
+   }
  }
 
 
@@ -218,14 +225,11 @@ submit() {
 
 
    newComment(){
-     console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAA vamos a hacer un comentario" )
      if(this.comment != "") {
        this.place.sendMyComment(this.comment, this.unicPlace.identification, this.user._id)
          .subscribe(()=> {
            this.place.findComments(this.unicPlace.identification).subscribe((res)=> {
              this.allComments = res
-             console.log("y que rescatamos madafacas  ")
-            //  console.log(this.allComments)
            })
          })
      }else{
