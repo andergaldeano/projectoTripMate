@@ -7,15 +7,59 @@ agm-map {
   clear: both;
 }
 
-.cuadrado{
+>>> .ui-carousel-item {
   text-align: center;
-  margin: 20px;
-  height: 100px;
-  width: 200px;
-  float: left;
+  background: none;
 }
-.center{
+
+>>> .ui-carousel-header{
+background-color:  #3C4858;
+
+}
+
+.grey{
+  background-color:  #3C4858;
+  color: whitesmoke;
+}
+
+.legends {
+  border: 0;
   text-align: center;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+.photo-input{
+  display:none;
+}
+
+.formm {
+  text-align: center;
+}
+
+.formm .btn {
+  margin-bottom: 15px;
+}
+
+.file-label {
+  font-size: 32px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.plans {
+    width: 100%;
+    display: inline-block;
+}
+.plan {
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+}
+.plan a {
+  color: gray;
+}
+.plan h3{
+    margin-top: 0;
 }
 
 .place {
@@ -23,9 +67,10 @@ agm-map {
 }
 
 .title {
-  padding-bottom: 10px;
+  padding: 20px;
   border-bottom: 1px solid lightgray;
-  margin: 10px;
+  margin: 0;
+  text-align: center
 }
 
 .photo {
@@ -58,7 +103,3 @@ background-color: #c14848;
   background-color: orange;
   margin-top: 200px;
 }
-
-
-
-

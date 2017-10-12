@@ -1,7 +1,13 @@
 
-<section class="place">
-  <h1 class="title">- {{ placename }} -</h1>
+<section>
+<div class="">
+  <div class="grey">
 
+    <h1 class=" title">{{ placename }} <i class="fa fa-map-marker"></i></h1>
+    <div class="dates" *ngIf="travelStarts">
+      <p> {{travelStarts.day}} / {{travelStarts.month}} / {{travelStarts.year}} - {{travelFinish.day}} / {{travelFinish.month}} / {{travelFinish.year}}</p>
+    </div>
+  </div>
 <!-- BOTON PARA INDICAR QUE VAS AL LUGAR  -->
 
   <div *ngIf="isHeGoing">
@@ -14,178 +20,197 @@
 <!-- FOTOS DEL DESTINO -->
 
 <div class="">
-  <h3>Fotos de {{ placename }}</h3>
 
     <!-- CARROUSEL DE FOTOS -->
 
-    <div class="">
-      <div *ngIf="allPhotos">
-        <div *ngIf='allPhotos.length > 0'>
-          <div *ngFor="let photo of allPhotos">
-            <img [src]= "urlTxatxi + photo.photo" height=100/>
-          </div>
-        </div>
+    <div *ngIf="allPhotos">
+      <div *ngIf='allPhotos.length != 0'>
+        <p-carousel [value]="allPhotos"  easing="easeOutStrong" autoplayInterval="3000" headerText = "Fotos de {{placename}}" autoplayInterval= 5000>
 
+            <ng-template let-photo pTemplate="item">
+                  <img [src]= "urlTxatxi + photo.photo" height="200px"/>
+            </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+
+
+      <div *ngIf="allPhotos">
         <div *ngIf='allPhotos.length == 0'>
+          <h3>No hay fotos de {{ placename }}</h3>
             <p> Aun no hay ninguna foto de {{placename}}. Se el primero en compartir tus instantaneas </p>
         </div>
       </div>
-    </div>
 
     <!-- SUBIR FOTO   -->
 
     <div>
-      <form>
+      <form class="formm">
         <fieldset>
-          <legend> Comparte tus fotos </legend>
+          <legend class="legends"> Comparte tus fotos </legend>
           <div class="from-group">
             <input class="form-control" hidden type="number" [(ngModel)]="user" name="user"  />
             <input class="form-control" hidden type="number" [(ngModel)]="userId" name="userId" />
             <input class="form-control" hidden type="number" [(ngModel)]="place" name="place" />
-            <input class="form-control" type="file" name="file" ng2FileSelect [uploader]="uploader" />
+            <input id="filee" (change)="submit()" class="form-control photo-input" type="file" name="file" ng2FileSelect [uploader]="uploader" />
           </div>
         </fieldset>
-        <button class="btn btn-default"(click)="submit()"> Subir foto </button>
+        <label for="filee" class="file-label fa fa-camera"></label>
       </form>
     </div>
 </div>
 
-<!-- GENTE QUE VISITARA EL DESTINO -->
-
-<div class="usersvisiting">
-  <h3>Gente que visitará {{ placename }}:</h3>
-  <div>
-    <div *ngIf="allConexions">
-      <div *ngIf='allConexions.length == 0'>
-        <p>Por ahora ningun viajero ira a {{ placename }} </p>
-      </div>
-
-      <div *ngIf='allConexions.length > 0'>
-        <div *ngFor="let conexion of allConexions" class="cuadrado">
-          <img class="photo" [src]= "urlTxatxi + conexion.userId.photo" height=50/>
-          <button pButton type="button" [routerLink]="['/traveller', conexion.userId._id]" label="ver detalles del usuario" class="ui-button-secondary traveler">  {{ conexion.userId.username }}</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
-<!-- MAPA CON LOS PLANES DEL LUGAR  -->
+<!-- PLANES EN ESTE LUGAR -->
 
-<div  class="mapa">
-  <agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" >
-    <div *ngIf="allPlans">
-      <agm-marker *ngFor="let p of allPlans" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]= FALSE >
-        <agm-info-window>
-          <strong> {{ p.plan }}</strong>
-          <a>{{p.day}}/{{p.month}}/{{p.year}}</a>
-          <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
-        </agm-info-window>
-      </agm-marker>
-    </div>
-  </agm-map>
-</div>
-
-
-<!-- PLANES QUE SUCEDERAN ESOS DIAS -->
-
-<div>
-  <div *ngIf="travelStarts">
-    <h3>Actividades propuestas del {{travelStarts.day}} / {{travelStarts.month}} / {{travelStarts.year}} al {{travelFinish.day}} / {{travelFinish.month}} / {{travelFinish.year}}</h3>
-  </div>
-
-  <div>
-    <div *ngIf="allPlans">
-
-      <div *ngIf='allPlans.length == 0'>
-        <div class="">
-          <p>No hemos encontrado ninguna actividad entre el {{travelStarts.day}} y {{travelFinish.day}}</p>
+<p-accordion>
+    <p-accordionTab header="Planes en propuestos en {{ placename }}">
+      <div>
+        <div *ngIf="travelStarts">
+          <h4>Del {{travelStarts.day}} / {{travelStarts.month}} / {{travelStarts.year}} al {{travelFinish.day}} / {{travelFinish.month}} / {{travelFinish.year}}</h4>
         </div>
+
+        <!-- MAPA CON LOS PLANES DEL LUGAR  -->
+
+        <div  class="mapa">
+          <agm-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" >
+            <div *ngIf="allPlans">
+              <agm-marker *ngFor="let p of allPlans" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]= FALSE >
+                <agm-info-window>
+                  <strong> {{ p.plan }}</strong>
+                  <a>{{p.day}}/{{p.month}}/{{p.year}}</a>
+                  <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
+                </agm-info-window>
+              </agm-marker>
+            </div>
+          </agm-map>
+        </div>
+
+        <!-- PLANES EN EL LUGAR CUADRADO -->
+
+        <div>
+          <div *ngIf="allPlans">
+
+            <div *ngIf='allPlans.length == 0'>
+              <div class="">
+                <p>No hemos encontrado ninguna actividad entre el {{travelStarts.day}} y {{travelFinish.day}}</p>
+              </div>
+            </div>
+
+            <div *ngIf='allPlans.length > 0'>
+              <div *ngFor="let plan of allPlans" class="cuadrado">
+                <h3> {{ plan.plan }} </h3>
+                <p>propuesto por: {{plan.user}}</p>
+                <p>{{plan.day}} / {{plan.month}} / {{plan.year}}</p>
+                <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div *ngIf='allPlans.length > 0'>
-        <div *ngFor="let plan of allPlans" class="cuadrado">
-          <h3> {{ plan.plan }} </h3>
-          <p>propuesto por: {{plan.user}}</p>
-          <p>{{plan.day}} / {{plan.month}} / {{plan.year}}</p>
-          <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+    </p-accordionTab>
+
+  <!-- VIAJEROS QUE VISITARAN -->
+
+    <p-accordionTab header="Viajeros que visitarán {{ placename }}">
+      <div>
+        <div *ngIf="allConexions">
+          <div *ngIf='allConexions.length == 0'>
+            <p>Por ahora ningun viajero ira a {{ placename }} </p>
+          </div>
+
+          <div *ngIf='allConexions.length > 0'>
+            <div *ngFor="let conexion of allConexions" class="cuadrado">
+              <img class="photo" [src]= "urlTxatxi + conexion.userId.photo" height=50/>
+              <button pButton type="button" [routerLink]="['/traveller', conexion.userId._id]" label="ver detalles del usuario" class="btn btn-default ui-button-secondary traveler">  {{ conexion.userId.username }}</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-</div>
+    </p-accordionTab>
 
 <!-- PROPONER UN PLAN -->
 
-<div class="createPlan center">
-  <form>
-    <h3> ¿Algún plan en mente? </h3>
-    <p>¡Comparte tus vivencias!</p>
+    <p-accordionTab header="Proponer un plan <i>aaa</i>">
 
-    <!-- MAPA PARA PROPONER UN PLAN -->
+      <div class="">
+        <form>
+          <h3> ¿Algún plan en mente? </h3>
+          <p>¡Comparte tus vivencias!</p>
 
-    <agm-map [latitude]="lat" [longitude]="lng" (mapClick)= "mapCliqueado($event)" [scrollwheel]="false">
-      <agm-marker (markerClick)="marcadorCiqueado()" [latitude]="lat" [longitude]="lng" [markerDraggable]= "arrastable"  (dragEnd) = "posicionFinalMarcador($event)" >
-        <agm-info-window>
-          <strong> {{ placename }}</strong>
-        </agm-info-window>
-      </agm-marker>
-    </agm-map>
+          <!-- MAPA PARA PROPONER UN PLAN -->
 
-    <!-- INPUT DIA DEL PLAN -->
+          <agm-map [latitude]="lat" [longitude]="lng" (mapClick)= "mapCliqueado($event)" [scrollwheel]="false">
+            <agm-marker (markerClick)="marcadorCiqueado()" [latitude]="lat" [longitude]="lng" [markerDraggable]= "arrastable"  (dragEnd) = "posicionFinalMarcador($event)" >
+              <agm-info-window>
+                <strong> {{ placename }}</strong>
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
 
-    <!-- <p>Selecciona el dia de tu plan</p> -->
-    <form class="form-inline">
-      <div class="form-group">
-        <div class="input-group">
-          <input class="form-control" placeholder="yyyy-mm-dd"
-          name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-          <button class="input-group-addon" (click)="d.toggle()" type="button">
-            Seleciona un día
-            <!-- <img src="" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
-          </button>
+          <!-- INPUT DIA DEL PLAN -->
+
+          <!-- <p>Selecciona el dia de tu plan</p> -->
+          <form class="form-inline">
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd"
+                name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                <button class="input-group-addon" (click)="d.toggle()" type="button">
+                  Seleciona un día
+                  <!-- <img src="" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+                </button>
+              </div>
+            </div>
+          </form>
+
+            <!-- INPUTS DETALLES DEL PLAN -->
+
+          <label>Nombre del plan:</label>
+          <input type="text" [(ngModel)]="plan" name="plan"/>
+          <hr>
+          <label>Descripción:</label>
+          <hr>
+          <input type="text" [(ngModel)]="details" name="details"/>
+
+          <button class="btn btn-sm btn-outline-primary" (click)="newPlan()"> Comparte tu plan! </button>
+
+        </form>
+      </div>
+    </p-accordionTab>
+
+<!-- FORO SOBRE EL LUGAR -->
+
+    <p-accordionTab header="Foro de {{ placename }}">
+      <div>
+        <input type="text" [(ngModel)]="comment" name="comment"/>
+        <p>¿ALguna duda o sugerencia?</p>
+        <button (click)="newComment()">envia tu comentario! </button>
+
+
+        <div *ngIf="allComments">
+
+          <div *ngIf='allComments.length == 0'>
+            <div class="">
+              <p>No hay mensajes aún. Sé el primero en dar tu opinión.</p>
+            </div>
+          </div>
+
+          <div *ngIf='allComments.length > 0'>
+          <div *ngFor="let comment of allComments ">
+            <img class="photo" [src]= "urlTxatxi + comment.userId.photo" height=50/>
+            <p> comentario de {{ comment.userId.username }} </p>
+            <p>{{ comment.comment }}</p>
+          </div>
+          </div>
         </div>
       </div>
-    </form>
+    </p-accordionTab>
 
-      <!-- INPUTS DETALLES DEL PLAN -->
-
-    <label>Nombre del plan:</label>
-    <input type="text" [(ngModel)]="plan" name="plan"/>
-    <hr>
-    <label>Descripción:</label>
-    <hr>
-    <input type="text" [(ngModel)]="details" name="details"/>
-
-    <button class="btn btn-sm btn-outline-primary" (click)="newPlan()"> Comparte tu plan! </button>
-
-  </form>
-</div>
+</p-accordion>
 
 
-<!-- COMENTARIOS -->
-<div>
-  <h2>Foro de {{ placename }}</h2>
-  <input type="text" [(ngModel)]="comment" name="comment"/>
-  <button (click)="newComment()">envia tu comentario! </button>
-
-
-  <div *ngIf="allComments">
-
-    <div *ngIf='allComments.length == 0'>
-      <div class="">
-        <p>No hay mensajes aún. Sé el primero en dar tu opinión.</p>
-      </div>
-    </div>
-
-    <div *ngIf='allComments.length > 0'>
-    <div *ngFor="let comment of allComments ">
-      <img class="photo" [src]= "urlTxatxi + comment.userId.photo" height=50/>
-      <p> comentario de {{ comment.userId.username }} </p>
-      <p>{{ comment.comment }}</p>
-    </div>
-    </div>
-  </div>
-</div>
 </section>

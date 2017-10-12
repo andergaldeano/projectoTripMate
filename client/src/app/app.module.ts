@@ -8,7 +8,8 @@ import { ButtonModule } from 'primeng/components/button/button';
 import { RadioButtonModule } from 'primeng/primeng';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {CarouselModule} from 'primeng/primeng';
-
+import {SharedModule} from 'primeng/primeng';
+import {GalleriaModule} from 'primeng/primeng';
 
 import { FileSelectDirective } from "ng2-file-upload";
 import { HttpModule } from '@angular/http';
@@ -70,6 +71,7 @@ import { environment } from '../environments/environment';
     FormsModule,
     AccordionModule,
     PanelModule,
+    GalleriaModule,
     ButtonModule,
     RadioButtonModule,
     NgbModule.forRoot(),

@@ -1,30 +1,46 @@
-    <div *ngIf="unictraveller">
+<div *ngIf="unictraveller">
+
+<!-- DATOS GENERALES -->
+
     <div class="img col-sm-3">
-      <img class="photo" [src]= "urlTxatxi + unictraveller.photo" height=300/>    
+      <img class="photo" [src]= "urlTxatxi + unictraveller.photo" height=300/>
       <h2>{{ unictraveller.username }}</h2>
-      <p>{{unictraveller.details}}</p>
+      <h3>Acerca de {{ unictraveller.username }}:</h3>
+      <p> " {{unictraveller.details}} " </p>
       <h3>Lugar de residencia:</h3>
       <p>{{unictraveller.country}} </p>
     </div>
-    <div class="col-sm-9">
-      <h3>Planes propuestos: </h3>
+
+
+<!-- PRUEBA -->
+
+<p-accordion>
+  <!-- PLANES PROPUESTOS -->
+    <p-accordionTab header="Planes propuestos">
       <div class="plans">
         <div class="plan" *ngFor="let plan of allPlans | async">
           <h3> {{ plan.plan }} </h3>
           <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
         </div>
       </div>
-  
-      <h3>Va a asistir: </h3>
-      <div class="plans">          
+    </p-accordionTab>
+  <!-- PLANES QUE VA A VISITAR -->
+    <p-accordionTab header="Va a asistir">
+      <div class="plans">
         <div class="plan" *ngFor="let plan of allPlansGoing | async">
           <h3> {{ plan.planId.plan }} </h3>
           <a [routerLink]="['/unicPlan', plan.planId._id]"> Mas detalles</a>
         </div>
       </div>
+    </p-accordionTab>
+
+</p-accordion>
+
+<!-- OTROS LINKS -->
+
       <div class="links">
         <a class="link col-sm-6" [routerLink]="['/map']"> Buscar planes <i class="fa fa-search"></i></a>
         <a class="link col-sm-6" [routerLink]="['/editprofile', unictraveller._id]"> <i class="fa fa-edit"></i>Edita tu perfil</a>
       </div>
-  
+
     </div>

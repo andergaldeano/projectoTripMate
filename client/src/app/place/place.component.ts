@@ -42,6 +42,7 @@ export class PlaceComponent implements OnInit {
   comment;
 
   allComments;
+  gallery;
   model;
   isHeGoing;
   allConexions;
@@ -127,7 +128,7 @@ export class PlaceComponent implements OnInit {
     this.place.isHeGoing(this.placename, this.user._id).subscribe((a)=>{
       this.isHeGoing = a
     })
-
+        this.gallery = [];
         this.travelStarts = this.place.getInitDate();
         this.travelFinish =this.place.getFinishDate();
         this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
@@ -136,8 +137,11 @@ export class PlaceComponent implements OnInit {
         .subscribe((conex) => this.allConexions =  conex)
         this.allPoints = this.place.getAllPointsInMap()
         this.place.getAllPhotos(this.unicPlace.identification).subscribe((todaslasfotos)=>{
-          this.allPhotos = todaslasfotos
-             })
+          this.allPhotos = todaslasfotos;
+            this.allPhotos.forEach(function(photo) {
+              this.gallery.push({source: photo.photo});
+            });
+          })
         this.place.findComments(this.unicPlace.identification).subscribe((res)=> {
           this.allComments = res
           console.log("AQUI ESTAN TODOS LOS COMMENTARIOS")
@@ -208,6 +212,7 @@ posicionFinalMarcador($event:any){
 
 // ADD PHOTO TO THIS PLACE
 submit() {
+  alert();
    this.uploader.onBuildItemForm = (item, form) => {
      form.append('user', this.user.username);
      form.append('userId', this.user._id);

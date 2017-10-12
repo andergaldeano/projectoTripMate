@@ -4,6 +4,11 @@
     padding: 10px;
 }
 
+.grey{
+  background-color:  #3C4858;
+  color: whitesmoke;
+}
+
 .traveler img {
     width: 80px;
     height: 80px;
@@ -33,4 +38,13 @@
 
 agm-map {
   height: 150px;
+}
+
+.mapeo{
+  padding:  10px
+
+}
+
+.info{
+  text-align: center;
 }

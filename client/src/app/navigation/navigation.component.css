@@ -2,12 +2,15 @@ a {
     color: #fff;
 }
 .fa {
-    font-size: 25px;    
+    font-size: 25px;
     color: #whitesmoke;
 }
 .header {
     background: #FF7849;
     padding: 10px;
+    position: fixed;
+    z-index: 9;
+    width: 100%;
 }
 .nav {
     display: flex;

@@ -19,47 +19,50 @@
 
 <!-- MUESTRA LOS PLANES PROPUESTOS POR EL USUARIO, SI LOS HAY -->
 
-  <div class="col-sm-9">
-    <h3>Tus planes propuestos: </h3>
-    <div *ngIf='allPlansProposed'>
-      <div *ngIf='allPlansProposed.length == 0'>
-        <div class="">
-          <P>Aun no has propuesto ningun plan</P>
+<p-accordion>
+    <p-accordionTab header="Tus planes propuestos">
+    <div class="plans">
+      <div class="plan" *ngIf='allPlansProposed'>
+        <div *ngIf='allPlansProposed.length == 0'>
+          <div class="">
+            <P>Aun no has propuesto ningun plan</P>
+          </div>
         </div>
-      </div>
 
-      <div *ngIf='allPlansProposed.length > 0'>
-        <div class="plans">
-          <div class="plan" *ngFor="let plan of allPlansProposed">
-            <h3> {{ plan.plan }} </h3>
-            <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
-            </div>
+        <div *ngIf='allPlansProposed.length > 0'>
+          <div class="plans">
+            <div class="plan" *ngFor="let plan of allPlansProposed">
+              <h3> {{ plan.plan }} </h3>
+              <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+              </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-<!-- MUESTRA LOS PLANES A LOS QUE ASISTIRA EL USUARIO, SI LOS HAY -->
-  <div>
-    <h3>Vas a asistir: </h3>
-    <div *ngIf='allPlansGoing'>
-      <div *ngIf='allPlansGoing.length == 0'>
-        <div class="">
-          <P>Aun no te has unido a ningun plan</P>
+    </p-accordionTab>
+    <p-accordionTab header="Va a asistir">
+  <div class="plans">
+      <div *ngIf='allPlansGoing'>
+        <div class="plan" *ngIf='allPlansGoing.length == 0'>
+          <div class="">
+            <P>Aun no te has unido a ningun plan</P>
+          </div>
         </div>
-      </div>
 
 
-        <div *ngIf='allPlansGoing.length > 0'>
-          <div class="plans">
-            <div class="plan" *ngFor="let plan of allPlansGoing">
-            <h3> {{ plan.planId.plan }} </h3>
-            <a [routerLink]="['/unicPlan', plan.planId._id]"> Mas detalles</a>
+          <div class="plan" *ngIf='allPlansGoing.length > 0'>
+            <div class="plans">
+              <div class="plan" *ngFor="let plan of allPlansGoing">
+              <h3> {{ plan.planId.plan }} </h3>
+              <a [routerLink]="['/unicPlan', plan.planId._id]"> Mas detalles</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-  </div>
+    </p-accordionTab>
+
+</p-accordion>
 
 <!-- LINKS A EDITAR Y AL BUSCADOR -->
   <div class="links">
