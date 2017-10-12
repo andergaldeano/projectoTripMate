@@ -58,19 +58,17 @@ export class EditprofileComponent implements OnInit {
   };
 
 
-  // editprofile(){
-  //       this.auth.editprofile(this.country, this.details)
-  //     .subscribe(
-  //       (user) => this.router.navigate(['/user']))
-  // }
-
   editprofile() {
     this.uploader.onBuildItemForm = (item, form) => {
       form.append('country', this.country);
       form.append('details', this.details);
     };
-  console.log("hago subida de archivos")
     this.uploader.uploadAll();
+    this.uploader.onCompleteItem = () => {
+      this.auth.getUser()
+        .subscribe(user => {  this.user = user; this.userId = user._id
+        });
+     }
   }
 
 

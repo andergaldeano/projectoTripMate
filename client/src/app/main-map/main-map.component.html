@@ -1,34 +1,31 @@
 
+<h1>¿A donde nos vamos?</h1>
+
+
+<!-- FORMULARIO DE BUSQUEDA -->
 <section class="main-map">
-  <h1>¿A donde nos vamos?</h1>
 
   <div class="col-sm-8">
-      <agm-map
-      [latitude]="lat"
-      [longitude]="lng"
-      [scrollwheel]="false"
-      >
-         <agm-marker
-         *ngFor="let p of allPlans"
-         [latitude]="p.lat"
-         [longitude]="p.lng"
-         [markerDraggable]= FALSE
-         >
+      <agm-map [latitude]="lat"  [longitude]="lng"  [scrollwheel]="false" >
+         <agm-marker *ngFor="let p of allPlans" [latitude]="p.lat" [longitude]="p.lng" [markerDraggable]= FALSE >
            <agm-info-window>
              <strong> {{ p.plan }}</strong>
              <hr>
              <a>{{p.day}}/{{p.month}}/{{p.year}}</a>
              <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
            </agm-info-window>
-
        </agm-marker>
      </agm-map>
-      <div class="from-group">
-        <input type="text" placeholder="Busca tu destino" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
-      </div>
-  </div>
 
-<hr>
+    <div class="from-group">
+        <input type="text" placeholder="Busca tu destino" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
+    </div>
+</div>
+
+  <hr>
+
+<!-- SELECCION DE FECHA -->
+
   <div class="col-sm-4">
     <p>Selecciona fechas:</p>
     <div>
@@ -37,20 +34,20 @@
     </div>
 
     <ng-template #t let-date="date" let-focused="focused">
-      <span class="custom-day"
-      [class.focused]="focused"
-      [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
-      [class.faded]="isHovered(date) || isInside(date)"
-      (mouseenter)="hoveredDate = date"
-      (mouseleave)="hoveredDate = null">
+      <span class="custom-day" [class.focused]="focused" [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)" [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
       {{ date.day }}
-    </span>
+      </span>
     </ng-template>
 
+    <!-- BOTON DE IR A UN SITIO -->
     <button class="accept btn btn-default" (click)="shareAndGo()">Buscar planes</button>
   </div>
 
 </section>
+
+<!-- FIN DE FORMULARIO -->
+
+<!-- ENSENA PLANES VENIDEROS -->
 
 <section class="last-plans">
     <ul>

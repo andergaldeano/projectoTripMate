@@ -1,38 +1,38 @@
 <div>
   <div>
 
+  <!-- BIENVENIDA AL USUARIO CON SU FOTO -->
+  
+    <h3>Hola {{user.username}}</h3>
+    <img class="photo" [src]= "urlTxatxi + user.photo" height=300/>
+
+<!-- FORMULARIO DE CAMBIAR EL PERFIL -->
+
     <form>
-      <fieldset>
-
       <h2>Dale un toque más personal a tu perfil</h2>
-
-      <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+      <fieldset>
+        <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
 
         <div class="">
-          <label> ¿Cual es tu pais actual de residencia? </label>
+          <label> Seleciona tu lugar de residencia: </label>
           <div class="from-group">
             <input type="text" placeholder="lugar de residencia" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
           </div>
         </div>
 
         <div class="">
-          <label> Cuenta algo más sobre tu persona para que puedan conocerte mejor</label>
+          <label> Cuenta algo más sobre ti y comparte tus pasiones con otros viajeros:</label>
           <input type="text" [(ngModel)]="details" name="details"/>
         </div>
-
-
-
       </fieldset>
-      <button (click)="editprofile()" type="submit" name="action">subir archivos</button>
+      <button (click)="editprofile()" type="submit" name="action">Validar cambios</button>
     </form>
-<h1>
 
-  {{user._id}}
-</h1>
+<!-- PASAR A SIGUIENTE PAGINA -->
 
-    <a [routerLink]="['/user']"> Continuar </a>
-
-
+    <div>
+      <a [routerLink]="['/user']"> Continuar </a>
+    </div>
 
 
     </div>

@@ -132,7 +132,8 @@ export class PlaceComponent implements OnInit {
         this.travelFinish =this.place.getFinishDate();
         this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
         .subscribe((plan) => this.allPlans = plan)
-        this.allConexions = this.place.findConexion(this.placename)
+        this.place.findConexion(this.placename)
+        .subscribe((conex) => this.allConexions =  conex)
         this.allPoints = this.place.getAllPointsInMap()
         this.place.getAllPhotos(this.unicPlace.identification).subscribe((todaslasfotos)=>{
           this.allPhotos = todaslasfotos
@@ -179,7 +180,8 @@ export class PlaceComponent implements OnInit {
     this.place.sendThisConexion(this.placename, this.user._id)
       .subscribe(()=> {
         (plan) => console.log(plan)
-        this.allConexions = this.place.findConexion(this.placename)
+        this.place.findConexion(this.placename)
+        .subscribe((conex) => this.allConexions =  conex)
         this.place.isHeGoing(this.placename, this.user._id).subscribe((a)=>{
           this.isHeGoing = a
         })
