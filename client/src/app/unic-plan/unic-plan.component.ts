@@ -51,9 +51,12 @@ export class UnicPlanComponent implements OnInit {
     this.planService.isHeGoing(this.unicplan._id, this.user._id).subscribe((a)=>{
       this.isHeGoing = a
     })
-    console.log("QUE POLLAS PASA", this.isHeGoing)
-    this.allComments = this.planService.findComments(this.unicplan._id);
-    this.allUsersGoingToPlan = this.planService.findUsers(this.unicplan._id)
+    this.planService.findComments(this.unicplan._id).subscribe((com)=>{
+      this.allComments =  com
+    });
+    this.planService.findUsers(this.unicplan._id).subscribe((au)=>{
+      this.allUsersGoingToPlan = au
+    })
     console.log("PASO")
     });
   }
@@ -66,7 +69,9 @@ export class UnicPlanComponent implements OnInit {
     if(this.comment != ""){
       this.planService.sendMyComment(this.comment, this.unicplan._id, this.user._id)
       .subscribe(()=> {
-        this.allComments = this.planService.findComments(this.unicplan._id)
+        this.planService.findComments(this.unicplan._id).subscribe((com)=>{
+          this.allComments =  com
+        });
          console.log("sale fijo esto")
          console.log(this.allComments)
          this.comment = "";
@@ -82,7 +87,9 @@ export class UnicPlanComponent implements OnInit {
     this.planService.sendThisConexion(this.user._id, this.unicplan._id)
       .subscribe(()=> {
         (plan) => console.log(plan)
-            this.allUsersGoingToPlan = this.planService.findUsers(this.unicplan._id)
+            this.planService.findUsers(this.unicplan._id).subscribe((au)=>{
+            this.allUsersGoingToPlan = au
+            })
             this.planService.isHeGoing(this.unicplan._id, this.user._id).subscribe((a)=>{
               this.isHeGoing = a
             })

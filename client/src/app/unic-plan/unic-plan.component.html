@@ -1,42 +1,80 @@
 <div class="plan" *ngIf='unicplan'>
 
+<!-- DETALLES DEL PLAN -->
 
 <div>
-  <h2 class="plan-title"> {{ unicplan.plan }} - {{ unicplan.day }}/{{unicplan.month}}/{{unicplan.year}}</h2>
+  <h2 class="plan-title"> {{ unicplan.plan }} </h2>
   <p> {{ unicplan.details }} </p>
   <p class="little"> Propuesto por: {{unicplan.user}}</p>
+  <p class="little"> Fecha: {{ unicplan.day }}/{{unicplan.month}}/{{unicplan.year}}</p>
+  <p class="little"> En: {{unicplan.place}}</p>
 </div>
 
+<!-- PLAN EN MAPA -->
+<agm-map [latitude]="unicplan.lat" [longitude]="unicplan.lng" [scrollwheel]="false" >
+    <agm-marker  [latitude]="unicplan.lat" [longitude]="unicplan.lng" [markerDraggable]= FALSE >
+      <agm-info-window>
+        <strong> {{ unicplan.plan }}</strong>
+      </agm-info-window>
+    </agm-marker>
+</agm-map>
 
-<div *ngIf="isHeGoing">
-  <div *ngIf='isHeGoing.length == 0'>
-    <p>te interesa el plan y te gutsaria formar parte?</p>
-    <button (click)="newConexion()">voy a ir! </button>
+
+
+<!-- LISTA DEVIAJEROS EN EL PLAN -->
+
+<h3>Viajeros que se unen al plan</h3>
+<div>
+  <div *ngIf="allUsersGoingToPlan">
+    <div *ngIf='allUsersGoingToPlan.length == 0'>
+      <p>Ningun viajero asistirá por el momento. Sé el primero en unirte al plan</p>
+    </div>
+
+
+    <div *ngIf='allUsersGoingToPlan.length > 0'>
+      <div *ngFor="let user of allUsersGoingToPlan">
+        <a [routerLink]="['/traveller', user.userId._id]" class="traveler">
+        <img [src]= "urlTxatxi + user.userId.photo" height=50/>
+        <p>{{ user.userId.username }}</p>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
-<h3>Viajeros que ya se han unido al plan</h3>
-  <div>
-    <a [routerLink]="['/traveller', user.userId._id]" class="traveler" *ngFor="let user of allUsersGoingToPlan | async">
-      <img [src]= "urlTxatxi + user.userId.photo" height=50/>
-      <p> {{ user.userId.username }} </p>
-    </a>
+  <!-- BOTON DE UNIRSE AL PLAN -->
+
+  <div *ngIf="isHeGoing">
+    <div *ngIf='isHeGoing.length == 0'>
+      <p>¿Te interesa el plan y te gutsaria formar parte?</p>
+      <button (click)="newConexion()">voy a ir! </button>
+    </div>
   </div>
 
-  <button (click)="goBack()"> vuelve a la busqueda </button>
+<!-- COMENTARIO FROM -->
 
-<h2>Deja un comentario</h2>
+<h2>Foro sobre " {{ unicplan.plan }} "</h2>
   <div class="input-group">
     <textarea class="form-control"  placeholder="Escribe tu comentario" type="text" [(ngModel)]="comment" name="comment">
     </textarea>
     <button class="btn-send btn btn-default" (click)="newComment()">Enviar</button>
   </div>
 
+
+<!-- COMENTARIOS DEL PLAN -->
+
 <h3>Comentarios del plan:</h3>
   <div>
-    <div *ngFor="let comment of allComments | async">
-      <p> comentario de {{ comment.userId.username }} </p>
-      <p>{{ comment.comment }}</p>
+    <div *ngIf="allComments">
+      <div *ngIf='allComments.length == 0'>
+        <p>No hay comentarios. ¿Algun consejo o duda? Sé el primero en compartir tu experiencia sobre {{ unicplan.plan}} </p>
+      </div>
+      <div *ngIf='allComments.length > 0'>
+        <div *ngFor="let comment of allComments">
+          <p> comentario de {{ comment.userId.username }} </p>
+          <p>{{ comment.comment }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -45,3 +83,8 @@
     <app-chat [ngClass]="{'open': chatStatus}" class="main__aside" ></app-chat>
   </div>
 </div>
+
+
+<!-- BOTON DE VOLVER A LA BUSQUEDA -->
+
+<button (click)="goBack()"> vuelve a la busqueda </button>
