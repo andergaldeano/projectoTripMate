@@ -27,8 +27,16 @@ export class UserprofileComponent implements OnInit {
   }
 
   getUserDetails(user) {
-    this.allPlansProposed = this.usersService.findPlans(this.user.username);
-    this.allPlansGoing  = this.usersService.findPlansGoing(user._id);
+
+    this.usersService.findPlans(user.username).subscribe((res)=>{
+      this.allPlansProposed = res
+      console.log("AQUI VIENEN TODOS LOS QUEHEMOS CREADOOOO")
+      console.log(this.allPlansProposed)
+    })
+     this.usersService.findPlansGoing(user._id).subscribe((res)=>{
+       this.allPlansGoing  = res
+       console.log(this.allPlansGoing)
+     });
     }
 
 }

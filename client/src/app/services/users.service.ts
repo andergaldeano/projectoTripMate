@@ -28,7 +28,7 @@ public get(id) {
    .map((res) => res.json());
 }
 
-// FIND PLANS PRUPOSED OF THIS SPECIFIC USER
+// FIND PLANS PRUPOSED BY SPECIFIC USER
 
 public findPlans(user){
   console.log("en el servidor buscando planes")
