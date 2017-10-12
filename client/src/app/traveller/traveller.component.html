@@ -1,34 +1,30 @@
-<p>
-  traveller works!
-</p>
-
-<div *ngIf="unictraveller">
-
-  <div>
-     <img [src]= "urlTxatxi + unictraveller.photo" height=200/>
-    <h2> Muy buenas! Me llamo {{ unictraveller.username }} ! </h2>
-    <h4> Un poco mas sobre {{ unictraveller.username }} :</h4>
-    <p> {{ unictraveller.details }} </p>
-    <h4> {{ unictraveller.username }} quiere compartir estas actividades:</h4>
-    <div>
-      <div *ngFor="let plan of allPlans | async">
-        <h3> {{ plan.plan }} </h3>
-        <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
-      </div>
+    <div *ngIf="unictraveller">
+    <div class="img col-sm-3">
+      <img class="photo" [src]= "urlTxatxi + unictraveller.photo" height=300/>    
+      <h2>{{ unictraveller.username }}</h2>
+      <p>{{unictraveller.details}}</p>
+      <h3>Lugar de residencia:</h3>
+      <p>{{unictraveller.country}} </p>
     </div>
-
-
-    <h4> {{ unictraveller.username }} va a asistir a todos estos planes:</h4>
-    <div>
-      <div *ngFor="let plan of allPlansGoing | async">
-        <h3> {{ plan.plan }} </h3>
-        <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+    <div class="col-sm-9">
+      <h3>Planes propuestos: </h3>
+      <div class="plans">
+        <div class="plan" *ngFor="let plan of allPlans | async">
+          <h3> {{ plan.plan }} </h3>
+          <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+        </div>
       </div>
+  
+      <h3>Va a asistir: </h3>
+      <div class="plans">          
+        <div class="plan" *ngFor="let plan of allPlansGoing | async">
+          <h3> {{ plan.planId.plan }} </h3>
+          <a [routerLink]="['/unicPlan', plan.planId._id]"> Mas detalles</a>
+        </div>
+      </div>
+      <div class="links">
+        <a class="link col-sm-6" [routerLink]="['/map']"> Buscar planes <i class="fa fa-search"></i></a>
+        <a class="link col-sm-6" [routerLink]="['/editprofile', unictraveller._id]"> <i class="fa fa-edit"></i>Edita tu perfil</a>
+      </div>
+  
     </div>
-
-
-
-  </div>
-</div>
-
-<a [routerLink]="['/map']"> Buscar planes </a>

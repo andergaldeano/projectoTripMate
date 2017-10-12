@@ -1,0 +1,36 @@
+.header {
+    padding: 10px;
+    box-sizing: border-box;
+    background: #FF5216;
+    color: white;
+}
+.chat {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.board {
+    height: calc(100vh - 50px);
+    border-left: 1px solid #d2d2d2;
+    overflow-y: auto;
+}
+
+.board li {
+    background: #f5d6d6;
+    padding: 5px;
+    border-radius: 5px;
+    display: -webkit-inline-box;
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.board ul {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 0;
+}
+
+.input {
+    align-self: flex-end;
+}

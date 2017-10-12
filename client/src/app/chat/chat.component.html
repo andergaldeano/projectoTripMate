@@ -1,0 +1,15 @@
+<aside class="chat">
+    <header (click)="onClick()" class="header">Chat</header>
+    <section class="board">
+        <ul>
+            <li *ngFor="let item of messages | async">
+                <strong>{{item.name}}:</strong><br>
+                {{item.text}}
+            </li>
+        </ul>
+    </section>
+    <section class="input">
+        <input [(ngModel)]="text" type="text">
+        <button class="btn btn-default" (click)="sendMessage()">Enviar</button>
+    </section>
+</aside>

@@ -24,7 +24,7 @@ import {routes} from './routes';
 import { SignupformComponent } from './signupform/signupform.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
 import { MainMapComponent } from './main-map/main-map.component';
-
+import { ChatComponent } from './chat/chat.component';
 import { CommonModule } from '@angular/common';
 import { AgmCoreModule } from '@agm/core';
 import { TravellerComponent } from './traveller/traveller.component';
@@ -36,6 +36,9 @@ import {PlanService} from './services/plan.service';
 import { UnicPlanComponent } from './unic-plan/unic-plan.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -50,11 +53,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     TravellerComponent,
     NavigationComponent,
     PlaceComponent,
+    ChatComponent,
     UnicPlanComponent,
     FileSelectDirective
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     HttpModule,
     RouterModule.forRoot(routes),
     BrowserModule,

@@ -121,7 +121,7 @@ public getAllPhotos(place){
 // CREATE A COMMENT ON THIS SPECIFIC PLACE
 
    public sendMyComment(comment, place, userId){
-     console.log("en el servidor creo un commentario")
+     console.log("en el servidor creo un commentario en este lugar 0 0" + place       )
      return this.http.post(`${BASEURL}/comment`, {comment, place, userId})
      .map((res) => res.json())
 
@@ -130,7 +130,7 @@ public getAllPhotos(place){
 // FIND THE COMMENTS ON THE SPECIFIC PLACE
 
    public findComments(place){
-     console.log("en el servidor buscando planes")
+     console.log("en el servidor buscando COMENTARIOS CON ESTER " + place)
      return this.http.get(`${BASEURL}/comment/${place}`)
      .map((res) => res.json())
 

@@ -85,7 +85,9 @@ id: string = '';
   ngOnInit() {
     this.mapsAPILoader.load().then(
       ()=>{
-        this.allPlans = this.place.findAllPlans()
+        this.place.findAllPlans().subscribe((plans) => {
+          this.allPlans = plans;
+        });
 
         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:["(regions)"]});
         autocomplete.addListener("place_changed", ()=>{
@@ -133,9 +135,10 @@ id: string = '';
   }
 
   shareAndGo (){
-    this.router.navigate([`holiday/${this.title}/${this.placeName}/${this.otherLat}/${this.otherLng}`]);
-    console.log("vamos a ver que nos devuelve esto " + this.fromDate.day)
-    this.place.copyParams(this.fromDate, this.toDate, this.title, this.placeName, this.otherLat, this.otherLng)
+    if(this.placeName != '') {
+      this.router.navigate([`holiday/${this.title}/${this.placeName}/${this.otherLat}/${this.otherLng}`]);
+      this.place.copyParams(this.fromDate, this.toDate, this.title, this.placeName, this.otherLat, this.otherLng)
+    }
   }
 
 }

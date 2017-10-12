@@ -1,0 +1,32 @@
+.traveler {
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+}
+
+.traveler img {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.plan {
+    padding: 20px;
+}
+
+.plan-title {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+}
+
+.little {
+    opacity: 0.7;
+    text-align: right;
+}
+
+.btn-send {
+    float: right;
+    margin-top: 10px;
+}

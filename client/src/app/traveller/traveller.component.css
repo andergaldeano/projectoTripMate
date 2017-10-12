@@ -1,0 +1,53 @@
+.photo {
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid white;
+}
+
+.img {
+    text-align: center;
+    border-right: 1px solid gray;
+    background: #3C4858;
+    padding: 20px;
+    color: whitesmoke;
+    min-height: calc(100vh - 50px);
+}
+.plans {
+    width: 100%;
+    display: inline-block;
+}
+.plan {
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 1px #dedede;
+    width: 46%;
+    margin: 2%;
+    float: left;
+}
+
+.plan h3{
+    margin-top: 0;
+}
+@media (max-width: 768px) {
+    .img {
+        min-height: inherit; 
+        min-width: 100%;
+    }
+}
+
+.img h3 {
+    border-top: 1px solid gray;
+    padding-top: 30px;
+}
+.link {
+    text-align: center;
+    font-size: 18px;
+    color: #c14848;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.links .fa {
+    margin: 0 10px;
+}

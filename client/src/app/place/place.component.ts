@@ -135,10 +135,11 @@ export class PlaceComponent implements OnInit {
         this.allConexions = this.place.findConexion(this.placename)
         this.allPoints = this.place.getAllPointsInMap()
         this.allPhotos = this.place.getAllPhotos(this.unicPlace.identification)
-        this.allComments = this.place.findComments(this.unicPlace.identification)
-        .subscribe((comments)=> {this.allComments = comments;
-        this.comment = "";
-      })
+        this.place.findComments(this.unicPlace.identification).subscribe((res)=> {
+          this.allComments = res
+          console.log("AQUI ESTAN TODOS LOS COMMENTARIOS")
+          console.log(this.allComments)
+        })
     });
   }
 
@@ -153,12 +154,14 @@ export class PlaceComponent implements OnInit {
         this.travelStarts = this.place.getInitDate();
         this.travelFinish =this.place.getFinishDate();
         this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
-        .subscribe((plan) => this.allPlans = plan)        // this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
-        // .subscribe(()=> {
-        //   this.allPoints = this.place.getAllPointsInMap()
-        //   this.plan = "";
-        //   this.details = "";
-        //   this.model = "";
+        .subscribe((plan) => {
+          this.allPlans = plan        // this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
+          // .subscribe(()=> {
+          //   this.allPoints = this.place.getAllPointsInMap()
+          this.plan = "";
+          this.details = "";
+          this.model = "";
+        })
         //
         // });
 
@@ -215,15 +218,16 @@ submit() {
 
 
    newComment(){
-     console.log("vamos a hacer un comentario" )
-     if(this.comment != ""){
+     console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAA vamos a hacer un comentario" )
+     if(this.comment != "") {
        this.place.sendMyComment(this.comment, this.unicPlace.identification, this.user._id)
-       .subscribe(()=> {
-           this.place.findComments(this.unicPlace.identification)
-           .subscribe((comments)=> {this.allComments = comments;
-           this.comment = "";
+         .subscribe(()=> {
+           this.place.findComments(this.unicPlace.identification).subscribe((res)=> {
+             this.allComments = res
+             console.log("y que rescatamos madafacas  ")
+            //  console.log(this.allComments)
+           })
          })
-     });
      }else{
        console.log("ponte un comentario locooo");
      }

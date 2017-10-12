@@ -6,10 +6,6 @@ const WhoToWhere = require('../models/Destiny');
 const PhotosInPLace = require('../models/Photos');
 const upload = require('../config/multer');
 const Commentplace = require('../models/Commentplace');
-
-
-
-
 var placeRoutes = express.Router();
 
 
@@ -177,7 +173,7 @@ console.log("estamos en el ultimo de los comentarios")
 
 const comment = new Commentplace ({
   comment: req.body.comment,
-  plan: req.body.place,
+  place: req.body.place,
   userId: req.body.userId
 });
 
@@ -194,7 +190,7 @@ comment.save().then(
 
 
 placeRoutes.get('/comment/:place', (req, res, next) => {
-  Commentplace.find({place : req.params.place})
+    Commentplace.find({place : req.params.place})
   .populate('userId')
   .then (comments => res.json(comments));
 });

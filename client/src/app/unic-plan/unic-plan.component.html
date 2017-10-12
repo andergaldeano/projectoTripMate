@@ -1,11 +1,10 @@
-<div *ngIf='unicplan'>
+<div class="plan" *ngIf='unicplan'>
 
 
 <div>
-  <h2> Bienvenido a "{{ unicplan.plan }}"!</h2>
-  <h3> {{ unicplan.details }} </h3>
-  <h4> Propuesto por: {{unicplan.user}}</h4>
-  <h4> El dia  {{ unicplan.day }} - {{unicplan.month}} - {{unicplan.year}}</h4>
+  <h2 class="plan-title"> {{ unicplan.plan }} - {{ unicplan.day }}/{{unicplan.month}}/{{unicplan.year}}</h2>
+  <p> {{ unicplan.details }} </p>
+  <p class="little"> Propuesto por: {{unicplan.user}}</p>
 </div>
 
 
@@ -18,21 +17,20 @@
 
 <h3>Viajeros que ya se han unido al plan</h3>
   <div>
-    <div *ngFor="let user of allUsersGoingToPlan | async">
+    <a [routerLink]="['/traveller', user.userId._id]" class="traveler" *ngFor="let user of allUsersGoingToPlan | async">
       <img [src]= "urlTxatxi + user.userId.photo" height=50/>
       <p> {{ user.userId.username }} </p>
-      <a [routerLink]="['/traveller', user.userId._id]"> ver detalles del usuario </a>
-    </div>
+    </a>
   </div>
 
   <button (click)="goBack()"> vuelve a la busqueda </button>
 
-
-
-<h2>Alguna duda o sujerencia? Deja un comentario!</h2>
-  <input type="text" [(ngModel)]="comment" name="comment"/>
-  <button (click)="newComment()">envia tu comentario! </button>
-
+<h2>Deja un comentario</h2>
+  <div class="input-group">
+    <textarea class="form-control"  placeholder="Escribe tu comentario" type="text" [(ngModel)]="comment" name="comment">
+    </textarea>
+    <button class="btn-send btn btn-default" (click)="newComment()">Enviar</button>
+  </div>
 
 <h3>Comentarios del plan:</h3>
   <div>
@@ -40,5 +38,10 @@
       <p> comentario de {{ comment.userId.username }} </p>
       <p>{{ comment.comment }}</p>
     </div>
+  </div>
+</div>
+<div *ngIf="isHeGoing">
+  <div *ngIf='isHeGoing.length !== 0'>
+    <app-chat [ngClass]="{'open': chatStatus}" class="main__aside" ></app-chat>
   </div>
 </div>

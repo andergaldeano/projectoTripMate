@@ -3,39 +3,35 @@
 </div>
 
 <div *ngIf="user">
-  <h2> Hola {{ user.username }}!!  </h2>
-  <h3>¿En busca de nuevas aventuras?</h3>
-
-  <p>echale un vistazo a tu perfil</p>
-
-  <img [src]= "urlTxatxi + user.photo" height=300/>
-  <h3>Acerca de ti:</h3>
-    <p>{{user.details}}</p>
-
-  <h3>Lugar de residencia:</h3>
-  <p>{{user.country}} </p>
-
-  <h3>Tus planes propuestos: </h3>
-  <div *ngFor="let plan of allPlansProposed | async">
-    <h3> {{ plan.plan }} </h3>
-    <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+  <div class="img col-sm-3">
+    <img class="photo" [src]= "urlTxatxi + user.photo" height=300/>    
+    <h2>{{ user.username }}</h2>
+    
+    <h3>Acerca de ti:</h3>
+      <p>{{user.details}}</p>
+  
+    <h3>Lugar de residencia:</h3>
+    <p>{{user.country}} </p>
   </div>
-
-  <h3>Vas a asistir: </h3>
-    <div *ngFor="let plan of allPlansGoing | async">
-
-    <h3> {{ plan.planId.plan }} </h3>
-    <a [routerLink]="['/unicPlan', plan.planId._id]"> Mas detalles</a>
+  <div class="col-sm-9">
+    <h3>Tus planes propuestos: </h3>
+    <div class="plans">
+      <div class="plan" *ngFor="let plan of allPlansProposed | async">
+        <h3> {{ plan.plan }} </h3>
+        <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+      </div>
     </div>
-</div>
 
-  <div>
+    <h3>Vas a asistir: </h3>
+    <div class="plans">          
+      <div class="plan" *ngFor="let plan of allPlansGoing | async">
+        <h3> {{ plan.planId.plan }} </h3>
+        <a [routerLink]="['/unicPlan', plan.planId._id]"> Mas detalles</a>
+      </div>
+    </div>
+    <div class="links">
+      <a class="link col-sm-6" [routerLink]="['/map']"> Buscar planes <i class="fa fa-search"></i></a>
+      <a class="link col-sm-6" [routerLink]="['/editprofile', user._id]"> <i class="fa fa-edit"></i>Edita tu perfil</a>
+    </div>
 
-  <button (click)="auth.logout().subscribe()"> logout </button>
-</div>
-<hr>
-
-
-<a [routerLink]="['/map']"> Buscar planes </a>
-<hr>
-<a [routerLink]="['/editprofile', user._id]"> Edita tu perfil </a>
+  </div>

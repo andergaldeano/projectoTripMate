@@ -1,46 +1,59 @@
 
-<h1>A DONDE NOS VAMOS?</h1>
-
-<agm-map
- [latitude]="lat"
- [longitude]="lng"
- >
-    <agm-marker
-    *ngFor="let p of allPlans | async"
-    [latitude]="p.lat"
-    [longitude]="p.lng"
-    [markerDraggable]= FALSE
-    >
-      <agm-info-window>
-        <strong> {{ p.plan }}</strong>
-        <hr>
-        <a>{{p.day}}/{{p.month}}/{{p.year}}</a>  
-        <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
-      </agm-info-window>
-
-  </agm-marker>
-</agm-map>
-
-<div class="container">
-  <div class="from-group">
-
-    <input type="text" placeholder="Busca tu destino" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
-
+<section class="main-map">
+  <h1>Escoge un destino</h1>
+  
+  <div class="col-sm-8">
+      <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      >
+         <agm-marker
+         *ngFor="let p of allPlans"
+         [latitude]="p.lat"
+         [longitude]="p.lng"
+         [markerDraggable]= FALSE
+         >
+           <agm-info-window>
+             <strong> {{ p.plan }}</strong>
+             <hr>
+             <a>{{p.day}}/{{p.month}}/{{p.year}}</a>  
+             <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
+           </agm-info-window>
+     
+       </agm-marker>
+     </agm-map>
+      <div class="from-group">
+        <input type="text" placeholder="Busca tu destino" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
+      </div>
   </div>
-</div>
+  <div class="col-sm-4">
+    <div class="right">
+      <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+      </ngb-datepicker>
+    </div>
+    
+    <ng-template #t let-date="date" let-focused="focused">
+      <span class="custom-day"
+      [class.focused]="focused"
+      [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+      [class.faded]="isHovered(date) || isInside(date)"
+      (mouseenter)="hoveredDate = date"
+      (mouseleave)="hoveredDate = null">
+      {{ date.day }}
+    </span>
+    </ng-template>
+    
+    <button class="accept btn btn-default" (click)="shareAndGo()">Crear plan</button>
+  </div>
+  
+</section>
 
-<ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
-</ngb-datepicker>
-
-<ng-template #t let-date="date" let-focused="focused">
-  <span class="custom-day"
-  [class.focused]="focused"
-  [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
-  [class.faded]="isHovered(date) || isInside(date)"
-  (mouseenter)="hoveredDate = date"
-  (mouseleave)="hoveredDate = null">
-  {{ date.day }}
-</span>
-</ng-template>
-
-<button (click)="shareAndGo()">vamonos!!!!!!</button>
+<section class="last-plans">
+    <ul>
+      <a [routerLink]="['/unicPlan',p._id]" class="plan" *ngFor="let p of allPlans">
+        <h1>{{p.plan}}</h1>
+        <p>{{p.day}}/{{p.month}}</p>
+      </a>
+    </ul>
+      
+  </section>

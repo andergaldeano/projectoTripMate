@@ -1,79 +1,102 @@
 
+<section class="place">
+  <h1 class="title">BIENVENIDO A {{ placename }}</h1>
 
-<h1>BIENVENIDO A {{ placename }}</h1>
-
-<div *ngIf="isHeGoing">
-  <div *ngIf='isHeGoing.length == 0'>
-    <p>vas a visitar este lugar? Indicalo, y te mandaremos todas las actividades</p>
-    <button (click)="newConexion()">voy a ir! </button>
-  </div>
-</div>
-
-<h3>Fotitos de {{ placename }}</h3>
-  <div *ngFor="let photo of allPhotos | async">
-   <img [src]= "urlTxatxi + photo.photo" height=100/>
-  </div>
-
-<h3>Gente que visitará el lugar:</h3>
-  <div >
-    <div *ngFor="let conexion of allConexions | async" class="cuadrado">
-      <img [src]= "urlTxatxi + conexion.userId.photo" height=50/>
-      <p> {{ conexion.userId.username }} </p>
-      <button pButton type="button" [routerLink]="['/traveller', conexion.userId._id]" label="ver detalles del usuario" class="ui-button-secondary"></button>
+  <div *ngIf="isHeGoing">
+    <div *ngIf='isHeGoing.length == 0'>
+      <p>vas a visitar este lugar? Indicalo, y te mandaremos todas las actividades</p>
+      <button class="btn btn-default"(click)="newConexion()">voy a ir! </button>
     </div>
   </div>
 
-<div *ngIf="allPlans">
-<agm-map
-   [latitude]="lat"
-   [longitude]="lng"
-   >
+  <div class="col-sm-4">
+    <div class="carrousel">
+      <h3>Fotos de {{ placename }}</h3>
+      <div *ngFor="let photo of allPhotos | async">
+        <img [src]= "urlTxatxi + photo.photo" height=100/>
+      </div>
+      <form>
+        <fieldset>
+          <legend> Comparte tus fotos </legend>
+          <div class="from-group">
+            <input class="form-control" hidden type="number" [(ngModel)]="user" name="user"  />
+            <input class="form-control" hidden type="number" [(ngModel)]="userId" name="userId" />
+            <input class="form-control" hidden type="number" [(ngModel)]="place" name="place" />
+
+            <input class="form-control" type="file" name="file" ng2FileSelect [uploader]="uploader" />
+          </div>
+        </fieldset>
+        <button class="btn btn-default"(click)="submit()"> submit </button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="usersvisiting">
+    <h3>Gente que visitará {{ placename }}:</h3>
+    <div >
+      <div *ngFor="let conexion of allConexions | async" class="cuadrado">
+        <img class="photo" [src]= "urlTxatxi + conexion.userId.photo" height=50/>
+        <p> {{ conexion.userId.username }} </p>
+        <button pButton type="button" [routerLink]="['/traveller', conexion.userId._id]" label="ver detalles del usuario" class="ui-button-secondary traveler"></button>
+      </div>
+    </div>
+  </div>
+
+  <div  class="mapa">
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+    >
+      <div *ngIf="allPlans">
       <agm-marker
-      *ngFor="let p of allPlans"
-      [latitude]="p.lat"
-      [longitude]="p.lng"
-      [markerDraggable]= FALSE
+        *ngFor="let p of allPlans"
+        [latitude]="p.lat"
+        [longitude]="p.lng"
+        [markerDraggable]= FALSE
       >
         <agm-info-window>
           <strong> {{ p.plan }}</strong>
           <a>{{p.day}}/{{p.month}}/{{p.year}}</a>
-            <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
+          <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
         </agm-info-window>
 
-    </agm-marker>
-</agm-map>
-</div>
-
-<div *ngIf="travelStarts">
-
-<h3>Actividades propuestas del {{travelStarts.day}} / {{travelStarts.month}} / {{travelStarts.year}} al {{travelFinish.day}} / {{travelFinish.month}} / {{travelFinish.year}}</h3>
-</div>
-<div>
-  <div *ngFor="let plan of allPlans" class="cuadrado">
-    <h3> {{ plan.plan }} </h3>
-    <p>propuesto por: {{plan.user}}</p>
-    <p>{{plan.day}} / {{plan.month}} / {{plan.year}}</p>
-    <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+      </agm-marker>
+      </div>_
+    </agm-map>
   </div>
-</div>
 
-<div class="createPlan center">
 
-<form>
-    <h3> ALgun plan en mente? </h3>
-    <p>Comparte tus vivencias!</p>
 
-    <agm-map
-    [latitude]="lat"
-     [longitude]="lng"
-     (mapClick)= "mapCliqueado($event)"
-     >
-        <agm-marker
-        (markerClick)="marcadorCiqueado()"
+  <div *ngIf="travelStarts">
+    <h3>Actividades propuestas del {{travelStarts.day}} / {{travelStarts.month}} / {{travelStarts.year}} al {{travelFinish.day}} / {{travelFinish.month}} / {{travelFinish.year}}</h3>
+  </div>
+
+  <div>
+    <div *ngFor="let plan of allPlans" class="cuadrado">
+      <h3> {{ plan.plan }} </h3>
+      <p>propuesto por: {{plan.user}}</p>
+      <p>{{plan.day}} / {{plan.month}} / {{plan.year}}</p>
+      <a [routerLink]="['/unicPlan',plan._id]"> Ver detalles del plan </a>
+    </div>
+  </div>
+
+  <div class="createPlan center">
+    <form>
+      <h3> ALgun plan en mente? </h3>
+      <p>Comparte tus vivencias!</p>
+
+      <agm-map
         [latitude]="lat"
         [longitude]="lng"
-        [markerDraggable]= "arrastable"
-        (dragEnd) = "posicionFinalMarcador($event)"
+        (mapClick)= "mapCliqueado($event)"
+      >
+        <agm-marker
+          (markerClick)="marcadorCiqueado()"
+          [latitude]="lat"
+          [longitude]="lng"
+          [markerDraggable]= "arrastable"
+          (dragEnd) = "posicionFinalMarcador($event)"
 
         >
           <agm-info-window>
@@ -81,61 +104,55 @@
           </agm-info-window>
 
 
-      </agm-marker>
-    </agm-map>
+        </agm-marker>
+      </agm-map>
 
-  <label>Titulo del plan</label>
-  <input type="text" [(ngModel)]="plan" name="plan"/>
-  <label>Descripcion</label>
-  <input type="text" [(ngModel)]="details" name="details"/>
+      <label>Titulo del plan</label>
+      <input type="text" [(ngModel)]="plan" name="plan"/>
+      <hr>
+      <label>Descripcion</label>
+      <hr>
+      <input type="text" [(ngModel)]="details" name="details"/>
 
-  <button class="btn btn-sm btn-outline-primary" (click)="newPlan()"> comparte tu plan! </button>
+      <button class="btn btn-sm btn-outline-primary" (click)="newPlan()"> comparte tu plan! </button>
 
-</form>
+    </form>
 
-</div>
+    <p>Selecciona el dia de tu plan</p>
 
-<p>Selecciona el dia de tu plan</p>
+    <form class="form-inline">
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+          <button class="input-group-addon" (click)="d.toggle()" type="button">
+            <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </form>
 
-<form class="form-inline">
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-      name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-      <button class="input-group-addon" (click)="d.toggle()" type="button">
-        <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-      </button>
-    </div>
   </div>
-</form>
-<hr/>
 
-<hr/>
 
-<hr/>
 
-<form>
-  <fieldset>
-    <legend> Anade una foto bonita </legend>
-    <input hidden type="number" [(ngModel)]="user" name="user"  />
-    <input hidden type="number" [(ngModel)]="userId" name="userId" />
-    <input hidden type="number" [(ngModel)]="place" name="place" />
-
-    <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-
-  </fieldset>
-  <button (click)="submit()"> submit </button>
-</form>
-
-<h2>Alguna duda o sujerencia? Deja un comentario!</h2>
+  <h2>Alguna duda o sujerencia? Deja un comentario!</h2>
   <input type="text" [(ngModel)]="comment" name="comment"/>
   <button (click)="newComment()">envia tu comentario! </button>
 
 
-<h3>Comentarios del plan:</h3>
-  <div>
-    <div *ngFor="let comment of allComments | async">
+  <h3>Comentarios del plan:</h3>
+
+  <div *ngIf="allComments">
+    <div *ngIf='allComments.length > 0'>
+    <div *ngFor="let comment of allComments ">
       <p> comentario de {{ comment.userId.username }} </p>
       <p>{{ comment.comment }}</p>
     </div>
+    </div>
+
+
+
   </div>
+
+</section>

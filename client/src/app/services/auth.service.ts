@@ -46,10 +46,9 @@ export class AuthService {
 // SING UP
 
     signup(username,password) {
-      console.log("entrooo")
       return this.http.post(`${BASEURL}/signup`, {username,password}, this.options)
         .map(res => res.json())
-        .map(user => this.emitUserLoginEvent(user))
+        .map(user => this.emitUserLoginEvent(user, true))
         .catch(this.handleError);
     }
 
@@ -72,6 +71,7 @@ export class AuthService {
     // }
 
     logout() {
+    this.user = null;
     return this.http.post(`${BASEURL}/logout`, this.options)
       .map(res => res.json())
        .map(user => this.emitUserLoginEvent(null))
@@ -89,8 +89,10 @@ export class AuthService {
 
 // OTHERS
 
-    private emitUserLoginEvent(user){
-      this.user = user;
+    private emitUserLoginEvent(user, isSignup = null){
+      if(!isSignup) {
+        this.user = user;
+      }
       this.userLoginEvent.emit(user);
       return user;
     }
