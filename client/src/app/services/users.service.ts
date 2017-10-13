@@ -15,7 +15,6 @@ export class UsersService {
 
 // GET ALL USERS LIST
 public getList() {
-  console.log("estamos en angular aun buscando todos los users")
   return this.http.get(`${BASEURL}/allusers`)
     .map((res) => res.json());
 }
@@ -31,7 +30,6 @@ public get(id) {
 // FIND PLANS PRUPOSED BY SPECIFIC USER
 
 public findPlans(user){
-  console.log("en el servidor buscando planes")
   return this.http.get(`${BASEURL}/plan/${user}`)
   .map((res) => res.json())
 }
@@ -40,7 +38,6 @@ public findPlans(user){
 // FIND PLANS WHERE THIS SPECIFIC USER IS GOING
 
   public findPlansGoing(userId){
-    console.log(`en el servidor buscando planes ${userId}`)
     return this.http.get(`${BASEURL}/goingPlan/${userId}`)
     .map((res) => res.json())
 

@@ -30,10 +30,8 @@ export class LoginformComponent implements OnInit {
   login(){
     const {username, password} = this.formInfo;
     if(username != "" && password != ""){
-      console.log(`Login with ${username} ${password}`)
       this.auth.login(username, password)
       .subscribe((user)=> {
-        console.log(user.firstTime);
         if(user.firstTime) {
           this.router.navigate([`editprofile/${user._id}`]);
         } else {

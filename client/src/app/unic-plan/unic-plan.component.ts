@@ -19,7 +19,6 @@ export class UnicPlanComponent implements OnInit {
   allUsersGoingToPlan;
   urlTxatxi= "http://localhost:3000";
   isHeGoing;
-
   urlInfo;
 
 
@@ -57,7 +56,6 @@ export class UnicPlanComponent implements OnInit {
     this.planService.findUsers(this.unicplan._id).subscribe((au)=>{
       this.allUsersGoingToPlan = au
     })
-    console.log("PASO")
     });
   }
 
@@ -65,15 +63,12 @@ export class UnicPlanComponent implements OnInit {
 
 
   newComment(){
-    console.log("vamos a hacer un comentario" )
     if(this.comment != ""){
       this.planService.sendMyComment(this.comment, this.unicplan._id, this.user._id)
       .subscribe(()=> {
         this.planService.findComments(this.unicplan._id).subscribe((com)=>{
           this.allComments =  com
         });
-         console.log("sale fijo esto")
-         console.log(this.allComments)
          this.comment = "";
     });
     }else{

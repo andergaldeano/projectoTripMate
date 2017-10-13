@@ -40,7 +40,6 @@ export class PlaceComponent implements OnInit {
   user:any;
   arrastable: boolean = true;
   comment;
-
   allComments;
   gallery;
   model;
@@ -61,8 +60,6 @@ export class PlaceComponent implements OnInit {
 // PARA ALMACENAR PUNTOS EN EL MAPA
 
   allPoints;
-
-
  travelStarts;
  travelFinish;
 
@@ -79,9 +76,6 @@ export class PlaceComponent implements OnInit {
     this.user = this.auth.getUser()
       .subscribe(user => {  this.user = user;})
     }
-
-
-
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -208,7 +202,6 @@ posicionFinalMarcador($event:any){
 
 // ADD PHOTO TO THIS PLACE
 submit() {
-  alert();
    this.uploader.onBuildItemForm = (item, form) => {
      form.append('user', this.user.username);
      form.append('userId', this.user._id);

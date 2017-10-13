@@ -21,7 +21,6 @@ export class PlanService {
 // CREATE A COMMENT ON THIS SPECIFIC PLAN
 
     public sendMyComment(comment, planId, userId){
-      console.log("en el servidor creo un commentario")
       return this.http.post(`${BASEURL}/comment`, {comment, planId, userId})
       .map((res) => res.json())
 
@@ -30,7 +29,6 @@ export class PlanService {
 // FIND THE COMMENTS ON THE SPECIFIC PLAN
 
     public findComments(planId){
-      console.log("en el servidor buscando planes")
       return this.http.get(`${BASEURL}/comment/${planId}`)
       .map((res) => res.json())
 
@@ -39,7 +37,6 @@ export class PlanService {
 // CREATE THE CONEXIONS USER - PLAN
 
   public sendThisConexion( userId, planId){
-  console.log("en el servidor creando conexiones entre usuaios y planes")
   return this.http.post(`${BASEURL}/joinThePlan`, { userId, planId})
   .map((res) => res.json())
 
@@ -48,7 +45,6 @@ export class PlanService {
 // FIND THE PEOPL THE PLAN
 
     public findUsers(planId){
-      console.log("en el servidor buscando planes")
       return this.http.get(`${BASEURL}/user/${planId}`)
       .map((res) => res.json())
 
@@ -56,8 +52,6 @@ export class PlanService {
 
 //FIND IF THE USER IS GOING TO THE PLAN OR NOT
  public isHeGoing(planId, userId){
-   console.log("a ver si llega")
-   console.log(planId + "    y   " +  userId)
    return this.http.get(`${BASEURL}/isHeGoing/${planId}/${userId}`)
    .map((res) => res.json());
    }

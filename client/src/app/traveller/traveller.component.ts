@@ -14,8 +14,6 @@ export class TravellerComponent implements OnInit {
   allPlansGoing;
   urlTxatxi= "http://localhost:3000";
 
-
-
   constructor(private router:Router,
   private route:ActivatedRoute,
   private usersService: UsersService) { }
@@ -32,16 +30,7 @@ export class TravellerComponent implements OnInit {
     this.unictraveller = user;
     this.allPlans = this.usersService.findPlans(user.username);
     this.allPlansGoing  = this.usersService.findPlansGoing(user._id);
-;
-
 
     });
   }
-
-
-
-
-
-
-
 }

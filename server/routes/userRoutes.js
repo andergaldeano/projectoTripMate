@@ -33,7 +33,6 @@ userRoutes.get('/plan/:user', (req, res, next) => {
 
   Plan.find({user : req.params.user}, (err, plans) => {
     if (err) { return res.json(err).status(500); }
-      console.log("hemos llegado hasta aqui")
     return res.json(plans);
   });
 });

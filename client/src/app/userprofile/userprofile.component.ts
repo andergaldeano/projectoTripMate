@@ -30,12 +30,9 @@ export class UserprofileComponent implements OnInit {
 
     this.usersService.findPlans(user.username).subscribe((res)=>{
       this.allPlansProposed = res
-      console.log("AQUI VIENEN TODOS LOS QUEHEMOS CREADOOOO")
-      console.log(this.allPlansProposed)
     })
      this.usersService.findPlansGoing(user._id).subscribe((res)=>{
        this.allPlansGoing  = res
-       console.log(this.allPlansGoing)
      });
     }
 

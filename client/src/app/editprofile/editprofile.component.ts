@@ -29,7 +29,6 @@ export class EditprofileComponent implements OnInit {
   constructor(public auth:AuthService, public router: Router, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
     this.user = this.auth.getUser()
       .subscribe(user => {  this.user = user; this.userId = user._id;
-      console.log("miremos quien esta conectado " + this.userId)
       this.uploader = new FileUploader({ url: `${environment.BASEURL}/auth/editprofile/${this.userId}`
      });
     })
@@ -70,8 +69,4 @@ export class EditprofileComponent implements OnInit {
         });
      }
   }
-
-
-
-
 }

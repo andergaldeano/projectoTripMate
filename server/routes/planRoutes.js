@@ -10,7 +10,6 @@ var planRoutes = express.Router();
 // GET UNIC PLAN
 
 planRoutes.get('/unicPlan/:id', (req, res, next) => {
-  console.log("estamos buscando el plan que queremos")
 Plan.findById(req.params.id, (err, plan) => {
   if (err)   { return res.status(500).json(err); }
   if (!plan)  { return res.status(404).json(new Error("404")) }
@@ -22,7 +21,6 @@ Plan.findById(req.params.id, (err, plan) => {
 // CREATE COMMENT ON THIS SPECIFIC PLAN
 
 planRoutes.post('/comment', (req, res, next) => {
-console.log("estamos en el ultimo de los comentarios")
 
 const comment = new Comment ({
   comment: req.body.comment,
@@ -83,7 +81,6 @@ planRoutes.get('/user/:planId', (req, res, next) => {
 //FIND IF THE USER IS GOING TO THE PLAN OR ngOnInit
 
 planRoutes.get('/isHeGoing/:planId/:userId', (req, res, next) => {
-  console.log("ENTRO EN DONDE QUIERO SABER")
   JoinThePlan.find({planId :req.params.planId, userId: req.params.userId})
     .then (users =>  res.json(users));
 });

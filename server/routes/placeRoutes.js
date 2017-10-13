@@ -50,7 +50,6 @@ placeRoutes.post('/plan', function(req, res) {
 
 
 placeRoutes.get('/plan/:place/:sYear/:sMonth/:sDay/:fYear/:fMonth/:fDay', (req, res, next) => {
-  console.log("llegamos aqui")
   Plan.find({place : req.params.place, /*month: {  $gt : (req.params.sMonth - 1), $lt : (req.params.fMonth + 1) },*/ day: { $gt : (req.params.sDay - 1), $lt : (req.params.fDay + 1)}})
    .then(plans => res.status(200).json(plans))
    .catch(e => res.status(500).json({

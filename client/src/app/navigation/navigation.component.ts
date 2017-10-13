@@ -12,8 +12,6 @@ export class NavigationComponent implements OnInit {
   error: string;
 
   constructor(public auth:AuthService) {
-    // this.user = this.auth.getUser()
-    //   .subscribe(user => { console.log(user); this.user = user;})
     this.auth.getLoginEventEmitter()
         .subscribe( user => this.user=user );
   }

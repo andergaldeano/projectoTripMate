@@ -46,10 +46,8 @@ placeName: string = "ninguno";
 title: string = 'My first AGM project';
 lat: number = 43.12685367766785;
 lng: number = -2.7976560984375283;
-
 otherLat:  string = "s";
 otherLng:  string ="";
-
 id: string = '';
 
   constructor(
@@ -74,13 +72,11 @@ id: string = '';
        }
        }
 
-       isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
-       isInside = date => after(date, this.fromDate) && before(date, this.toDate);
-      isFrom = date => equals(date, this.fromDate);
-      isTo = date => equals(date, this.toDate);
-      // dates: object = {isfrom: this.isFrom,
-      //                 isto: this.isTo}
-// CALENDARO^
+isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
+isInside = date => after(date, this.fromDate) && before(date, this.toDate);
+isFrom = date => equals(date, this.fromDate);
+isTo = date => equals(date, this.toDate);
+
 
   ngOnInit() {
     this.mapsAPILoader.load().then(
@@ -93,10 +89,6 @@ id: string = '';
         autocomplete.addListener("place_changed", ()=>{
           this.ngZone.run(()=>{
             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-            console.log(autocomplete.getPlace())
-            console.log(autocomplete.getPlace().geometry.location.lng())
-            console.log(autocomplete.getPlace().geometry.location.lat())
 
             //PASAMOS LATITUD Y LONGITUD DEL LUGAR PARA PINTAR EN EL MAPA
             this.lat = autocomplete.getPlace().geometry.location.lat();
@@ -113,7 +105,6 @@ id: string = '';
             var placeNameWithoutSPaces = autocomplete.getPlace().name;
             placeNameWithoutSPaces = placeNameWithoutSPaces.replace(/\s+/g, '-')
             this.placeName = placeNameWithoutSPaces;
-            console.log("aqui vemos cual es place name " + this.placeName)
 
             //RESCATAMOS LNG Y LAT SIN PUNTOS
              var stringLat = this.lat.toString()
@@ -122,8 +113,6 @@ id: string = '';
              var stringLng = this.lng.toString()
              var prueba = stringLng.split('.').join('_')
              this.otherLng = prueba
-
-             console.log("vamos a ver si funciona " + prueba)
 
             if(place.geometry === undefined || place.geometry === null){
               return;

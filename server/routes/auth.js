@@ -20,7 +20,6 @@ authRoutes.post('/signup', (req, res, next) => {
   debug('Find user in DB');
 
   User.findOne({ username },'_id').exec().then(user =>{
-    console.log("vamos a crear")
     if(user)
       return res.status(400).json({ message: 'The username already exists' });
 
@@ -87,8 +86,6 @@ authRoutes.get('/user', (req, res, next) => {
 // UPDATE PROFILE POST
 
   authRoutes.post('/editprofile/:id', upload.single('file'), (req, res) => {
-    console.log("ahi estamos")
-    // const {country, details} = req.body;
     const updates = {country: req.body.country,
                     details: req.body.details,
                     photo: `/uploads/${req.file.filename}`}
@@ -98,34 +95,11 @@ authRoutes.get('/user', (req, res, next) => {
       .catch(e => res.status(500).json({error:e.message}));
     });
 
-  // // GET ALL USERS
-  //
-  // authRoutes.get('/allusers', (req, res, next) => {
-  //   User.find({}, (err, travellers) => {
-  //     if (err) { return res.json(err).status(500); }
-  //
-  //     return res.json(travellers);
-  //   });
-  // });
-
-//   // GET UNIC USER
-//
-//   authRoutes.get('/traveller/:id', (req, res, next) => {
-//   User.findById(req.params.id, (err, user) => {
-//     if (err)   { return res.status(500).json(err); }
-//     if (!user)  { return res.status(404).json(new Error("404")) }
-//
-//     return res.json(user);
-//   });
-// });
-
-
 
 
 //LOGOUT POST
 
 authRoutes.post('/logout', (req, res, next) => {
-  console.log("han llamao???")
   req.logout();
   res.status(200).json({ message: 'Success' });
 });
