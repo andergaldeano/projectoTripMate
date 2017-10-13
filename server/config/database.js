@@ -1,11 +1,13 @@
 const path = require('path');
 const debug = require('debug')("angularauth:"+path.basename(__filename).split('.')[0]);
 const mongoose = require('mongoose');
-const dbURL = process.env.DBURL || 'mongodb://localhost/angular-auth';
+const dbUrl = process.env.MONGO_URL;
 
-mongoose.connect(dbURL)
-  .then(() => debug(`connected to database ${dbURL}`))
-  .catch(e => {
-    debug(`ERROR CONNECTING TO DB ${dbURL}`);
-    throw e;
-  });
+  console.time('db');
+
+mongoose.connect(dbUrl)
+   .then( () => {
+     console.log(`Connected to ${dbUrl}`);
+     console.timeEnd('db');
+   })
+   .catch( e => console.log(e));
