@@ -1,7 +1,7 @@
 const path = require('path');
 const debug = require('debug')("angularauth:"+path.basename(__filename).split('.')[0]);
 const mongoose = require('mongoose');
-const dbUrl = process.env.MONGO_URL;
+const dbUrl = process.env.dbURL;
 
   console.time('db');
 

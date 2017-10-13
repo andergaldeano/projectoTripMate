@@ -21,7 +21,18 @@ const cors = require('cors');
 
 const app = express();
 
-require('./config/database');
+const dbUrl = process.env.dbURL;
+const dbApelo = 'mongodb://localhost/angular-auth'
+
+  console.time('db');
+
+mongoose.connect(dbApelo)
+   .then( () => {
+     console.log(`Connected to ${dbUrl}`);
+     console.timeEnd('db');
+   })
+   .catch( e => console.log(e));
+
 
 var whitelist = [
     'http://localhost:4200',
