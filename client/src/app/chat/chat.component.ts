@@ -41,5 +41,6 @@ export class ChatComponent implements OnInit {
         name: this.user ? this.user['username'] : 'Anónimo',
         text: this.text
     });
+    this.text = "";
   }
 }

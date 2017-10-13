@@ -2,9 +2,57 @@ agm-map {
   height: 300px;
 }
 
+.container {
+  text-align: center;
+}
+
+.dates {
+  text-align: center;
+  padding: 10px;
+}
 .mapa{
   height: 300px;
   clear: both;
+}
+.content {
+  text-align: center;
+}
+.center {
+  text-align: center;
+}
+
+.date-container {
+  width: 100%;
+}
+
+.date {
+  width: 90%;
+  float: left;
+}
+.cuad-content {
+  text-align: center;
+}
+
+.cuadrado {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid orange;
+}
+.cuad-content button {
+  margin-left: 20px;
+  border: 0;
+}
+
+.btn.btn-warning {
+  margin: 10px;
+  background: #FF7849;
+}
+.date-button {
+  width: 10%;
+  float: right;
+  font-size: 20px;
+  border: 0;
+  background: none;
 }
 
 >>> .ui-carousel-item {
@@ -102,4 +150,12 @@ background-color: #c14848;
   clear: both;
   background-color: orange;
   margin-top: 200px;
+}
+
+.centrado{
+  text-align: center;
+}
+
+.black{
+  color: black;
 }

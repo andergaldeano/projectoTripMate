@@ -1,10 +1,15 @@
-<form >
-  <h2> Signup </h2>
-  <label> Username </label>
-  <input type="text" [(ngModel)]="formInfo.username" name="username"/>
-  <br>
-  <label> Password </label>
-  <input type="password" [(ngModel)]="formInfo.password" name="password"/>
-
-  <button (click)="signup()"> signup </button>
-</form>
+<header class="grey">
+    <h2> Signup <i class="fa fa-user-circle-o"></i></h2>
+</header>
+<section class="container">
+  <form class="form-group">
+    <input placeholder="Email" class="form-control" type="text"  name="email"/>
+    <br>
+    <input placeholder="Username" class="form-control" type="text" [(ngModel)]="formInfo.username" name="username"/>
+    <br>
+    <input placeholder="Password" class="form-control" type="password" [(ngModel)]="formInfo.password" name="password"/>
+    <div class="align-center">
+      <button class="btn btn-warning" (click)="signup()"> signup </button>
+    </div>
+  </form>
+</section>

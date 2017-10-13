@@ -30,6 +30,7 @@ placeRoutes.post('/plan', function(req, res) {
     details: req.body.details,
     user: req.body.user,
     place: req.body.place,
+    placeName: req.body.placeName,
     year: req.body.year,
     month: req.body.month,
     day: req.body.day,

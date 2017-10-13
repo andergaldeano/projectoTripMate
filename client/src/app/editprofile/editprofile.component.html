@@ -1,39 +1,45 @@
-<div>
-  <div>
-
-  <!-- BIENVENIDA AL USUARIO CON SU FOTO -->
-  
-    <h3>Hola {{user.username}}</h3>
-    <img class="photo" [src]= "urlTxatxi + user.photo" height=300/>
-
-<!-- FORMULARIO DE CAMBIAR EL PERFIL -->
-
-    <form>
-      <h2>Dale un toque más personal a tu perfil</h2>
-      <fieldset>
-        <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
-
-        <div class="">
-          <label> Seleciona tu lugar de residencia: </label>
-          <div class="from-group">
-            <input type="text" placeholder="lugar de residencia" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
-          </div>
-        </div>
-
-        <div class="">
-          <label> Cuenta algo más sobre ti y comparte tus pasiones con otros viajeros:</label>
-          <input type="text" [(ngModel)]="details" name="details"/>
-        </div>
-      </fieldset>
-      <button (click)="editprofile()" type="submit" name="action">Validar cambios</button>
-    </form>
-
-<!-- PASAR A SIGUIENTE PAGINA -->
-
+<header class="grey">
+    <h2> Perfil <i class="fa fa-user-circle-o"></i></h2>
+</header>
+<section class="container">
     <div>
-      <a [routerLink]="['/user']"> Continuar </a>
-    </div>
+        <div>
+
+        <!-- BIENVENIDA AL USUARIO CON SU FOTO -->
+        <h3>Hola {{user.username}}</h3>
+        <h4>Dale un toque más personal a tu perfil</h4>
+          <label class="photo-container" for="img">
+            <img class="photo" [src]= "urlTxatxi + user.photo" height=300/>
+            <input (change)="editprofile()" id="img" type="file" name="file" ng2FileSelect [uploader]="uploader" />
+          </label>
+
+      <!-- FORMULARIO DE CAMBIAR EL PERFIL -->
+          <form>
+            <fieldset>
+
+              <div class="">
+                <label> Seleciona tu lugar de residencia: </label>
+                <div class="from-group">
+                  <input type="text" placeholder="lugar de residencia" autocorrect="off" autocapitalize="off" spellcheck="off"  class="form-control" #search>
+                </div>
+              </div>
+
+              <div class="">
+                <label> Cuenta algo más sobre ti y comparte tus pasiones con otros viajeros:</label>
+                <input type="text" [(ngModel)]="details" name="details"/>
+              </div>
+            </fieldset>
+            <!-- <button class="btn btn-default" (click)="editprofile()" type="submit" name="action">Validar cambios</button> -->
+          </form>
+
+      <!-- PASAR A SIGUIENTE PAGINA -->
+
+          <div>
+            <a [routerLink]="['/user']"> Continuar </a>
+          </div>
 
 
-    </div>
-   </div>
+          </div>
+         </div>
+
+</section>

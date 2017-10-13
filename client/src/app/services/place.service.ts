@@ -45,9 +45,9 @@ public get(id) {
 
 // CREATE A PLAN
 
-public sendMyPlan(plan, details, place, user, year, month, day, lat, lng){
+public sendMyPlan(plan, details, place, placeName, user, year, month, day, lat, lng){
   console.log("en el servidor")
-  return this.http.post(`${BASEURL}/plan`, {plan, details, place, user, year, month, day, lat, lng})
+  return this.http.post(`${BASEURL}/plan`, {plan, details, place, placeName, user, year, month, day, lat, lng})
   .map((res) => res.json())
 }
 

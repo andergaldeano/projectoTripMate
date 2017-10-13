@@ -1,7 +1,11 @@
-<h1>BIENVENIDO A TRIP-MATE</h1>
-<p>Buscas compañeros para compartir tu viaje?</p>
+<header class="grey">
+    <h1 class="title">TripMate</h1>
+</header>
+<section class="container">
+    <p>¿Buscas compañeros para compartir tu viaje?</p>
+    <p>Ya tienes un usuario?</p>
+    <a class="btn btn-default" [routerLink]="['/signup']">Registrate!</a>
+    <a class="btn btn-warning" [routerLink]="['/login']">Login</a>
+    <p>Únete a la aventura</p>
 
-<p>Ya tienes un usuario?</p>
-<a [routerLink]="['/login']">Login</a>
-<p>Si aún no tienes una cuenta, une a nuestra comunidad:</p>
-<a [routerLink]="['/signup']">Registrate!</a>
+</section>

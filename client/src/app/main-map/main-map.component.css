@@ -15,12 +15,29 @@ ngb-datepicker {
   min-height: 290px;
 }
 
+
+.grey{
+  background-color:  #3C4858;
+  color: whitesmoke;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
 .last-plans {
   padding: 20px;
 }
 .plan:hover {
   background: whitesmoke;
   color: gray;
+}
+>>> .ngb-dp-months {
+  display: flex;
+  justify-content: space-around;
+}
+
+.col-sm-4 {
+  text-align: center;
 }
 .plan {
   list-style: none;

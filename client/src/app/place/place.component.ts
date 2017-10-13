@@ -155,22 +155,18 @@ export class PlaceComponent implements OnInit {
   newPlan(){
     if(this.plan != ""){
       this.date = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
-      this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.user.username, this.model.year, this.model.month, this.model.day,
+      this.place.sendMyPlan(this.plan, this.details, this.unicPlace.identification, this.placename, this.user.username, this.model.year, this.model.month, this.model.day,
       this.lat, this.lng )
       .subscribe((plan)=> {
         this.travelStarts = this.place.getInitDate();
         this.travelFinish =this.place.getFinishDate();
         this.place.findPlans(this.unicPlace.identification, this.travelStarts.year, this.travelStarts.month, this.travelStarts.day, this.travelFinish.year, this.travelFinish.month, this.travelFinish.day)
         .subscribe((plan) => {
-          this.allPlans = plan        // this.place.conexionPlanMap(this.lat, this.lng, this.plan, plan._id)
-          // .subscribe(()=> {
-          //   this.allPoints = this.place.getAllPointsInMap()
+          this.allPlans = plan
           this.plan = "";
           this.details = "";
           this.model = "";
         })
-        //
-        // });
 
       });
     } else{

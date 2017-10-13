@@ -10,7 +10,7 @@
   </div>
 <!-- BOTON PARA INDICAR QUE VAS AL LUGAR  -->
 
-  <div *ngIf="isHeGoing">
+  <div class="centrado" *ngIf="isHeGoing">
     <div *ngIf='isHeGoing.length == 0'>
       <p>¿Será {{ placename }} tu proximo destino?</p>
       <button class="btn btn-default"(click)="newConexion()">Voy a ir! </button>
@@ -19,7 +19,7 @@
 
 <!-- FOTOS DEL DESTINO -->
 
-<div class="">
+<div class="content">
 
     <!-- CARROUSEL DE FOTOS -->
 
@@ -28,7 +28,11 @@
         <p-carousel [value]="allPhotos"  easing="easeOutStrong" autoplayInterval="3000" headerText = "Fotos de {{placename}}" autoplayInterval= 5000>
 
             <ng-template let-photo pTemplate="item">
+                <a [routerLink]="['/traveller',photo.userId]">
                   <img [src]= "urlTxatxi + photo.photo" height="200px"/>
+                  <hr>
+                   <h3>Instantanea de {{photo.user}}</h3>
+                 </a >
             </ng-template>
         </p-carousel>
       </div>
@@ -80,7 +84,7 @@
                 <agm-info-window>
                   <strong> {{ p.plan }}</strong>
                   <a>{{p.day}}/{{p.month}}/{{p.year}}</a>
-                  <a [routerLink]="['/unicPlan',p._id]"> Visita el plan </a>
+                  <a [routerLink]="['/unicPlan',p._id]" class="black"> Visita el plan </a>
                 </agm-info-window>
               </agm-marker>
             </div>
@@ -122,10 +126,10 @@
             <p>Por ahora ningun viajero ira a {{ placename }} </p>
           </div>
 
-          <div *ngIf='allConexions.length > 0'>
+          <div class="cuad-content" *ngIf='allConexions.length > 0'>
             <div *ngFor="let conexion of allConexions" class="cuadrado">
               <img class="photo" [src]= "urlTxatxi + conexion.userId.photo" height=50/>
-              <button pButton type="button" [routerLink]="['/traveller', conexion.userId._id]" label="ver detalles del usuario" class="btn btn-default ui-button-secondary traveler">  {{ conexion.userId.username }}</button>
+              <button pButton type="button" [routerLink]="['/traveller', conexion.userId._id]" label="ver detalles del usuario" class="btn btn-default ui-button-secondary traveler ">  {{ conexion.userId.username }}</button>
             </div>
           </div>
         </div>
@@ -134,9 +138,9 @@
 
 <!-- PROPONER UN PLAN -->
 
-    <p-accordionTab header="Proponer un plan <i>aaa</i>">
+    <p-accordionTab header="Proponer un plan">
 
-      <div class="">
+      <div class="center">
         <form>
           <h3> ¿Algún plan en mente? </h3>
           <p>¡Comparte tus vivencias!</p>
@@ -144,7 +148,7 @@
           <!-- MAPA PARA PROPONER UN PLAN -->
 
           <agm-map [latitude]="lat" [longitude]="lng" (mapClick)= "mapCliqueado($event)" [scrollwheel]="false">
-            <agm-marker (markerClick)="marcadorCiqueado()" [latitude]="lat" [longitude]="lng" [markerDraggable]= "arrastable"  (dragEnd) = "posicionFinalMarcador($event)" >
+            <agm-marker (markerClick)="marcadorCliqueado()" [latitude]="lat" [longitude]="lng" [markerDraggable]= "arrastable"  (dragEnd) = "posicionFinalMarcador($event)" >
               <agm-info-window>
                 <strong> {{ placename }}</strong>
               </agm-info-window>
@@ -155,28 +159,25 @@
 
           <!-- <p>Selecciona el dia de tu plan</p> -->
           <form class="form-inline">
-            <div class="form-group">
-              <div class="input-group">
-                <input class="form-control" placeholder="yyyy-mm-dd"
+            <div class="date-container form-group">
+              <div class="input-group" class="date-container">
+                <input class="date form-control" placeholder="yyyy-mm-dd"
                 name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                <button class="input-group-addon" (click)="d.toggle()" type="button">
-                  Seleciona un día
-                  <!-- <img src="" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
-                </button>
+                <button class="date-button" (click)="d.toggle()" type="button">
+                  <i class=" fa fa-calendar"></i>
+                 </button>
               </div>
             </div>
           </form>
 
             <!-- INPUTS DETALLES DEL PLAN -->
+          <section class="form-group">
+            <label>Nuevo plan:</label>
+            <input placeholder="Título" class="form-control" type="text" [(ngModel)]="plan" name="plan"/>
+            <input placeholder="Descripción" class="form-control" type="text" [(ngModel)]="details" name="details"/>
 
-          <label>Nombre del plan:</label>
-          <input type="text" [(ngModel)]="plan" name="plan"/>
-          <hr>
-          <label>Descripción:</label>
-          <hr>
-          <input type="text" [(ngModel)]="details" name="details"/>
-
-          <button class="btn btn-sm btn-outline-primary" (click)="newPlan()"> Comparte tu plan! </button>
+            <button class="btn btn-warning" (click)="newPlan()"> Comparte tu plan! </button>
+          </section>"
 
         </form>
       </div>

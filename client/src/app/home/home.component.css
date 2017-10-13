@@ -1,0 +1,23 @@
+.container {
+    text-align: center;
+}
+
+p {
+    margin: 10px;
+}
+
+.title {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 45px;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 20px;
+}
+
+
+.grey{
+    background-color:  #3C4858;
+    color: whitesmoke;
+    margin-top: -10px;
+    padding: 15px;
+  }
